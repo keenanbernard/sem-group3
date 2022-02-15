@@ -1,9 +1,9 @@
-name: PopulationReports-SEM-GRP3
+name: ReportingApp
 on: push
 
 jobs:
   build:
-    name: PopulationReporting action
+    name: ReportingApp action
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
