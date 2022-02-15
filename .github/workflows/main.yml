@@ -1,9 +1,9 @@
-name: PopulationReports-SEM-GRP3
+name: ReportingApp-SEM-GRP3
 on: push
 
 jobs:
   build:
-    name: PopulationReporting action
+    name: ReportingApp action
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
@@ -15,7 +15,11 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-      - name: Build with Maven
-        run: mvn package
-      - name: Run docker compose
-        run: docker-compose up --abort-on-container-exit
+      - name: Compile with Maven
+        run: mvn compile
+      - name: Build Docker Image
+        run: docker build -t semimage .
+      - name: Run image
+        run: docker run --name semcontainer -d semimage
+      - name: view logs
+        run: docker logs semcontainer
