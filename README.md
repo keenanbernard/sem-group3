@@ -1,4 +1,4 @@
-#  Software Eng. Methods
+#  Software Engineering Methods
 SET08801
 
 Team Members:
