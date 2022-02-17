@@ -4,7 +4,7 @@
 
 ### Goal in Context
 
-As an administrator at the World Health Organization I want to be able to produce the following Country Reports supporting the senior management in allocating WHO resources:
+As an Organization Worker at the World Health Organization I want to be able to produce the following Country Reports supporting the senior management in allocating WHO resources:
 1. All the countries in the world organised by largest population to smallest.
 2. All the countries in a continent organised by largest population to smallest.
 3. All the countries in a region organised by largest population to smallest.
