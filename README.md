@@ -9,7 +9,7 @@ SET08801
 - Marlon Brown - Developer
 - David Onuchukwu - Developer
 
-### Branches & Bages:
+### Branches & Badges:
 Main Branch ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/keenanbernard/sem-group3/ReportingApp-SEM-GRP3/main) <br>
 Develop Branch ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/keenanbernard/sem-group3/ReportingApp-SEM-GRP3/develop) <br>
 
