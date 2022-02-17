@@ -46,7 +46,6 @@ A request for this specific report is requested by Senior Management.
 2. Organization worker triggers the report generation.
 3. Organization worker provides report to Organization.
 
-
 ## EXTENSIONS
 
 None.
