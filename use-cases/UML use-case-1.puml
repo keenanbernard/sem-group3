@@ -1,0 +1,17 @@
+@startuml
+
+actor OW as "Organization Worker"
+
+rectangle worldDatabase
+
+rectangle "WHO Organization System" {
+    usecase UC4 as "Get all counties in the world"
+
+    usecase UCa as "Print by largest population to smallest"
+
+    OW - UC4
+    UC4 ..> UCa : include
+    UC4 - worldDatabase
+}
+
+@enduml
