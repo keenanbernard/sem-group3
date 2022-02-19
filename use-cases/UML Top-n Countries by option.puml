@@ -5,21 +5,21 @@ actor OW as "Organization Worker"
 rectangle worldDatabase
 
 rectangle "WHO Organization System" {
-    usecase UC1 as "The top N populated countries"
-    usecase UC1.1 as "in the world"
-    usecase UC1.2 as "in a continent"
-    usecase UC1.3 as "in a region"
+    usecase UC2 as "The top N populated countries"
+    usecase UC2.1 as "in the world"
+    usecase UC2.2 as "in a continent"
+    usecase UC2.3 as "in a region"
 
     usecase UCb as "Print where N is provided by the user"
 
-    OW - UC1
-    UC1  ..> UC1.1 : optional
-        UC1.1 ..> UCb : include
-    UC1  ..> UC1.2 : optional
-        UC1.2 ..> UCb : include
-    UC1  ..> UC1.3 : optional
-        UC1.3 ..> UCb : include
-    UC1 - worldDatabase
+    OW - UC2
+    UC2  ..> UC2.1 : optional
+        UC2.1 ..> UCb : include
+    UC2  ..> UC2.2 : optional
+        UC2.2 ..> UCb : include
+    UC2  ..> UC2.3 : optional
+        UC2.3 ..> UCb : include
+    UC2 - worldDatabase
 }
 
 @enduml
