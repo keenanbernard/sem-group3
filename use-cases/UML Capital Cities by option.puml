@@ -1,0 +1,25 @@
+@startuml
+
+actor OW as "Organization Worker"
+
+rectangle worldDatabase
+
+rectangle "WHO Organization System" {
+    usecase UC1 as "Get all capital cities"
+    usecase UC1.1 as "in the world"
+    usecase UC1.2 as "in a continent"
+    usecase UC1.3 as "in a region"
+
+    usecase UCa as "Print organised by largest population to smallest"
+
+    OW - UC1
+    UC1  ..> UC1.1 : optional
+        UC1.1 ..> UCa : include
+    UC1  ..> UC1.2 : optional
+        UC1.2 ..> UCa : include
+    UC1  ..> UC1.3 : optional
+        UC1.3 ..> UCa : include
+    UC1  - worldDatabase
+}
+
+@enduml
