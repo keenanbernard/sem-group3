@@ -1,0 +1,25 @@
+@startuml
+
+actor OW as "Organization Worker"
+
+rectangle worldDatabase
+
+rectangle "WHO Organization System" {
+    usecase UC1 as "Get Name of"
+    usecase UC1.1 as "continent"
+    usecase UC1.2 as "region"
+    usecase UC1.3 as "country"
+
+    usecase UCa as "Print names of option"
+
+    OW - UC1
+    UC1  ..> UC1.1 : optional
+        UC1.1 --> UCa : include
+    UC1  ..> UC1.2 : optional
+        UC1.2 --> UCa : include
+    UC1  ..> UC1.3 : optional
+        UC1.3 --> UCa : include
+    UC1  - worldDatabase
+}
+
+@enduml
