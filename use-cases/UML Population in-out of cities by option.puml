@@ -9,7 +9,6 @@ rectangle "WHO Organization System" {
     usecase UC1.1 as "in a continent"
     usecase UC1.2 as "in a region"
     usecase UC1.3 as "in a country"
-    usecase UC1.4 as "Include percentage"
 
     usecase UCa as "Print population of people living in cities"
     usecase UCb as "Print population of people not living in cities"
@@ -28,8 +27,6 @@ rectangle "WHO Organization System" {
         UC1.3 ---> UCa : include
         UC1.3 ---> UCb : include
         UC1.3 ---> UCc : include
-    UCa ..> UC1.4 : optional
-    UCb ..> UC1.4 : optional
     UC1  - worldDatabase
 }
 

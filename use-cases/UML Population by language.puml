@@ -1,0 +1,32 @@
+@startuml
+
+actor OW as "Organization Worker"
+
+rectangle worldDatabase
+
+rectangle "WHO Organization System" {
+    usecase UC1 as "Get all population in the world that speaks"
+
+    usecase UCa as "English"
+    usecase UCb as "Spanish"
+    usecase UCc as "Arabic"
+    usecase UCd as "Hindi"
+    usecase UCe as "Chinese"
+
+    usecase UCa.1 as "Print languages spoken by largest to smallest and include percentage"
+    OW - UC1
+
+    UC1  --> UCa : include
+        UCa --> UCa.1 : include
+    UC1  --> UCb : include
+        UCb --> UCa.1 : include
+    UC1  --> UCc : include
+        UCc --> UCa.1 : include
+    UC1  --> UCd : include
+        UCd --> UCa.1 : include
+    UC1  --> UCe : include
+        UCe --> UCa.1 : include
+    UC1  - worldDatabase
+}
+
+@enduml

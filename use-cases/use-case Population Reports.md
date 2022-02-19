@@ -13,11 +13,8 @@ As an Organization Worker at the World Health Organization I want to be able to 
 6. The population of a region. 
 7. The population of a country. 
 8. The population of a district. 
-9. The population of a city. 
-10. The name of the continent/region/country. 
-11. The total population of the continent/region/country. 
-12. The total population of the continent/region/country living in cities (including a %). 
-13. The total population of the continent/region/country not living in cities (including a %).
+9. The population of a city.
+10. The population of the world that speak Chinese, English, Spanish, Arabic, Hindi by the largest number to smallest (including the percentage).
 
 ### Scope
 
