@@ -1,5 +1,4 @@
-# Software Engineering Methods
-SET08801
+# SET08801 Software Engineering Methods
 
 ### Team Members:
 - Guilio Marin - Product Owner
