@@ -18,7 +18,7 @@ As an Organization Worker at the World Health Organization I want to be able to 
 
 ### Scope
 
-Company.
+Organization.
 
 ### Level
 
@@ -26,15 +26,15 @@ Primary task.
 
 ### Preconditions
 
-We know the role.  Database contains current world data.
+Database contains current world data, inclusive of the required population data.
 
 ### Success End Condition
 
-A report is available for Senior Management.
+A report is available for the Organization.
 
 ### Failed End Condition
 
-No report is produced.
+No report or an inaccurate report in produced
 
 ### Primary Actor
 
@@ -42,7 +42,7 @@ Organization Worker.
 
 ### Trigger
 
-A request for this specific report is requested by Senior Management.
+A request for this specific report was issued by the Organization.
 
 ## MAIN SUCCESS SCENARIO
 
