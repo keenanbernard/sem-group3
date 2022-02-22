@@ -1,0 +1,33 @@
+@startuml
+
+actor OW as "Organization Worker"
+
+rectangle worldDatabase
+
+rectangle "WHO Organization System" {
+    usecase UC1 as "Get all population"
+    usecase UC1.1 as "in a continent"
+    usecase UC1.2 as "in a region"
+    usecase UC1.3 as "in a country"
+
+    usecase UCa as "Print population of people living in cities"
+    usecase UCb as "Print population of people not living in cities"
+    usecase UCc as "Print population of people"
+
+    OW - UC1
+    UC1  ..> UC1.1 : optional
+        UC1.1 ---> UCa : include
+        UC1.1 ---> UCb : include
+        UC1.1 ---> UCc : include
+    UC1  ..> UC1.2 : optional
+        UC1.2 ---> UCa : include
+        UC1.2 ---> UCb : include
+        UC1.2 ---> UCc : include
+    UC1  ..> UC1.3 : optional
+        UC1.3 ---> UCa : include
+        UC1.3 ---> UCb : include
+        UC1.3 ---> UCc : include
+    UC1  - worldDatabase
+}
+
+@enduml

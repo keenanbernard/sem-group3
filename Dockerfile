@@ -1,4 +1,4 @@
-FROM openjdk:latest
-COPY ./target/sem-group3-0.1.0.1.jar /tmp
+FROM openjdk
+COPY ./target/sem-group3-0.1.0.2-jar-with-dependencies.jar /tmp
 WORKDIR /tmp
-ENTRYPOINT ["java", "-jar", "sem-group3-0.1.0.1.jar"]
+ENTRYPOINT ["java", "-jar", "sem-group3-0.1.0.2-jar-with-dependencies.jar", "db:3306"]
