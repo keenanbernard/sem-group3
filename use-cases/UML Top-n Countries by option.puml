@@ -10,15 +10,15 @@ rectangle "WHO Organization System" {
     usecase UC2.2 as "in a continent"
     usecase UC2.3 as "in a region"
 
-    usecase UCb as "Print where N is provided by the user"
+    usecase UCa as "Print where N is provided by the user"
 
     OW - UC2
     UC2  ..> UC2.1 : optional
-        UC2.1 ..> UCb : include
+        UC2.1 --> UCa : include
     UC2  ..> UC2.2 : optional
-        UC2.2 ..> UCb : include
+        UC2.2 --> UCa : include
     UC2  ..> UC2.3 : optional
-        UC2.3 ..> UCb : include
+        UC2.3 --> UCa : include
     UC2 - worldDatabase
 }
 

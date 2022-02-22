@@ -16,15 +16,15 @@ rectangle "WHO Organization System" {
 
     OW - UC2
     UC2  ..> UC2.1 : optional
-        UC2.1 ..> UCa : include
+        UC2.1 --> UCa : include
     UC2  ..> UC2.2 : optional
-        UC2.2 ..> UCa : include
+        UC2.2 --> UCa : include
     UC2  ..> UC2.3 : optional
-        UC2.3 ..> UCa : include
+        UC2.3 --> UCa : include
     UC2  ..> UC2.4 : optional
-        UC2.4 ..> UCa : include
+        UC2.4 --> UCa : include
     UC2  ..> UC2.5 : optional
-        UC2.5 ..> UCa : include
+        UC2.5 --> UCa : include
     UC2  - worldDatabase
 
 
