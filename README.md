@@ -17,4 +17,4 @@ Develop Branch ![GitHub Workflow Status (branch)](https://img.shields.io/github/
 
 - Workflow ![workflow](https://github.com/keenanbernard/sem-group3/actions/workflows/main.yml/badge.svg) <br>
 - Licence [![LICENSE](https://img.shields.io/github/license/keenanbernard/sem-group3.svg?style=flat-square)](https://github.com/keenanbernard/sem-group3/blob/master/LICENSE) <br>
-- Released [![Releases](https://img.shields.io/github/release/keenanbernard/sem-group3/all.svg?style=flat-square)](https://github.com/keenanbernard/sem-group3/release) <br>
+- Release [![Releases](https://img.shields.io/github/release/keenanbernard/sem-group3/all.svg?style=flat-square)](https://github.com/keenanbernard/sem-group3/releases) <br>
