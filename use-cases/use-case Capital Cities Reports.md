@@ -30,7 +30,7 @@ A report is available for the organization.
 
 ### Failed End Condition
 
-No report is produced.
+No report or an inaccurate report is produced.
 
 ### Primary Actor
 
