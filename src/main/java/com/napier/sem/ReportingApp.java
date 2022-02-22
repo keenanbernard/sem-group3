@@ -27,7 +27,7 @@ public class ReportingApp {
             {
                 // Wait a bit for db to start
                 Thread.sleep(30000);
-                // Connect to database
+                // Connect to database using database container name
                 con = DriverManager.getConnection("jdbc:mysql://worldDB:3306/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 // Wait a bit
