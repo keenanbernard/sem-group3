@@ -4,27 +4,35 @@ import java.sql.*;
 
 
 public class ReportingApp {
+
     public static void main(String[] args)
     {
-        try
-        {
+        // Create new Application
+        ReportingApp a = new ReportingApp();
+
+        // Connect to database
+        a.connect();
+
+        // Disconnect from database
+        a.disconnect();
+    }
+
+    // Connection to the MySQL database
+    private Connection con = null;
+
+    public void connect() {
+        try {
             // Load Database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-        }
-        catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
             System.out.println("Could not load SQL driver");
             System.exit(-1);
         }
 
-        // Connection to the database
-        Connection con = null;
         int retries = 5;
-        for (int i = 0; i < retries; ++i)
-        {
+        for (int i = 0; i < retries; ++i) {
             System.out.println("Connecting to database...");
-            try
-            {
+            try {
                 // Wait a bit for db to start
                 Thread.sleep(30000);
                 // Connect to database using database container name
@@ -34,30 +42,24 @@ public class ReportingApp {
                 Thread.sleep(10000);
                 // Exit for loop
                 break;
-            }
-            catch (SQLException sqle)
-            {
+            } catch (SQLException sqle) {
                 System.out.println("Failed to connect to database attempt " + i);
                 System.out.println(sqle.getMessage());
-            }
-            catch (InterruptedException ie)
-            {
+            } catch (InterruptedException ie) {
                 System.out.println("Thread interrupted? Should not happen.");
             }
         }
+    }
 
-        if (con != null)
-        {
-            try
-            {
-                // Close connection
-                con.close();
-            }
-            catch (Exception e)
-            {
-                System.out.println("Error closing connection to database");
+        public void disconnect() {
+            if (con != null) {
+                try {
+                    // Close connection
+                    con.close();
+                } catch (Exception e) {
+                    System.out.println("Error closing connection to database");
+                }
             }
         }
-    }
 
 }
