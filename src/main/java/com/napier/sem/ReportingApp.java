@@ -13,6 +13,11 @@ public class ReportingApp {
         // Connect to database
         a.connect();
 
+        // Get Country
+        Country ctr = a.getCountry(50000);
+        // Display results
+        a.displayCountry(ctr);
+
         // Disconnect from database
         a.disconnect();
     }
@@ -51,8 +56,8 @@ public class ReportingApp {
         }
     }
 
-        public void disconnect() {
-            if (con != null) {
+    public void disconnect() {
+        if (con != null) {
                 try {
                     // Close connection
                     con.close();
@@ -62,4 +67,48 @@ public class ReportingApp {
             }
         }
 
+    public Country getCountry(int pop)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT code, name, gnp "
+                            + "FROM country "
+                            + "WHERE population > " + pop;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                Country ctr = new Country();
+                ctr.code = rset.getString("code");
+                ctr.name = rset.getString("name");
+                ctr.gnp = rset.getDouble("gnp");
+                return ctr;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get employee details");
+            return null;
+        }
+    }
+
+    public void displayCountry(Country ctr)
+    {
+        if (ctr != null)
+        {
+            System.out.println(
+                    "Country Code: "+ ctr.code + " "
+                    + "Country Name: "+ ctr.name + " "
+                    + "Country GNP: "+ ctr.gnp + "\n");
+        }
+    }
 }
