@@ -1,6 +1,7 @@
 package com.napier.sem;
 
 import java.sql.*;
+import java.util.*;
 
 
 public class ReportingApp {
@@ -14,9 +15,11 @@ public class ReportingApp {
         a.connect();
 
         // Get Country
-        Country ctr = a.getCountry();
+        ArrayList<Country> countries = a.getCountry();
         // Display results
-        a.displayCountry(ctr);
+        System.out.println(countries.size());
+
+        a.printCountries(countries);
 
         // Disconnect from database
         a.disconnect();
@@ -67,7 +70,8 @@ public class ReportingApp {
             }
         }
 
-    public Country getCountry()
+
+    public ArrayList<Country> getCountry()
     {
         try
         {
@@ -75,24 +79,25 @@ public class ReportingApp {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT code, name, gnp "
-                            + "FROM country "
-                            + "order by population desc";
+                    "SELECT c.code, c.name, c.gnp "
+                            + "FROM country c "
+                            + "order by c.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            if (rset.next())
+            ArrayList<Country> countries = new ArrayList<Country>();
+            while (rset.next())
             {
                 Country ctr = new Country();
                 ctr.code = rset.getString("code");
                 ctr.name = rset.getString("name");
                 ctr.gnp = rset.getDouble("gnp");
-                return ctr;
+                countries.add(ctr);
             }
-            else
-                return null;
+            return countries;
         }
+
         catch (Exception e)
         {
             System.out.println(e.getMessage());
@@ -101,7 +106,20 @@ public class ReportingApp {
         }
     }
 
-    public void displayCountry(Country ctr)
+    public void printCountries(ArrayList<Country> countries)
+    {
+        System.out.println(String.format("%-10s %-15s %-20s %-8s", "code", "name", "gnp"));
+
+        for (Country ctr : countries)
+        {
+            String ctr_string =
+                    String.format("%-10s %-15s %-20s %-8s",
+                            ctr.code, ctr.name, ctr.gnp);
+            System.out.println(ctr_string);
+        }
+    }
+
+   /* public void displayCountry(Country ctr)
     {
         if (ctr != null)
         {
@@ -110,5 +128,5 @@ public class ReportingApp {
                     + "Country Name: "+ ctr.name + " "
                     + "Country GNP: "+ ctr.gnp + "\n");
         }
-    }
+    }*/
 }
