@@ -3,7 +3,6 @@ package com.napier.sem;
 import java.sql.*;
 import java.util.*;
 
-
 public class ReportingApp {
 
     public static void main(String[] args)
@@ -79,7 +78,7 @@ public class ReportingApp {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT c.code, c.name, c.gnp "
+                    "SELECT c.code, c.name, c.continent, c.region, c.population, c.capital "
                             + "FROM country c "
                             + "order by c.population desc";
             // Execute SQL statement
@@ -92,7 +91,10 @@ public class ReportingApp {
                 Country ctr = new Country();
                 ctr.code = rset.getString("code");
                 ctr.name = rset.getString("name");
-                ctr.gnp = rset.getDouble("gnp");
+                ctr.continent = rset.getString("continent");
+                ctr.region = rset.getString("region");
+                ctr.population = rset.getInt("population");
+                ctr.capital = rset.getInt("capital");
                 countries.add(ctr);
             }
             return countries;
@@ -108,25 +110,15 @@ public class ReportingApp {
 
     public void printCountries(ArrayList<Country> countries)
     {
-        System.out.println(String.format("%-10s %-15s %-20s %-8s", "code", "name", "gnp"));
+        System.out.println(String.format("%-10s %-15s %-15s %-20s %-15s %-15s" , "code", "name", "continent", "region", "population", "capital"));
 
         for (Country ctr : countries)
         {
             String ctr_string =
-                    String.format("%-10s %-15s %-20s %-8s",
-                            ctr.code, ctr.name, ctr.gnp);
+                    String.format("%-10s %-15s %-15s %-20s %-15s %-15s",
+                            ctr.code, ctr.name, ctr.continent,  ctr.region, ctr.population, ctr.capital);
             System.out.println(ctr_string);
         }
     }
 
-   /* public void displayCountry(Country ctr)
-    {
-        if (ctr != null)
-        {
-            System.out.println(
-                    "Country Code: "+ ctr.code + " "
-                    + "Country Name: "+ ctr.name + " "
-                    + "Country GNP: "+ ctr.gnp + "\n");
-        }
-    }*/
 }
