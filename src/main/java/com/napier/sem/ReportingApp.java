@@ -14,7 +14,7 @@ public class ReportingApp {
         a.connect();
 
         // Get Country
-        Country ctr = a.getCountry(50000);
+        Country ctr = a.getCountry();
         // Display results
         a.displayCountry(ctr);
 
@@ -67,7 +67,7 @@ public class ReportingApp {
             }
         }
 
-    public Country getCountry(int pop)
+    public Country getCountry()
     {
         try
         {
@@ -77,7 +77,7 @@ public class ReportingApp {
             String strSelect =
                     "SELECT code, name, gnp "
                             + "FROM country "
-                            + "WHERE population > " + pop;
+                            + "order by population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
