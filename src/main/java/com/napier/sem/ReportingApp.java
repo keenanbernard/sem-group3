@@ -1,7 +1,6 @@
 package com.napier.sem;
 
 import java.sql.*;
-import java.util.*;
 
 public class ReportingApp {
 
@@ -11,8 +10,8 @@ public class ReportingApp {
         ReportingApp a = new ReportingApp();
         Country c = new Country();
 
-        // Connect to database
-        a.connect();
+        /*// Connect to database
+        a.connect();*/
 
 
         c.countries();
@@ -31,7 +30,7 @@ public class ReportingApp {
     // Connection to the MySQL database
     private Connection con = null;
 
-    public void connect() {
+    public Connection connect() {
         try {
             // Load Database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -60,6 +59,7 @@ public class ReportingApp {
                 System.out.println("Thread interrupted? Should not happen.");
             }
         }
+        return con;
     }
 
     public void disconnect() {

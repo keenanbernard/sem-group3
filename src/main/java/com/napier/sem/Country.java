@@ -21,7 +21,7 @@ public class Country {
    public int capital;
    public String code2;
 
-   private Connection con = null;
+   ReportingApp ra = new ReportingApp();
 
    public void countries(){
       ArrayList<Country> countries = getCountry();
@@ -34,6 +34,7 @@ public class Country {
 
    public ArrayList<Country> getCountry() {
       try {
+         Connection con = ra.connect();
          // Create an SQL statement
          Statement stmt = con.createStatement();
          // Create string for SQL statement
