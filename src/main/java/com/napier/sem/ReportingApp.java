@@ -13,7 +13,6 @@ public class ReportingApp {
         /*// Connect to database
         a.connect();*/
 
-
         c.countries();
 
       /*  // Get Country
