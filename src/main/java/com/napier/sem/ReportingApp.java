@@ -9,11 +9,13 @@ public class ReportingApp {
         // Create new Application
         ReportingApp a = new ReportingApp();
         Country c = new Country();
+        City cy = new City();
 
         /*// Connect to database
         a.connect();*/
 
         c.countries();
+        cy.cities();
 
       /*  // Get Country
         ArrayList<Country> countries = a.getCountry();
