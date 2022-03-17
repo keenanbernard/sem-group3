@@ -12,14 +12,14 @@ public class City {
 
     ReportingApp ra = new ReportingApp();
 
-    public void cities(){
-        ArrayList<City> cities = getCity();
+    public void allCities(){
+        ArrayList<City> cities = getCities();
 
         System.out.println(cities.size());
 
         printCities(cities);
     }
-    public void cr(){
+    public void citiesByRegion(){
         ArrayList<City> cr = getCitybyRegion();
 
         System.out.println(cr.size());
@@ -27,7 +27,15 @@ public class City {
         printCities(cr);
     }
 
-    public ArrayList<City> getCity() {
+    public void citiesByDistrict(){
+        ArrayList<City> dCities = getCitybyDistrict("Flevoland");
+
+        System.out.println(dCities.size());
+
+        printCities(dCities);
+    }
+
+    public ArrayList<City> getCities() {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
@@ -85,6 +93,39 @@ public class City {
                 cr.add(cty);
             }
             return cr;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get employee details");
+            return null;
+        }
+    }
+
+    public ArrayList<City> getCitybyDistrict(String district) {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT cy.name, cy.countrycode, cy.district, cy.population "
+                            + "FROM city cy "
+                            + "WHERE cy.district = '"+ district +"'"
+                            + "order by cy.population desc";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<City> dCities = new ArrayList<City>();
+            while (rset.next()) {
+                City cty = new City();
+                cty.name = rset.getString("name");
+                cty.countrycode = rset.getString("countrycode");
+                cty.district = rset.getString("district");
+                cty.population = rset.getInt("population");
+                dCities.add(cty);
+            }
+            return dCities;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

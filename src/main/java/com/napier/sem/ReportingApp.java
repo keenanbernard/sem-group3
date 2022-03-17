@@ -14,12 +14,12 @@ public class ReportingApp {
 
         /*// Connect to database
         a.connect();*/
+        //c.countries();
+        // cy.allCities();
+        // cy.citiesByRegion();
+        cy.citiesByDistrict();
 
-        c.countries();
-        cy.cities();
-        cy.cr();
-
-      /*  // Get Country
+        /*  // Get Country
         ArrayList<Country> countries = a.getCountry();
         // Display results
         System.out.println(countries.size());
