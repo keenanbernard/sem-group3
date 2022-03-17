@@ -10,12 +10,14 @@ public class ReportingApp {
         ReportingApp a = new ReportingApp();
         Country c = new Country();
         City cy = new City();
+        //CityRegion cr = new CityRegion();
 
         /*// Connect to database
         a.connect();*/
 
         c.countries();
         cy.cities();
+        cy.cr();
 
       /*  // Get Country
         ArrayList<Country> countries = a.getCountry();

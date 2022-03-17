@@ -3,7 +3,7 @@ package com.napier.sem;
 import java.sql.*;
 import java.util.*;
 
-public class City {
+public class CityRegion {
     public int id;
     public String name;
     public String countrycode;
@@ -19,47 +19,8 @@ public class City {
 
         printCities(cities);
     }
-    public void cr(){
-        ArrayList<City> cr = getCitybyRegion();
-
-        System.out.println(cr.size());
-
-        printCities(cr);
-    }
 
     public ArrayList<City> getCity() {
-        try {
-            Connection con = ra.connect();
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT cy.name, cy.countrycode, cy.district, cy.population "
-                            + "FROM city cy "
-                            + "order by cy.population desc";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
-            ArrayList<City> cities = new ArrayList<City>();
-            while (rset.next()) {
-                City cty = new City();
-                cty.name = rset.getString("name");
-                cty.countrycode = rset.getString("countrycode");
-                cty.district = rset.getString("district");
-                cty.population = rset.getInt("population");
-                cities.add(cty);
-            }
-            return cities;
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get employee details");
-            return null;
-        }
-    }
-
-    public ArrayList<City> getCitybyRegion() {
         district = "Buenos Aires";
         try {
             Connection con = ra.connect();
@@ -75,16 +36,16 @@ public class City {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<City> cr = new ArrayList<City>();
+            ArrayList<City> cities = new ArrayList<City>();
             while (rset.next()) {
                 City cty = new City();
                 cty.name = rset.getString("name");
                 cty.countrycode = rset.getString("countrycode");
                 cty.district = rset.getString("district");
                 cty.population = rset.getInt("population");
-                cr.add(cty);
+                cities.add(cty);
             }
-            return cr;
+            return cities;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
