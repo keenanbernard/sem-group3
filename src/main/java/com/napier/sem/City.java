@@ -65,7 +65,7 @@ public class City {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<City> cities = new ArrayList<City>();
+            ArrayList<City> cities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
                 cty.name = rset.getString("name");
@@ -99,7 +99,7 @@ public class City {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<City> cr = new ArrayList<City>();
+            ArrayList<City> cr = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
                 cty.name = rset.getString("name");
@@ -132,7 +132,7 @@ public class City {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<City> dCities = new ArrayList<City>();
+            ArrayList<City> dCities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
                 cty.name = rset.getString("name");
@@ -164,7 +164,7 @@ public class City {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<City> tpNCities = new ArrayList<City>();
+            ArrayList<City> tpNCities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
                 cty.name = rset.getString("name");
@@ -196,7 +196,7 @@ public class City {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<City> tpNCities = new ArrayList<City>();
+            ArrayList<City> tpNCities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
                 cty.name = rset.getString("name");
