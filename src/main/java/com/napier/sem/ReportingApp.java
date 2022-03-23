@@ -15,7 +15,7 @@ public class ReportingApp {
         /*// Connect to database
         a.connect();*/
         //c.countries();
-        cy.TopNCitiesbyDistrict();
+        cy.TopNCitiesbyRegion();
 
         // Disconnect from database
         a.disconnect();
