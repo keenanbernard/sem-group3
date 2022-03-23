@@ -118,8 +118,8 @@ public class City {
             String strSelect =
                     "SELECT cy.name, cy.countrycode, cy.district, cy.population "
                             + "FROM city cy "
-                            + "WHERE cy.district = '"+ district +"'"
-                            + "order by cy.population desc";
+                            + "WHERE cy.district != ' ' "
+                            + "order by cy.district, cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
