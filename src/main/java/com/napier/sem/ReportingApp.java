@@ -2,16 +2,29 @@ package com.napier.sem;
 
 import java.sql.*;
 
-
 public class ReportingApp {
 
     public static void main(String[] args)
     {
         // Create new Application
         ReportingApp a = new ReportingApp();
+        Country c = new Country();
+        City cy = new City();
+        //CityRegion cr = new CityRegion();
 
-        // Connect to database
-        a.connect();
+        /*// Connect to database
+        a.connect();*/
+        //c.countries();
+        // cy.allCities();
+        // cy.citiesByRegion();
+        cy.TopNCities();
+
+        /*  // Get Country
+        ArrayList<Country> countries = a.getCountry();
+        // Display results
+        System.out.println(countries.size());
+
+        a.printCountries(countries);*/
 
         // Disconnect from database
         a.disconnect();
@@ -20,7 +33,7 @@ public class ReportingApp {
     // Connection to the MySQL database
     private Connection con = null;
 
-    public void connect() {
+    public Connection connect() {
         try {
             // Load Database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -49,10 +62,11 @@ public class ReportingApp {
                 System.out.println("Thread interrupted? Should not happen.");
             }
         }
+        return con;
     }
 
-        public void disconnect() {
-            if (con != null) {
+    public void disconnect() {
+        if (con != null) {
                 try {
                     // Close connection
                     con.close();
@@ -61,5 +75,4 @@ public class ReportingApp {
                 }
             }
         }
-
 }
