@@ -23,7 +23,7 @@ public class Country {
 
    ReportingApp ra = new ReportingApp();
 
-   public void countries(){
+   public void allCountries(){
       ArrayList<Country> countries = getCountry();
 
       System.out.println(countries.size());
