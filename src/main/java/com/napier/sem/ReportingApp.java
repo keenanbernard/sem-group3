@@ -15,16 +15,7 @@ public class ReportingApp {
         /*// Connect to database
         a.connect();*/
         //c.countries();
-        // cy.allCities();
-        // cy.citiesByRegion();
-        cy.TopNCities();
-
-        /*  // Get Country
-        ArrayList<Country> countries = a.getCountry();
-        // Display results
-        System.out.println(countries.size());
-
-        a.printCountries(countries);*/
+        cy.TopNCitiesbyRegion();
 
         // Disconnect from database
         a.disconnect();
