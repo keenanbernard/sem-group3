@@ -43,6 +43,14 @@ public class City {
         printCityReport(topNCities);
     }
 
+    public void TopNCitiesbyRegion(){
+        ArrayList<City> topNCities = getTopNCitiesbyRegion(1);
+
+        System.out.println(topNCities.size());
+
+        printCityReport(topNCities);
+    }
+
     public void TopNCitiesbyDistrict(){
         ArrayList<City> topNCities = getTopNCitiesbyDistrict(1);
 
@@ -65,7 +73,7 @@ public class City {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<City> cities = new ArrayList<City>();
+            ArrayList<City> cities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
                 cty.name = rset.getString("name");
@@ -99,7 +107,7 @@ public class City {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<City> cr = new ArrayList<City>();
+            ArrayList<City> cr = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
                 cty.name = rset.getString("name");
@@ -132,7 +140,7 @@ public class City {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<City> dCities = new ArrayList<City>();
+            ArrayList<City> dCities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
                 cty.name = rset.getString("name");
@@ -164,7 +172,39 @@ public class City {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<City> tpNCities = new ArrayList<City>();
+            ArrayList<City> tpNCities = new ArrayList<>();
+            while (rset.next()) {
+                City cty = new City();
+                cty.name = rset.getString("name");
+                cty.countrycode = rset.getString("countrycode");
+                cty.district = rset.getString("district");
+                cty.population = rset.getInt("population");
+                tpNCities.add(cty);
+            }
+            return tpNCities;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
+            return null;
+        }
+    }
+
+    public ArrayList<City> getTopNCitiesbyRegion(int rank) {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * from (SELECT cy.name, cy.countrycode, cy.district, cy.population, row_number() over (partition by c.region order by cy.population desc) as cityRank "
+                            + "FROM city cy, country c where cy.countrycode = c.code) ranks "
+                            + "WHERE cityRank <= " + rank;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<City> tpNCities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
                 cty.name = rset.getString("name");
@@ -196,7 +236,7 @@ public class City {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<City> tpNCities = new ArrayList<City>();
+            ArrayList<City> tpNCities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
                 cty.name = rset.getString("name");
