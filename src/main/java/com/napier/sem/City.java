@@ -9,8 +9,6 @@ public class City {
     public String countrycode;
     public String district;
     public int population;
-    public String continent;
-
 
     ReportingApp ra = new ReportingApp();
 
@@ -52,16 +50,6 @@ public class City {
 
         printCityReport(topNCities);
     }
-
-    public void CitiesbyContinent(){
-        ArrayList<City> cContinents = getCitiesByContinent("Asia");
-
-        System.out.println(cContinents.size());
-
-        printCityReport(cContinents);
-    }
-
-
 
     public ArrayList<City> getCities() {
         try {
@@ -218,40 +206,6 @@ public class City {
                 tpNCities.add(cty);
             }
             return tpNCities;
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get table details");
-            return null;
-        }
-    }
-
-    public ArrayList<City> getCitiesByContinent(String continent) {
-        try {
-            Connection con = ra.connect();
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT cy.name, cy.countrycode, cy.district, cy.population, cy.continent "
-                            + "FROM city cy "
-                            + "WHERE cy.district != ' ' "
-                            + "order by cy.district, cy.population desc";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
-            ArrayList<City> cContinents = new ArrayList<City>();
-            while (rset.next()) {
-                City cty = new City();
-                cty.name = rset.getString("name");
-                cty.countrycode = rset.getString("countrycode");
-                cty.district = rset.getString("district");
-                cty.population = rset.getInt("population");
-                cty.continent = rset.getString("continent");
-                cContinents.add(cty);
-            }
-            return cContinents;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
