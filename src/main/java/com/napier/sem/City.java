@@ -9,6 +9,7 @@ public class City {
     public String countrycode;
     public String district;
     public int population;
+    public String continent;
 
     ReportingApp ra = new ReportingApp();
 
@@ -28,7 +29,7 @@ public class City {
     }
 
     public void citiesByDistrict(){
-        ArrayList<City> dCities = getCitybyDistrict();
+        ArrayList<City> dCities = getCitybyDistrict("Flevoland");
 
         System.out.println(dCities.size());
 
@@ -59,6 +60,15 @@ public class City {
         printCityReport(topNCities);
     }
 
+    public void citiesByContinent(){
+        ArrayList<City> cContinent = getCitybyContinent("Asia");
+
+        System.out.println(cContinent.size());
+
+        printCityReport(cContinent);
+    }
+
+
 
     public ArrayList<City> getCities() {
         try {
@@ -81,6 +91,39 @@ public class City {
                 cty.countrycode = rset.getString("countrycode");
                 cty.district = rset.getString("district");
                 cty.population = rset.getInt("population");
+                cities.add(cty);
+            }
+            return cities;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
+            return null;
+        }
+    }
+
+    public ArrayList<City> getCitybyContinent(String continent) {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT cy.name, cy.countrycode, cy.district, cy.population, cy.continent "
+                            + "FROM city cy "
+                            + "order by cy.population desc";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<City> cities = new ArrayList<>();
+            while (rset.next()) {
+                City cty = new City();
+                cty.name = rset.getString("name");
+                cty.countrycode = rset.getString("countrycode");
+                cty.district = rset.getString("district");
+                cty.population = rset.getInt("population");
+                cty.population = rset.getInt("continent");
                 cities.add(cty);
             }
             return cities;
@@ -126,7 +169,7 @@ public class City {
         }
     }
 
-    public ArrayList<City> getCitybyDistrict() {
+    public ArrayList<City> getCitybyDistrict(String district) {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
@@ -254,7 +297,6 @@ public class City {
             return null;
         }
     }
-
 
     public void printCityReport(ArrayList<City> cities) {
         System.out.println(String.format("%-10s %-15s %-15s %-20s", "name", "countrycode", "district", "population"));
