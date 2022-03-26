@@ -32,6 +32,14 @@ public class Country {
       printCountries(countries);
    }
 
+   public void countriesbyContinent(){
+      ArrayList<Country> countriesbyContinent = getCountrybyContinent();
+
+      System.out.println(countriesbyContinent.size());
+
+      printCountries(countriesbyContinent);
+   }
+
    public void TopNCountries(){
       ArrayList<Country> topNCountries = getTopNCountries(5);
 
@@ -56,6 +64,41 @@ public class Country {
                  "SELECT c.code, c.name, c.continent, c.region, c.population, c.capital "
                          + "FROM country c "
                          + "order by c.population desc";
+         // Execute SQL statement
+         ResultSet rset = stmt.executeQuery(strSelect);
+         // Return new employee if valid.
+         // Check one is returned
+         ArrayList<Country> countries = new ArrayList<Country>();
+         while (rset.next()) {
+            Country ctr = new Country();
+            ctr.code = rset.getString("code");
+            ctr.name = rset.getString("name");
+            ctr.continent = rset.getString("continent");
+            ctr.region = rset.getString("region");
+            ctr.population = rset.getInt("population");
+            ctr.capital = rset.getInt("capital");
+            countries.add(ctr);
+         }
+         return countries;
+
+      } catch (Exception e) {
+         System.out.println(e.getMessage());
+         System.out.println("Failed to get employee details");
+         return null;
+      }
+   }
+
+   public ArrayList<Country> getCountrybyContinent() {
+      try {
+         Connection con = ra.connect();
+         // Create an SQL statement
+         Statement stmt = con.createStatement();
+         // Create string for SQL statement
+         String strSelect =
+                 "SELECT c.code, c.name, c.continent, c.region, c.population, c.capital "
+                         + "FROM country c "
+                         + "WHERE c.continent != ' '"
+                         + "order by c.continent, c.population desc";
          // Execute SQL statement
          ResultSet rset = stmt.executeQuery(strSelect);
          // Return new employee if valid.
