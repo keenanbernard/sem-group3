@@ -20,6 +20,15 @@ public class City {
 
         printCityReport(cities);
     }
+
+    public void citiesbyCountry(){
+        ArrayList<City> cc = getCitiesbyCountry();
+
+        System.out.println(cc.size());
+
+        printCityReport(cc);
+    }
+
     public void citiesByRegion(){
         ArrayList<City> cr = getCitybyRegion("Buenos Aires");
 
@@ -109,6 +118,38 @@ public class City {
         }
     }
 
+    public ArrayList<City> getCitiesbyCountry() {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT cy.name, cy.countrycode, cy.district, cy.population "
+                            + "FROM city cy "
+                            + "order by cy.countrycode, cy.population desc";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<City> cities = new ArrayList<>();
+            while (rset.next()) {
+                City cty = new City();
+                cty.name = rset.getString("name");
+                cty.countrycode = rset.getString("countrycode");
+                cty.district = rset.getString("district");
+                cty.population = rset.getInt("population");
+                cities.add(cty);
+            }
+            return cities;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
+            return null;
+        }
+    }
+
     public ArrayList<City> getCitybyContinent(String continent) {
         try {
             Connection con = ra.connect();
@@ -118,7 +159,7 @@ public class City {
             String strSelect =
                     "SELECT cy.name, cy.countrycode, cy.district, cy.population, cy.continent "
                             + "FROM city cy "
-                            + "order by cy.population desc";
+                            + "order by cy.continent, cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
