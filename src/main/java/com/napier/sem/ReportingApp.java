@@ -10,6 +10,7 @@ public class ReportingApp {
         ReportingApp a = new ReportingApp();
         Country c = new Country();
         City cy = new City();
+        Capital cc = new Capital();
         //CityRegion cr = new CityRegion();
 
         /*// Connect to database
@@ -19,7 +20,8 @@ public class ReportingApp {
         // cy.citiesByRegion();
         //cy.TopNCities();
 
-        cy.TopNCitiesbyRegion();
+        //y.TopNCitiesbyRegion();
+        cc.allCaptailCities();
 
         /*  // Get Country
         ArrayList<Country> countries = a.getCountry();
