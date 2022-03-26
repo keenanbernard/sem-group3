@@ -19,7 +19,7 @@ public class ReportingApp {
         // cy.citiesByRegion();
         //cy.TopNCities();
 
-        cy.TopNCitiesbyRegion();
+        cy.TopNCitiesbyContinent();
 
         /*  // Get Country
         ArrayList<Country> countries = a.getCountry();
