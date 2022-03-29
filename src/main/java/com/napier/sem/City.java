@@ -157,9 +157,9 @@ public class City {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT cy.name, cy.countrycode, cy.district, cy.population, cy.continent "
-                            + "FROM city cy "
-                            + "order by cy.continent, cy.population desc";
+                    " SELECT c.name, c.continent, c.population as country cy.countrycode, cy.district "
+                            + "FROM city cy, country c "
+                            + "order by c.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
