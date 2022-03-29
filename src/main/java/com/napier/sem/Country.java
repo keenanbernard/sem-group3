@@ -38,6 +38,13 @@ public class Country {
 
       printCountries(topNCountries);
    }
+   public void CountriesbyRegion() {
+      ArrayList<Country> countriesbyregion = getCountry();
+
+      System.out.println(countriesbyregion.size());
+
+      printCountries(countriesbyregion);
+   }
 
 
    public ArrayList<Country> getCountry() {
@@ -104,6 +111,40 @@ public class Country {
       } catch (Exception e) {
          System.out.println(e.getMessage());
          System.out.println("Failed to get table details");
+         return null;
+      }
+   }
+
+   public ArrayList<Country> getCountrybyRegion() {
+      try {
+         Connection con = ra.connect();
+         // Create an SQL statement
+         Statement stmt = con.createStatement();
+         // Create string for SQL statement
+         String strSelect =
+                 "SELECT c.code, c.name, c.continent, c.region, c.population, c.capital "
+                         + "FROM country c "
+                         + "order by c.population desc";
+         // Execute SQL statement
+         ResultSet rset = stmt.executeQuery(strSelect);
+         // Return new employee if valid.
+         // Check one is returned
+         ArrayList<Country> countriesbyregion = new ArrayList<Country>();
+         while (rset.next()) {
+            Country ctr = new Country();
+            ctr.code = rset.getString("code");
+            ctr.name = rset.getString("name");
+            ctr.continent = rset.getString("continent");
+            ctr.region = rset.getString("region");
+            ctr.population = rset.getInt("population");
+            ctr.capital = rset.getInt("capital");
+            countriesbyregion.add(ctr);
+         }
+         return countriesbyregion;
+
+      } catch (Exception e) {
+         System.out.println(e.getMessage());
+         System.out.println("Failed to get employee details");
          return null;
       }
    }
