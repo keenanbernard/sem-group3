@@ -11,12 +11,12 @@ public class Capital {
 
     ReportingApp ra = new ReportingApp();
 
-    public void allCaptailCities(){
+    public void allCapitalCities(){
         ArrayList<Capital> capitalCities = getCapitalCity();
 
         System.out.println(capitalCities.size());
 
-        printCities(capitalCities);
+        printCapitalCities(capitalCities);
     }
 
     public ArrayList<Capital> getCapitalCity() {
@@ -27,7 +27,7 @@ public class Capital {
             // Create string for SQL statement
             String strSelect =
                     "SELECT cy.name, c.name as country, cy.population "
-                            + "FROM city cy, country c where cy.id = c.capital "
+                            + "FROM city cy, country c WHERE cy.id = c.capital "
                             + "order by cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -50,7 +50,7 @@ public class Capital {
         }
     }
 
-    public void printCities(ArrayList<Capital> capitalCities) {
+    public void printCapitalCities(ArrayList<Capital> capitalCities) {
         System.out.println(String.format("%-10s %-15s %-20s", "name", "country", "population"));
 
         for (Capital ccty : capitalCities) {

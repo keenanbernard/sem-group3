@@ -21,7 +21,7 @@ public class ReportingApp {
         //cy.TopNCities();
 
         //y.TopNCitiesbyRegion();
-        cc.allCaptailCities();
+        cc.allCapitalCities();
 
         /*  // Get Country
         ArrayList<Country> countries = a.getCountry();
