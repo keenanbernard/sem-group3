@@ -32,6 +32,14 @@ public class Country {
       printCountries(countries);
    }
 
+   public void countriesByContinent(){
+      ArrayList<Country> ctrContinent = getCountrybyContinent("Asia");
+
+      System.out.println(ctrContinent.size());
+
+      printCountries(ctrContinent);
+   }
+
    public void TopNCountries(){
       ArrayList<Country> topNCountries = getTopNCountries(5);
 
@@ -46,6 +54,40 @@ public class Country {
 
       printCountries(topNCountries);
    }
+
+   public ArrayList<Country> getCountrybyContinent(String continent) {
+      try {
+         Connection con = ra.connect();
+         // Create an SQL statement
+         Statement stmt = con.createStatement();
+         // Create string for SQL statement
+         String strSelect =
+                 "SELECT c.name, c.code, c.district, c.population, c.continent "
+                         + "FROM country c "
+                         + "order by c.population desc";
+         // Execute SQL statement
+         ResultSet rset = stmt.executeQuery(strSelect);
+         // Return new employee if valid.
+         // Check one is returned
+         ArrayList<Country> ctContinent = new ArrayList<>();
+         while (rset.next()) {
+            Country ctr = new Country();
+            ctr.name = rset.getString("name");
+            ctr.code = rset.getString("ccode");
+            ctr.district = rset.getString("district");
+            ctr.population = rset.getInt("population");
+            ctr.population = rset.getInt("continent");
+            ctContinent.add(ctr);
+         }
+         return ctContinent;
+
+      } catch (Exception e) {
+         System.out.println(e.getMessage());
+         System.out.println("Failed to get table details");
+         return null;
+      }
+   }
+
    public ArrayList<Country> getCountry() {
       try {
          Connection con = ra.connect();
