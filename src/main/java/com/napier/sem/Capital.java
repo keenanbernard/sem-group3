@@ -45,6 +45,13 @@ public class Capital {
         printCapitalCities(topCapitalCitiesinContinent);
     }
 
+    public void topNCapitalCitiesinWorld(){
+        ArrayList<Capital> topCapitalCitiesinWorld = getTopNCapitalCitiesinWorld(5);
+
+        System.out.println(topCapitalCitiesinWorld.size());
+
+        printCapitalCities(topCapitalCitiesinWorld);
+    }
 
     public ArrayList<Capital> getCapitalCity() {
         try {
@@ -76,7 +83,6 @@ public class Capital {
             return null;
         }
     }
-
 
     public ArrayList<Capital> capitalCitybyContinent() {
         try {
@@ -140,6 +146,39 @@ public class Capital {
             return null;
         }
     }
+
+    public ArrayList<Capital> getTopNCapitalCitiesinWorld(int rank) {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * FROM (SELECT cy.name, c.name as country, cy.population, c.continent, row_number() over (order by cy.population desc) as cityRank "
+                            + "FROM country c, city cy  WHERE c.capital = cy.id) ranks "
+                            + "WHERE cityRank <= " + rank;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Capital> capitalCities = new ArrayList<>();
+            while (rset.next()) {
+                Capital ccty = new Capital();
+                ccty.name = rset.getString("name");
+                ccty.country = rset.getString("country");
+                ccty.population = rset.getInt("population");
+                ccty.continent = rset.getString("continent");
+                capitalCities.add(ccty);
+            }
+            return capitalCities;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get employee details");
+            return null;
+        }
+    }
+
     public ArrayList<Capital> capitalCitybyRegion() {
         try {
             Connection con = ra.connect();

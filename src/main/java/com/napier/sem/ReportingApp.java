@@ -15,14 +15,17 @@ public class ReportingApp {
 
         /*// Connect to database
         a.connect();*/
+
         //c.countries();
+
         // cy.allCities();
         // cy.citiesByRegion();
         //cy.TopNCities();
+        //cy.TopNCitiesbyRegion();
 
-        //y.TopNCitiesbyRegion();
         //cc.capitalCitiesbyContinent();
-        cc.topNCapitalCitiesinContinent();
+        //cc.topNCapitalCitiesinContinent();
+        cc.topNCapitalCitiesinWorld();
 
         /*  // Get Country
         ArrayList<Country> countries = a.getCountry();
