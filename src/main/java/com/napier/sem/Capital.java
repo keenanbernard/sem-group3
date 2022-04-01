@@ -7,7 +7,7 @@ public class Capital {
     public int id;
     public String name;
     public String country;
-    private int continent;
+    public String continent;
     public int population;
     public String region;
 
@@ -36,6 +36,14 @@ public class Capital {
         printCapitalCities(capitalCitiesregion);
     }
 
+
+    public void topNCapitalCitiesinContinent(){
+        ArrayList<Capital> topCapitalCitiesinContinent = getTopNCapitalCitiesinContinent(5);
+
+        System.out.println(topCapitalCitiesinContinent.size());
+
+        printCapitalCities(topCapitalCitiesinContinent);
+    }
 
 
     public ArrayList<Capital> getCapitalCity() {
@@ -100,6 +108,38 @@ public class Capital {
             return null;
         }
     }
+
+    public ArrayList<Capital> getTopNCapitalCitiesinContinent(int rank) {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * FROM (SELECT cy.name, c.name as country, cy.population, c.continent, row_number() over (partition by c.continent order by cy.population desc) as cityRank "
+                    + "FROM country c, city cy  WHERE c.capital = cy.id) ranks "
+                    + "WHERE cityRank <= " + rank;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Capital> capitalCities = new ArrayList<>();
+            while (rset.next()) {
+                Capital ccty = new Capital();
+                ccty.name = rset.getString("name");
+                ccty.country = rset.getString("country");
+                ccty.population = rset.getInt("population");
+                ccty.continent = rset.getString("continent");
+                capitalCities.add(ccty);
+            }
+            return capitalCities;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get employee details");
+            return null;
+        }
+    }
     public ArrayList<Capital> capitalCitybyRegion() {
         try {
             Connection con = ra.connect();
@@ -133,12 +173,12 @@ public class Capital {
     }
 
     public void printCapitalCities(ArrayList<Capital> capitalCities) {
-        System.out.println(String.format("%-10s %-15s %-20s", "name", "country", "population"));
+        System.out.println(String.format("%-20s %-20s %-20s %-20s", "name", "country", "population", "continent"));
 
         for (Capital ccty : capitalCities) {
             String cty_string =
-                    String.format("%-10s %-15s %-20s",
-                            ccty.name, ccty.country, ccty.population);
+                    String.format("%-20s %-20s %-20s %-20s",
+                            ccty.name, ccty.country, ccty.population, ccty.continent);
             System.out.println(cty_string);
         }
     }
