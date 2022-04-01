@@ -25,7 +25,7 @@ public class ReportingApp {
 
         //cc.capitalCitiesbyContinent();
         //cc.topNCapitalCitiesinContinent();
-        cc.topNCapitalCitiesinWorld();
+        //cc.topNCapitalCitiesinWorld();
 
         /*  // Get Country
         ArrayList<Country> countries = a.getCountry();

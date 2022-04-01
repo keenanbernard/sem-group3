@@ -46,7 +46,7 @@ public class Capital {
     }
 
     public void topNCapitalCitiesinWorld(){
-        ArrayList<Capital> topCapitalCitiesinWorld = getTopNCapitalCitiesinWorld(5);
+        ArrayList<Capital> topCapitalCitiesinWorld = getTopNCapitalCitiesinWorld(10);
 
         System.out.println(topCapitalCitiesinWorld.size());
 
