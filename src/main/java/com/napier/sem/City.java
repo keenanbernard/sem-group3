@@ -30,7 +30,7 @@ public class City {
     }
 
     public void citiesByRegion(){
-        ArrayList<City> cr = getCitybyRegion("Buenos Aires");
+        ArrayList<City> cr = getCitybyRegion();
 
         System.out.println(cr.size());
 
@@ -183,8 +183,7 @@ public class City {
         }
     }
 
-    public ArrayList<City> getCitybyRegion(String region) {
-        //district = "Buenos Aires";
+    public ArrayList<City> getCitybyRegion() {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
@@ -192,23 +191,23 @@ public class City {
             // Create string for SQL statement
             String strSelect =
                     "SELECT cy.name, cy.countrycode, cy.district, cy.population "
-                            + "FROM city cy "
-                            + "WHERE cy.district = '"+region+"' "
-                            + "order by cy.population desc";
+                            + "FROM city cy, country c "
+                            + "WHERE cy.countrycode = c.code "
+                            + "order by c.region, cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<City> cr = new ArrayList<>();
+            ArrayList<City> cities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
                 cty.name = rset.getString("name");
                 cty.countrycode = rset.getString("countrycode");
                 cty.district = rset.getString("district");
                 cty.population = rset.getInt("population");
-                cr.add(cty);
+                cities.add(cty);
             }
-            return cr;
+            return cities;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
