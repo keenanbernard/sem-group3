@@ -40,6 +40,7 @@ public class test{
         /*
         Country ctr = new Country();
         ctr.allCountries();
+
         ArrayList<Country> countries = ctr.getCountry();
         ctry.printCountries(countries);*/
 
