@@ -12,7 +12,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.25</version>
+            <version>8.0.28</version>
         </dependency>
 
         <dependency>
@@ -22,9 +22,6 @@
             <scope>com.napier.sem.test</scope>
         </dependency>
     </dependencies>
-
-
-
 
     <properties>
         <maven.compiler.source>10</maven.compiler.source>
