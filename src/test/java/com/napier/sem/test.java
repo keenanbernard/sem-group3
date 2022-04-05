@@ -23,7 +23,7 @@ public class test{
     @Test
     void printCountriesTestNull()
     {
-        ArrayList<Country> countries = new ArrayList<>();
+       /* ArrayList<Country> countries = new ArrayList<>();
 
         Country ctr = new Country();
         ctr.code = "BZE";
@@ -34,15 +34,16 @@ public class test{
         ctr.capital = 01;
         countries.add(ctr);
         ctry.printCountries(countries);
+         ArrayList<Country> countries = ctr.getCountry();
+        ctry.printCountries(countries);
 
 
+*/
 
-        /*
         Country ctr = new Country();
         ctr.allCountries();
 
-        ArrayList<Country> countries = ctr.getCountry();
-        ctry.printCountries(countries);*/
+
 
     }
 
