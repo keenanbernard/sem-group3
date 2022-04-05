@@ -35,9 +35,11 @@ public class test{
         countries.add(ctr);
         ctry.printCountries(countries);
 
+
+
         /*
         Country ctr = new Country();
-
+        ctr.allCountries();
         ArrayList<Country> countries = ctr.getCountry();
         ctry.printCountries(countries);*/
 
