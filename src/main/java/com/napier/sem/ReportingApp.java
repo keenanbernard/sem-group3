@@ -10,6 +10,7 @@ public class ReportingApp {
         ReportingApp a = new ReportingApp();
         Country c = new Country();
         City cy = new City();
+        Population pn = new Population();
         //CityRegion cr = new CityRegion();
 
         /*// Connect to database
