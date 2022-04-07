@@ -34,14 +34,22 @@ public class Population {
         System.out.println(populations.size());
 
         printPopulation(populations);
-
     }
+
     public void TopNPopulationbyCountry() {
         ArrayList<Population> topNCountry = getTopNPopulationbyCountry(5);
 
         System.out.println(topNCountry.size());
 
         printPopulation(topNCountry);
+    }
+
+    public void TopNPopulationbyDistrict(){
+        ArrayList<Population> topNDistrict = getTopNPopulationbyDistrict(1);
+
+        System.out.println(topNDistrict.size());
+
+        printPopulation(topNDistrict);
     }
 
     public ArrayList<Population> getPopulation() {
@@ -85,7 +93,7 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT pn.name, pn.countrycode, cy.district, pn.population, row_number() over (partition by c.region order by cy.population desc) as cityRank "
+                    "SELECT * from (SELECT pn.name, pn.countrycode, cy.district, pn.population, row_number() over (partition by pn.region order by pn.population desc) as countryRank "
                             + "FROM city cy, population pn where pn.countrycode = c.code) ranks "
                             + "WHERE countryRank <= " + rank;
             // Execute SQL statement
@@ -110,8 +118,39 @@ public class Population {
         }
     }
 
+    public ArrayList<Population> getTopNPopulationbyDistrict(int rank) {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * from (SELECT pn.name, pn.countrycode, pn.district, pn.population, row_number() over (partition by pn.district order by pn.population desc) as districtRank "
+                            + "FROM population pn) ranks "
+                            + "WHERE districtRank <= " + rank;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Population> tpNDistrict = new ArrayList<>();
+            while (rset.next()) {
+                Population pn = new Population();
+                pn.name = rset.getString("name");
+                pn.countrycode = rset.getString("countrycode");
+                pn.district = rset.getString("district");
+                pn.population = rset.getInt("population");
+                tpNDistrict.add(pn);
+            }
+            return tpNDistrict;
 
-    
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
+            return null;
+        }
+    }
+
+
     public void printPopulation(ArrayList<Population> population) {
         System.out.println(String.format("%-10s %-15s %-15s %-20s %-15s %-15s", "code", "name", "continent", "region", "population", "capital"));
 
