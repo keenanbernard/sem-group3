@@ -7,23 +7,10 @@ import java.util.ArrayList;
 
 public class Population {
 
-    public String code;
     public String name;
-    public String continent;
-    public String region;
-    public String district;
-    public String countrycode;
-    public double surfaceArea;
-    public int independenceYear;
     public int population;
-    public double lifeExpectancy;
-    public double gnp;
-    public double gnpOld;
-    public String localName;
-    public String governmentForm;
-    public String headOfState;
-    public int capital;
-    public String code2;
+    public String urban;
+    public String rural;
 
 
     ReportingApp ra = new ReportingApp();
@@ -85,6 +72,40 @@ public class Population {
             return null;
         }
     }
+
+    public ArrayList<Population> getWorldsPopulation() {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT c.name, c.population, c.name, c.name  "
+                            + "FROM country c, city cy "
+                            + "WHERE c.code = cy.countrycode "
+                            + "ORDER BY pn.population desc";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Population> population = new ArrayList<Population>();
+            while (rset.next()) {
+                Population pn = new Population();
+                pn.name = rset.getString("name");
+                pn.population = rset.getInt("population");
+                pn.urban = rset.getString("urban");
+                pn.rural = rset.getString("rural");
+                population.add(pn);
+            }
+            return population;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get employee details");
+            return null;
+        }
+    }
+
 
     public ArrayList<Population> getTopNPopulationbyCountry(int rank) {
         try {
@@ -152,13 +173,13 @@ public class Population {
 
 
     public void printPopulation(ArrayList<Population> population) {
-        System.out.println(String.format("%-10s %-15s %-15s %-20s %-15s %-15s", "code", "name", "continent", "region", "population", "capital"));
+        System.out.println(String.format("%-10s %-15s %-15s %-20s", "name", "population", "urban", "rural"));
 
         for (Population pn : population) {
-            String ctr_string =
-                    String.format("%-10s %-15s %-15s %-20s %-15s %-15s",
-                            pn.code, pn.name, pn.continent, pn.region, pn.population, pn.capital);
-            System.out.println(ctr_string);
+            String pn_string =
+                    String.format("%-10s %-15s %-15s %-20s",
+                            pn.name, pn.population, pn.urban, pn.rural);
+            System.out.println(pn_string);
         }
     }
 
