@@ -10,17 +10,23 @@ public class ReportingApp {
         ReportingApp a = new ReportingApp();
         Country c = new Country();
         City cy = new City();
-        Population pn = new Population();
+        Capital cc = new Capital();
         //CityRegion cr = new CityRegion();
 
         /*// Connect to database
         a.connect();*/
+
         //c.countries();
+
         // cy.allCities();
         // cy.citiesByRegion();
         //cy.TopNCities();
+        //cy.TopNCitiesbyRegion();
 
-        cy.TopNCitiesbyRegion();
+        //cc.capitalCitiesbyContinent();
+        //cc.topNCapitalCitiesinContinent();
+        cc.topNCapitalCitiesinRegion();
+        //cc.topNCapitalCitiesinWorld();
 
         /*  // Get Country
         ArrayList<Country> countries = a.getCountry();
