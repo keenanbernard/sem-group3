@@ -12,14 +12,14 @@ public class ReportingApp {
         City cy = new City();
         //CityRegion cr = new CityRegion();
 
-        // Connect to database
-        // a.connect();
-        // c.allCountries();
-        c.countriesbyContinent();
+        /*// Connect to database
+        a.connect();*/
+        //c.countries();
         // cy.allCities();
+        cy.citiesByRegion();
         // cy.citiesByRegion();
-        // cy.TopNCities();
-        // cy.TopNCitiesbyRegion();
+        //cy.TopNCities();
+        //cy.TopNCitiesbyContinent();
 
         /*  // Get Country
         ArrayList<Country> countries = a.getCountry();

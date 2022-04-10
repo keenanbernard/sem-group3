@@ -9,7 +9,6 @@ public class Country {
    public String name;
    public String continent;
    public String region;
-   public String district;
    public double surfaceArea;
    public int independenceYear;
    public int population;
@@ -32,21 +31,6 @@ public class Country {
       printCountries(countries);
    }
 
-   public void countriesbyContinent(){
-      ArrayList<Country> countriesbyContinent = getCountrybyContinent();
-
-      System.out.println(countriesbyContinent.size());
-
-      printCountries(countriesbyContinent);
-   }
-
-   public void TopNCountries(){
-      ArrayList<Country> topNCountries = getTopNCountries(5);
-
-      System.out.println(topNCountries.size());
-
-      printCountries(topNCountries);
-   }
    public void TopNCountriesbyRegion(){
       ArrayList<Country> topNCountries = getTopNCountriesbyRegion(5);
 
@@ -54,6 +38,15 @@ public class Country {
 
       printCountries(topNCountries);
    }
+   public void CountriesbyRegion() {
+      ArrayList<Country> countriesbyregion = getCountry();
+
+      System.out.println(countriesbyregion.size());
+
+      printCountries(countriesbyregion);
+   }
+
+
    public ArrayList<Country> getCountry() {
       try {
          Connection con = ra.connect();
@@ -88,73 +81,6 @@ public class Country {
       }
    }
 
-   public ArrayList<Country> getCountrybyContinent() {
-      try {
-         Connection con = ra.connect();
-         // Create an SQL statement
-         Statement stmt = con.createStatement();
-         // Create string for SQL statement
-         String strSelect =
-                 "SELECT c.code, c.name, c.continent, c.region, c.population, c.capital "
-                         + "FROM country c "
-                         + "WHERE c.continent != ' '"
-                         + "order by c.continent, c.population desc";
-         // Execute SQL statement
-         ResultSet rset = stmt.executeQuery(strSelect);
-         // Return new employee if valid.
-         // Check one is returned
-         ArrayList<Country> countries = new ArrayList<Country>();
-         while (rset.next()) {
-            Country ctr = new Country();
-            ctr.code = rset.getString("code");
-            ctr.name = rset.getString("name");
-            ctr.continent = rset.getString("continent");
-            ctr.region = rset.getString("region");
-            ctr.population = rset.getInt("population");
-            ctr.capital = rset.getInt("capital");
-            countries.add(ctr);
-         }
-         return countries;
-
-      } catch (Exception e) {
-         System.out.println(e.getMessage());
-         System.out.println("Failed to get employee details");
-         return null;
-      }
-   }
-
-   public ArrayList<Country> getTopNCountries(int rank) {
-      try {
-         Connection con = ra.connect();
-         // Create an SQL statement
-         Statement stmt = con.createStatement();
-         // Create string for SQL statement
-         String strSelect =
-                 "SELECT * from (SELECT c.name, c.code, c.district, c.population, row_number() over (order by c.population desc) as countryRank "
-                 + "FROM country c) ranks "
-                 + "WHERE countryRank <= " + rank;
-         // Execute SQL statement
-         ResultSet rset = stmt.executeQuery(strSelect);
-         // Return new employee if valid.
-         // Check one is returned
-         ArrayList<Country> tpNCountries = new ArrayList<>();
-         while (rset.next()) {
-            Country ctr = new Country();
-            ctr.name = rset.getString("name");
-            ctr.code = rset.getString("code");
-            ctr.district = rset.getString("district");
-            ctr.population = rset.getInt("population");
-            tpNCountries.add(ctr);
-         }
-         return tpNCountries;
-
-      } catch (Exception e) {
-         System.out.println(e.getMessage());
-         System.out.println("Failed to get table details");
-         return null;
-      }
-   }
-
    public ArrayList<Country> getTopNCountriesbyRegion(int rank) {
       try {
          Connection con = ra.connect();
@@ -185,6 +111,40 @@ public class Country {
       } catch (Exception e) {
          System.out.println(e.getMessage());
          System.out.println("Failed to get table details");
+         return null;
+      }
+   }
+
+   public ArrayList<Country> getCountrybyRegion() {
+      try {
+         Connection con = ra.connect();
+         // Create an SQL statement
+         Statement stmt = con.createStatement();
+         // Create string for SQL statement
+         String strSelect =
+                 "SELECT c.code, c.name, c.continent, c.region, c.population, c.capital "
+                         + "FROM country c "
+                         + "order by c.population desc";
+         // Execute SQL statement
+         ResultSet rset = stmt.executeQuery(strSelect);
+         // Return new employee if valid.
+         // Check one is returned
+         ArrayList<Country> countriesbyregion = new ArrayList<Country>();
+         while (rset.next()) {
+            Country ctr = new Country();
+            ctr.code = rset.getString("code");
+            ctr.name = rset.getString("name");
+            ctr.continent = rset.getString("continent");
+            ctr.region = rset.getString("region");
+            ctr.population = rset.getInt("population");
+            ctr.capital = rset.getInt("capital");
+            countriesbyregion.add(ctr);
+         }
+         return countriesbyregion;
+
+      } catch (Exception e) {
+         System.out.println(e.getMessage());
+         System.out.println("Failed to get employee details");
          return null;
       }
    }

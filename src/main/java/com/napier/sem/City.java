@@ -20,8 +20,17 @@ public class City {
 
         printCityReport(cities);
     }
+
+    public void citiesbyCountry(){
+        ArrayList<City> cc = getCitiesbyCountry();
+
+        System.out.println(cc.size());
+
+        printCityReport(cc);
+    }
+
     public void citiesByRegion(){
-        ArrayList<City> cr = getCitybyRegion("Buenos Aires");
+        ArrayList<City> cr = getCitybyRegion();
 
         System.out.println(cr.size());
 
@@ -68,6 +77,13 @@ public class City {
         printCityReport(cContinent);
     }
 
+    public void TopNCitiesbyContinent(){
+        ArrayList<City> topNCities = getTopNCitiesbyContinent(1);
+
+        System.out.println(topNCities.size());
+
+        printCityReport(topNCities);
+    }
 
 
     public ArrayList<City> getCities() {
@@ -102,6 +118,38 @@ public class City {
         }
     }
 
+    public ArrayList<City> getCitiesbyCountry() {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT cy.name, cy.countrycode, cy.district, cy.population "
+                            + "FROM city cy "
+                            + "order by cy.countrycode, cy.population desc";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<City> cities = new ArrayList<>();
+            while (rset.next()) {
+                City cty = new City();
+                cty.name = rset.getString("name");
+                cty.countrycode = rset.getString("countrycode");
+                cty.district = rset.getString("district");
+                cty.population = rset.getInt("population");
+                cities.add(cty);
+            }
+            return cities;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
+            return null;
+        }
+    }
+
     public ArrayList<City> getCitybyContinent(String continent) {
         try {
             Connection con = ra.connect();
@@ -109,9 +157,9 @@ public class City {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT cy.name, cy.countrycode, cy.district, cy.population, cy.continent "
-                            + "FROM city cy "
-                            + "order by cy.population desc";
+                    " SELECT c.name, c.continent, c.population as country cy.countrycode, cy.district "
+                            + "FROM city cy, country c "
+                            + "order by c.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -135,8 +183,7 @@ public class City {
         }
     }
 
-    public ArrayList<City> getCitybyRegion(String region) {
-        //district = "Buenos Aires";
+    public ArrayList<City> getCitybyRegion() {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
@@ -144,23 +191,23 @@ public class City {
             // Create string for SQL statement
             String strSelect =
                     "SELECT cy.name, cy.countrycode, cy.district, cy.population "
-                            + "FROM city cy "
-                            + "WHERE cy.district = '"+region+"' "
-                            + "order by cy.population desc";
+                            + "FROM city cy, country c "
+                            + "WHERE cy.countrycode = c.code "
+                            + "order by c.region, cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<City> cr = new ArrayList<>();
+            ArrayList<City> cities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
                 cty.name = rset.getString("name");
                 cty.countrycode = rset.getString("countrycode");
                 cty.district = rset.getString("district");
                 cty.population = rset.getInt("population");
-                cr.add(cty);
+                cities.add(cty);
             }
-            return cr;
+            return cities;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -297,6 +344,39 @@ public class City {
             return null;
         }
     }
+
+    public ArrayList<City> getTopNCitiesbyContinent(int rank) {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * from (SELECT cy.name, cy.countrycode, cy.district, cy.population, row_number() over (partition by c.continent order by cy.population desc) as cityRank "
+                            + "FROM city cy, country c where cy.countrycode = c.code) ranks "
+                            + "WHERE cityRank <= " + rank;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<City> tpNCities = new ArrayList<>();
+            while (rset.next()) {
+                City cty = new City();
+                cty.name = rset.getString("name");
+                cty.countrycode = rset.getString("countrycode");
+                cty.district = rset.getString("district");
+                cty.population = rset.getInt("population");
+                tpNCities.add(cty);
+            }
+            return tpNCities;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
+            return null;
+        }
+    }
+
 
     public void printCityReport(ArrayList<City> cities) {
         System.out.println(String.format("%-10s %-15s %-15s %-20s", "name", "countrycode", "district", "population"));
