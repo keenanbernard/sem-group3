@@ -21,10 +21,9 @@ public class test{
     }
 
     @Test
-    void printCountriesTestNull()
+    void printCountries()
     {
         ArrayList<Country> countries = new ArrayList<>();
-
         Country ctr = new Country();
         ctr.code = "BZE";
         ctr.name = "Belize";
@@ -34,16 +33,20 @@ public class test{
         ctr.capital = 01;
         countries.add(ctr);
         ctry.printCountries(countries);
-
-
-
-        /*
-        Country ctr = new Country();
-        ctr.allCountries();
-        ArrayList<Country> countries = ctr.getCountry();
-        ctry.printCountries(countries);*/
-
     }
 
+    @Test
+       void printCountriesTestContainsNull()
+    {
+        ArrayList<Country> countries = new ArrayList<>();
+        countries.add(null);
+        ctry.printCountries(countries);
+    }
 
+    @Test
+    void printCountriesTestEmpty()
+    {
+        ArrayList<Country> countries = new ArrayList<>();
+        ctry.printCountries(countries);
+    }
 }

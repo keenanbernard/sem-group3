@@ -152,6 +152,7 @@ public class Country {
       if(countries == null)
       {
          System.out.println("No Data found.");
+         return;
       }
 
       System.out.println(String.format("%-10s %-15s %-15s %-20s %-15s %-15s", "code", "name", "continent", "region", "population", "capital"));
