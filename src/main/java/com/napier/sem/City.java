@@ -379,9 +379,18 @@ public class City {
 
 
     public void printCityReport(ArrayList<City> cities) {
+
+        if(cities == null)
+        {
+            System.out.println("No Data found.");
+            return;
+        }
+
         System.out.println(String.format("%-10s %-15s %-15s %-20s", "name", "countrycode", "district", "population"));
 
         for (City cty : cities) {
+            if (cty == null) continue;
+
             String cty_string =
                     String.format("%-10s %-15s %-15s %-20s",
                             cty.name, cty.countrycode, cty.district, cty.population);

@@ -254,13 +254,22 @@ public class Capital {
     }
 
     public void printCapitalCities(ArrayList<Capital> capitalCities) {
+
+        if(capitalCities == null)
+        {
+            System.out.println("No Data found.");
+            return;
+        }
+
         System.out.println(String.format("%-20s %-20s %-20s %-20s %-20s", "name", "country", "population", "continent", "region"));
 
         for (Capital ccty : capitalCities) {
-            String cty_string =
+            if (ccty == null) continue;
+
+            String ccty_string =
                     String.format("%-20s %-20s %-20s %-20s %-20s",
                             ccty.name, ccty.country, ccty.population, ccty.continent, ccty.region);
-            System.out.println(cty_string);
+            System.out.println(ccty_string);
         }
     }
 }
