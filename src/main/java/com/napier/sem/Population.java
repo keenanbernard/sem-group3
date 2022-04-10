@@ -23,6 +23,14 @@ public class Population {
         printPopulation(populations);
     }
 
+    public void getWorldPopulation() {
+        ArrayList<Population> populations = getWorldsPopulation();
+
+        System.out.println(populations.size());
+
+        printPopulation(populations);
+    }
+
     public void TopNPopulationbyCountry() {
         ArrayList<Population> topNCountry = getTopNPopulationbyCountry(5);
 
@@ -56,12 +64,10 @@ public class Population {
             ArrayList<Population> population = new ArrayList<Population>();
             while (rset.next()) {
                 Population pn = new Population();
-                pn.code = rset.getString("code");
                 pn.name = rset.getString("name");
-                pn.district = rset.getString("district");
-                pn.localName = rset.getString("localName");
                 pn.population = rset.getInt("population");
-                pn.capital = rset.getInt("capital");
+                pn.urban = rset.getString("urban");
+                pn.rural = rset.getString("rural");
                 population.add(pn);
             }
             return population;
@@ -83,7 +89,7 @@ public class Population {
                     "SELECT c.name, c.population, c.name, c.name  "
                             + "FROM country c, city cy "
                             + "WHERE c.code = cy.countrycode "
-                            + "ORDER BY pn.population desc";
+                            + "ORDER BY c.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -93,8 +99,8 @@ public class Population {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getInt("population");
-                pn.urban = rset.getString("urban");
-                pn.rural = rset.getString("rural");
+                pn.urban = rset.getString("name");
+                pn.rural = rset.getString("name");
                 population.add(pn);
             }
             return population;
@@ -125,9 +131,9 @@ public class Population {
             while (rset.next()) {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
-                pn.countrycode = rset.getString("countrycode");
-                pn.district = rset.getString("district");
                 pn.population = rset.getInt("population");
+                pn.urban = rset.getString("urban");
+                pn.rural = rset.getString("rural");
                 tpNCountry.add(pn);
             }
             return tpNCountry;
@@ -157,9 +163,9 @@ public class Population {
             while (rset.next()) {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
-                pn.countrycode = rset.getString("countrycode");
-                pn.district = rset.getString("district");
                 pn.population = rset.getInt("population");
+                pn.urban = rset.getString("urban");
+                pn.rural = rset.getString("rural");
                 tpNDistrict.add(pn);
             }
             return tpNDistrict;
