@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import java.awt.*;
 import java.sql.*;
 import java.util.*;
 
@@ -150,9 +151,18 @@ public class Country {
    }
 
    public void printCountries(ArrayList<Country> countries) {
+
+      if(countries == null)
+      {
+         System.out.println("No Data found.");
+         return;
+      }
+
       System.out.println(String.format("%-10s %-15s %-15s %-20s %-15s %-15s", "code", "name", "continent", "region", "population", "capital"));
 
       for (Country ctr : countries) {
+         if (ctr == null) continue;
+
          String ctr_string =
                  String.format("%-10s %-15s %-15s %-20s %-15s %-15s",
                          ctr.code, ctr.name, ctr.continent, ctr.region, ctr.population, ctr.capital);
