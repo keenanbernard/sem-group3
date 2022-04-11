@@ -31,6 +31,14 @@ public class Population {
         printPopulation(populations);
     }
 
+    public void TopNPopulationbyRegion() {
+        ArrayList<Population> topNRegion = getTopNPopulationbyRegion(5);
+
+        System.out.println(topNRegion.size());
+
+        printPopulation(topNRegion);
+    }
+
     public void TopNPopulationbyCountry() {
         ArrayList<Population> topNCountry = getTopNPopulationbyCountry(5);
 
@@ -108,6 +116,38 @@ public class Population {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get employee details");
+            return null;
+        }
+    }
+
+    public ArrayList<Population> getTopNPopulationbyRegion(int rank) {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * from (SELECT pn.name, pn.countrycode, cy.district, pn.population, row_number() over (partition by pn.region order by pn.population desc) as countryRank "
+                            + "FROM city cy, population pn where pn.countrycode = c.code) ranks "
+                            + "WHERE countryRank <= " + rank;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Population> tpNRegion = new ArrayList<>();
+            while (rset.next()) {
+                Population pn = new Population();
+                pn.name = rset.getString("name");
+                pn.population = rset.getInt("population");
+                pn.urban = rset.getString("urban");
+                pn.rural = rset.getString("rural");
+                tpNRegion.add(pn);
+            }
+            return tpNRegion;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
             return null;
         }
     }
