@@ -23,6 +23,14 @@ public class Population {
         printPopulation(populations);
     }
 
+    public void PopulationbyRegion() {
+        ArrayList<Population> populationbyregion = getPopulation();
+
+        System.out.println(populationbyregion.size());
+
+        printPopulation(populationbyregion);
+    }
+
     public void getWorldPopulation() {
         ArrayList<Population> populations = getWorldsPopulation();
 
@@ -79,6 +87,39 @@ public class Population {
                 population.add(pn);
             }
             return population;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get employee details");
+            return null;
+        }
+    }
+
+    public ArrayList<Population> getPopulationbyRegion() {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT c.name, c.population, c.name, c.name  "
+                            + "FROM country c, city cy "
+                            + "WHERE c.code = cy.countrycode "
+                            + "ORDER BY c.population desc";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Population> populationbyRegion = new ArrayList<>();
+            while (rset.next()) {
+                Population pn = new Population();
+                pn.name = rset.getString("name");
+                pn.population = rset.getInt("population");
+                pn.urban = rset.getString("urban");
+                pn.rural = rset.getString("rural");
+                populationbyRegion.add(pn);
+            }
+            return populationbyRegion;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
