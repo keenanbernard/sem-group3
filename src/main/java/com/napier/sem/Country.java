@@ -24,6 +24,7 @@ public class Country {
 
    ReportingApp ra = new ReportingApp();
 
+
    public void allCountries(){
       ArrayList<Country> countries = getCountry();
 

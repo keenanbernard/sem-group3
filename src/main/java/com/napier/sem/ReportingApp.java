@@ -18,7 +18,7 @@ public class ReportingApp {
 
         //c.countries();
 
-        cy.allCities();
+        c.allCountries();
         // cy.citiesByRegion();
         //cy.TopNCities();
         //cy.TopNCitiesbyRegion();
