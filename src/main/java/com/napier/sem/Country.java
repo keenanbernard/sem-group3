@@ -50,7 +50,8 @@ public class Country {
 
    public ArrayList<Country> getCountry() {
       try {
-         Connection con = ra.connect();
+         Connection con = ra.connect("localhost:33060", 30000);
+         //Connection con = ra.connect();
          // Create an SQL statement
          Statement stmt = con.createStatement();
          // Create string for SQL statement
@@ -84,7 +85,8 @@ public class Country {
 
    public ArrayList<Country> getTopNCountriesbyRegion(int rank) {
       try {
-         Connection con = ra.connect();
+         Connection con = ra.connect("localhost:33060", 30000);
+         //Connection con = ra.connect();
          // Create an SQL statement
          Statement stmt = con.createStatement();
          // Create string for SQL statement
@@ -118,7 +120,8 @@ public class Country {
 
    public ArrayList<Country> getCountrybyRegion() {
       try {
-         Connection con = ra.connect();
+         Connection con = ra.connect("localhost:33060", 30000);
+         //Connection con = ra.connect();
          // Create an SQL statement
          Statement stmt = con.createStatement();
          // Create string for SQL statement

@@ -9,5 +9,7 @@ services:
     build: db/.
     command: --default-authentication-plugin=mysql_native_password
     restart: always
+    ports:
+      - "33060:3306"
     # defined container name to rectify the app's inability to resolve localhost to database link
     container_name: worldDB

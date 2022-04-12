@@ -4,13 +4,13 @@ import java.sql.*;
 
 public class ReportingApp {
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // Create new Application
         ReportingApp a = new ReportingApp();
         Country c = new Country();
         City cy = new City();
         Capital cc = new Capital();
+
         //CityRegion cr = new CityRegion();
 
         /*// Connect to database
@@ -41,7 +41,7 @@ public class ReportingApp {
     // Connection to the MySQL database
     private Connection con = null;
 
-    public Connection connect() {
+    public Connection connect(String location, int delay) {
         try {
             // Load Database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -55,12 +55,13 @@ public class ReportingApp {
             System.out.println("Connecting to database...");
             try {
                 // Wait a bit for db to start
-                Thread.sleep(30000);
+                Thread.sleep(delay);
                 // Connect to database using database container name
-                con = DriverManager.getConnection("jdbc:mysql://worldDB:3306/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://"+location+"/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
+                //db connection worldDB:3306
                 System.out.println("Successfully connected");
                 // Wait a bit
-                Thread.sleep(10000);
+                //Thread.sleep(10000);
                 // Exit for loop
                 break;
             } catch (SQLException sqle) {

@@ -63,7 +63,8 @@ public class Capital {
 
     public ArrayList<Capital> getCapitalCity() {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect("localhost:33060", 30000);
+            //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -94,7 +95,8 @@ public class Capital {
 
     public ArrayList<Capital> capitalCitybyContinent() {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect("localhost:33060", 30000);
+            //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -125,7 +127,8 @@ public class Capital {
 
     public ArrayList<Capital> getTopNCapitalCitiesinContinent(int rank) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect("localhost:33060", 30000);
+            //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -157,7 +160,8 @@ public class Capital {
 
     public ArrayList<Capital> getTopNCapitalCitiesinRegion(int rank) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect("localhost:33060", 30000);
+            //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -190,7 +194,8 @@ public class Capital {
 
     public ArrayList<Capital> getTopNCapitalCitiesinWorld(int rank) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect("localhost:33060", 30000);
+            //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -222,7 +227,8 @@ public class Capital {
 
     public ArrayList<Capital> capitalCitybyRegion() {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect("localhost:33060", 30000);
+            //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement

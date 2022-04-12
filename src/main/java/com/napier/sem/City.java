@@ -88,7 +88,8 @@ public class City {
 
     public ArrayList<City> getCities() {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect("localhost:33060", 30000);
+            //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -120,7 +121,8 @@ public class City {
 
     public ArrayList<City> getCitiesbyCountry() {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect("localhost:33060", 30000);
+            //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -152,7 +154,8 @@ public class City {
 
     public ArrayList<City> getCitybyContinent(String continent) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect("localhost:33060", 30000);
+            //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -185,7 +188,8 @@ public class City {
 
     public ArrayList<City> getCitybyRegion() {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect("localhost:33060", 30000);
+            //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -218,7 +222,8 @@ public class City {
 
     public ArrayList<City> getCitybyDistrict(String district) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect("localhost:33060", 30000);
+            //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -251,7 +256,8 @@ public class City {
 
     public ArrayList<City> getTopNCities(int rank) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect("localhost:33060", 30000);
+            //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -283,7 +289,8 @@ public class City {
 
     public ArrayList<City> getTopNCitiesbyRegion(int rank) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect("localhost:33060", 30000);
+            //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -315,7 +322,8 @@ public class City {
 
     public ArrayList<City> getTopNCitiesbyDistrict(int rank) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect("localhost:33060", 30000);
+            //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -347,7 +355,8 @@ public class City {
 
     public ArrayList<City> getTopNCitiesbyContinent(int rank) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect("localhost:33060", 30000);
+            //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
