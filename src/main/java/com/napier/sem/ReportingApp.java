@@ -11,6 +11,7 @@ public class ReportingApp {
         Country c = new Country();
         City cy = new City();
         Capital cc = new Capital();
+        Population pn = new Population();
         //CityRegion cr = new CityRegion();
 
         /*// Connect to database
@@ -18,7 +19,8 @@ public class ReportingApp {
 
         //c.countries();
 
-        cy.allCities();
+        //cy.allCities();
+        pn.getWorldPopulation();
         // cy.citiesByRegion();
         //cy.TopNCities();
         //cy.TopNCitiesbyRegion();

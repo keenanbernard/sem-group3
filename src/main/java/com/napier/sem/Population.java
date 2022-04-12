@@ -1,5 +1,7 @@
 package com.napier.sem;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -8,9 +10,9 @@ import java.util.ArrayList;
 public class Population {
 
     public String name;
-    public int population;
-    public String urban;
-    public String rural;
+    public BigDecimal population;
+    public BigDecimal urban;
+    public BigDecimal rural;
 
 
     ReportingApp ra = new ReportingApp();
@@ -81,9 +83,9 @@ public class Population {
             while (rset.next()) {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
-                pn.population = rset.getInt("population");
-                pn.urban = rset.getString("urban");
-                pn.rural = rset.getString("rural");
+                pn.population = rset.getBigDecimal("population");
+                pn.urban = rset.getBigDecimal("urban");
+                pn.rural = rset.getBigDecimal("rural");
                 population.add(pn);
             }
             return population;
@@ -114,9 +116,9 @@ public class Population {
             while (rset.next()) {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
-                pn.population = rset.getInt("population");
-                pn.urban = rset.getString("urban");
-                pn.rural = rset.getString("rural");
+                pn.population = rset.getBigDecimal("population");
+                pn.urban = rset.getBigDecimal("urban");
+                pn.rural = rset.getBigDecimal("rural");
                 populationbyRegion.add(pn);
             }
             return populationbyRegion;
@@ -135,10 +137,8 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT c.name, c.population, c.name, c.name  "
-                            + "FROM country c, city cy "
-                            + "WHERE c.code = cy.countrycode "
-                            + "ORDER BY c.population desc";
+                    "SELECT SUM(c.population) as population, ((SELECT SUM(cy.population) FROM city cy)/(SELECT SUM(c.population) FROM country c)) as urban, (((SELECT SUM(c.population) FROM country c)-(SELECT SUM(cy.population) FROM city cy))/(SELECT SUM(c.population) FROM country c)) as rural  "
+                            + "FROM country c ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -146,10 +146,10 @@ public class Population {
             ArrayList<Population> population = new ArrayList<Population>();
             while (rset.next()) {
                 Population pn = new Population();
-                pn.name = rset.getString("name");
-                pn.population = rset.getInt("population");
-                pn.urban = rset.getString("name");
-                pn.rural = rset.getString("name");
+                //pn.name = "World";
+                pn.population = rset.getBigDecimal("population");
+                pn.urban = rset.getBigDecimal("urban");
+                pn.rural = rset.getBigDecimal("rural");
                 population.add(pn);
             }
             return population;
@@ -179,9 +179,9 @@ public class Population {
             while (rset.next()) {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
-                pn.population = rset.getInt("population");
-                pn.urban = rset.getString("urban");
-                pn.rural = rset.getString("rural");
+                pn.population = rset.getBigDecimal("population");
+                pn.urban = rset.getBigDecimal("urban");
+                pn.rural = rset.getBigDecimal("rural");
                 tpNRegion.add(pn);
             }
             return tpNRegion;
@@ -212,9 +212,9 @@ public class Population {
             while (rset.next()) {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
-                pn.population = rset.getInt("population");
-                pn.urban = rset.getString("urban");
-                pn.rural = rset.getString("rural");
+                pn.population = rset.getBigDecimal("population");
+                pn.urban = rset.getBigDecimal("urban");
+                pn.rural = rset.getBigDecimal("rural");
                 tpNCountry.add(pn);
             }
             return tpNCountry;
@@ -244,9 +244,9 @@ public class Population {
             while (rset.next()) {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
-                pn.population = rset.getInt("population");
-                pn.urban = rset.getString("urban");
-                pn.rural = rset.getString("rural");
+                pn.population = rset.getBigDecimal("population");
+                pn.urban = rset.getBigDecimal("urban");
+                pn.rural = rset.getBigDecimal("rural");
                 tpNDistrict.add(pn);
             }
             return tpNDistrict;
@@ -260,12 +260,12 @@ public class Population {
 
 
     public void printPopulation(ArrayList<Population> population) {
-        System.out.println(String.format("%-10s %-15s %-15s %-20s", "name", "population", "urban", "rural"));
+        System.out.println(String.format("%-15s %-15s %-20s", "population", "urban", "rural"));
 
         for (Population pn : population) {
             String pn_string =
-                    String.format("%-10s %-15s %-15s %-20s",
-                            pn.name, pn.population, pn.urban, pn.rural);
+                    String.format("%-15s %-15s %-20s",
+                            pn.population, pn.urban, pn.rural);
             System.out.println(pn_string);
         }
     }
