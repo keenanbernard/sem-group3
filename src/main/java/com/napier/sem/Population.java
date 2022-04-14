@@ -104,28 +104,26 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT c.name, c.population, c.name, c.name  "
-                            + "FROM country c, city cy "
-                            + "WHERE c.code = cy.countrycode "
-                            + "ORDER BY c.population desc";
+                    "SELECT SUM(r.population) as population, ((SELECT SUM(rg.population) FROM region rg)/(SELECT SUM(r.population) FROM region r)) as urban, (((SELECT SUM(c.population) FROM country c)-(SELECT SUM(rg.population) FROM region rg))/(SELECT SUM(r.population) FROM region r)) as rural  "
+                            + "FROM region r ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<Population> populationbyRegion = new ArrayList<>();
+            ArrayList<Population> populationbyregion = new ArrayList<Population>();
             while (rset.next()) {
                 Population pn = new Population();
-                pn.name = rset.getString("name");
+                //pn.name = "World";
                 pn.population = rset.getBigDecimal("population");
                 pn.urban = rset.getBigDecimal("urban");
                 pn.rural = rset.getBigDecimal("rural");
-                populationbyRegion.add(pn);
+                populationbyregion.add(pn);
             }
-            return populationbyRegion;
+            return populationbyregion;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get employee details");
+            System.out.println("Failed to get table details");
             return null;
         }
     }
