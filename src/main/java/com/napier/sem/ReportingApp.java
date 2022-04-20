@@ -17,11 +17,18 @@ public class ReportingApp {
         a.connect();*/
 
         //c.countries();
+        // c.allCountries();
 
-        c.allCountries();
-        // cy.citiesByRegion();
-        //cy.TopNCities();
-        //cy.TopNCitiesbyRegion();
+        cy.citiesbyCountry();
+        /*cy.citiesByRegion();
+        cy.citiesByDistrict();
+        cy.TopNCities();
+        cy.TopNCitiesbyRegion();
+        cy.TopNCitiesbyDistrict();
+        cy.citiesByContinent();
+        cy.TopNCitiesbyContinent();*/
+
+
 
         //cc.capitalCitiesbyContinent();
         //cc.topNCapitalCitiesinContinent();
