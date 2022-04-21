@@ -72,7 +72,7 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT cy.district, c.code, c.name, c.localName, c.population, pn.capital "
+                    "SELECT cy.district, c.code, c.name, c.localName, c.population, c.capital "
                             + "FROM country c, city cy "
                             + "order by c.country desc";
             // Execute SQL statement
