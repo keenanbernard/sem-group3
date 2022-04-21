@@ -104,8 +104,8 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT SUM(r.population) as population, ((SELECT SUM(rg.population) FROM region rg)/(SELECT SUM(r.population) FROM region r)) as urban, (((SELECT SUM(c.population) FROM country c)-(SELECT SUM(rg.population) FROM region rg))/(SELECT SUM(r.population) FROM region r)) as rural  "
-                            + "FROM region r ";
+                    "SELECT SUM(pn.population) as population, ((SELECT SUM(pn.population) FROM population pn)/(SELECT SUM(pn.region) FROM country c)) as urban, (((SELECT SUM(c.population) FROM country c)-(SELECT SUM(pn.population) FROM city cy))/(SELECT SUM(pn.population) FROM region rg)) as rural  "
+                            + "FROM country c ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -135,7 +135,7 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT SUM(c.population) as population, ((SELECT SUM(cy.population) FROM city cy)/(SELECT SUM(c.population) FROM country c)) as urban, (((SELECT SUM(c.population) FROM country c)-(SELECT SUM(cy.population) FROM city cy))/(SELECT SUM(c.population) FROM country c)) as rural  "
+                    "SELECT SUM(c.population) as population, ((SELECT SUM(c.population) FROM city cy)/(SELECT SUM(c.population) FROM country c)) as urban, (((SELECT SUM(c.population) FROM country c)-(SELECT SUM(cy.population) FROM city cy))/(SELECT SUM(c.population) FROM country c)) as rural  "
                             + "FROM country c ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
