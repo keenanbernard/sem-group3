@@ -157,7 +157,7 @@ public class City {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT cy.name, c.continent, cy.population \n" +
+                    " SELECT cy.name, c.continent, cy.population \n" +
                             "FROM city cy, country c \n" +
                             "order by c.population desc";
             // Execute SQL statement
