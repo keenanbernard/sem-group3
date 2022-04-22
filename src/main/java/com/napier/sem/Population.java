@@ -33,8 +33,16 @@ public class Population {
         printPopulation(populationbyregion);
     }
 
-    public void getWorldPopulation() {
+    public void worldsPopulation() {
         ArrayList<Population> populations = getWorldsPopulation();
+
+        System.out.println(populations.size());
+
+        printPopulation(populations);
+    }
+
+    public void populationbyContinent() {
+        ArrayList<Population> populations = getPopulationbyContinent();
 
         System.out.println(populations.size());
 
@@ -149,6 +157,40 @@ public class Population {
             while (rset.next()) {
                 Population pn = new Population();
                 pn.name = "World";
+                pn.population = rset.getBigDecimal("population");
+                pn.urban = rset.getString("urban");
+                pn.rural = rset.getString("rural");
+                population.add(pn);
+            }
+            return population;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get employee details");
+            return null;
+        }
+    }
+
+    public ArrayList<Population> getPopulationbyContinent() {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                   "SELECT c.continent as name,  SUM(distinct c.population) as population, "
+                            + "CONCAT(FORMAT((SUM(cy.population)/SUM(distinct c.population))*100,2),'%') as urban, "
+                            + "CONCAT(FORMAT(((SUM(distinct c.population)-SUM(cy.population))/SUM(distinct c.population))*100,2),'%') as rural  "
+                            + "FROM country c, city cy WHERE c.code = cy.countrycode "
+                            + "GROUP BY c.continent";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Population> population = new ArrayList<Population>();
+            while (rset.next()) {
+                Population pn = new Population();
+                pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
                 pn.urban = rset.getString("urban");
                 pn.rural = rset.getString("rural");
