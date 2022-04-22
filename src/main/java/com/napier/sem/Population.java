@@ -75,6 +75,14 @@ public class Population {
         printPopulation(topNDistrict);
     }
 
+    public void TopNPopulationbyContinent(){
+        ArrayList<Population> topNContinent = getTopNPopulationbyContinent(5);
+
+        System.out.println(topNContinent.size());
+
+        printPopulation(topNContinent);
+    }
+
     public void worldLanguages(){
         ArrayList<Population> worldLanguages = getWorldLanguages();
 
@@ -304,6 +312,39 @@ public class Population {
                 tpNDistrict.add(pn);
             }
             return tpNDistrict;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
+            return null;
+        }
+    }
+
+    public ArrayList<Population> getTopNPopulationbyContinent(int rank) {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT temp.continent, temp.population " +
+                    "FROM (SELECT c.continent, SUM(cy.population) as population, row_number() over (order by SUM(cy.population) desc) as continentRank " +
+                            "FROM country c, city cy " +
+                            "WHERE c.Code = cy.CountryCode " +
+                            "GROUP BY c.Continent) as temp " +
+                    "WHERE continentRank <= " + rank;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Population> tpNContinent = new ArrayList<>();
+            while (rset.next()) {
+                Population pn = new Population();
+                pn.name = rset.getString("continent");
+                pn.population = rset.getBigDecimal("population");
+                tpNContinent.add(pn);
+            }
+            return tpNContinent;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
