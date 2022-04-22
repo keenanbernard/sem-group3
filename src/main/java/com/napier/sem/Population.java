@@ -13,6 +13,8 @@ public class Population {
     public BigDecimal population;
     public String urban;
     public String rural;
+    public String language;
+    public int percentage;
 
 
     ReportingApp ra = new ReportingApp();
@@ -73,6 +75,14 @@ public class Population {
         printPopulation(topNDistrict);
     }
 
+    public void worldLanguages(){
+        ArrayList<Population> worldLanguages = getWorldLanguages();
+
+        System.out.println(worldLanguages.size());
+
+        printPercentage(worldLanguages);
+    }
+
     public ArrayList<Population> getPopulation() {
         try {
             Connection con = ra.connect();
@@ -80,9 +90,9 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT cy.district, pn.code, pn.name, pn.localName, pn.population, pn.capital "
-                            + "FROM population pn, city cy "
-                            + "order by pn.population desc";
+                    "SELECT cy.district, c.code, c.name, c.localName, c.population, c.capital "
+                            + "FROM country c, city cy "
+                            + "order by c.country desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -212,8 +222,8 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT pn.name, pn.countrycode, cy.district, pn.population, row_number() over (partition by pn.region order by pn.population desc) as countryRank "
-                            + "FROM city cy, population pn where pn.countrycode = c.code) ranks "
+                    "SELECT * from (SELECT c.name, cy.countrycode, cy.district, c.population, row_number() over (partition by pn.region order by pn.population desc) as countryRank "
+                            + "FROM city cy, population pn where cy.countrycode = c.code) ranks "
                             + "WHERE countryRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -245,8 +255,8 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT pn.name, pn.countrycode, cy.district, pn.population, row_number() over (partition by pn.region order by pn.population desc) as countryRank "
-                            + "FROM city cy, population pn where pn.countrycode = c.code) ranks "
+                    "SELECT * from (SELECT c.name, c.countrycode, cy.district, c.population, row_number() over (partition by pn.region order by pn.population desc) as countryRank "
+                            + "FROM city cy, population pn where cy.countrycode = c.code) ranks "
                             + "WHERE countryRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -277,9 +287,9 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT pn.name, pn.countrycode, pn.district, pn.population, row_number() over (partition by pn.district order by pn.population desc) as districtRank "
-                            + "FROM population pn) ranks "
-                            + "WHERE districtRank <= " + rank;
+                    "SELECT * from (SELECT cy.name, cy.countrycode, cy.district, cy.population, row_number() over (partition by cy.district order by cy.population desc) as cityRank "
+                            + "FROM city cy) ranks "
+                            + "WHERE cityRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -302,6 +312,40 @@ public class Population {
         }
     }
 
+    public ArrayList<Population> getWorldLanguages() {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT  cl.Language , SUM(c.Population * (cl.Percentage/100)) as population, (SUM(c.Population * (cl.Percentage/100))/(SELECT SUM(c.Population) FROM country c)*100) as percent\n" +
+                            "FROM (SELECT * \n" +
+                            "      FROM countrylanguage as cl\n" +
+                            "      WHERE cl.Language IN (\"Chinese\", \"English\", \"Hindi\", \"Spanish\", \"Arabic\")) as cl, country c \n" +
+                            "WHERE cl.CountryCode = c.Code \n" +
+                            "GROUP BY cl.Language \n" +
+                            "ORDER BY population DESC ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Population> worldLanguage = new ArrayList<>();
+            while (rset.next()) {
+                Population pn = new Population();
+                pn.language = rset.getString("Language");
+                pn.population = rset.getBigDecimal("population");
+                pn.percentage = rset.getInt("percent");
+                worldLanguage.add(pn);
+            }
+            return worldLanguage;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
+            return null;
+        }
+    }
 
     public void printPopulation(ArrayList<Population> population) {
         System.out.println(String.format("%-15s %-15s %-20s %-20s", "name", "population", "urban", "rural"));
@@ -314,6 +358,17 @@ public class Population {
         }
     }
 
+
+    public void printPercentage(ArrayList<Population> popPercentages) {
+        System.out.println(String.format("%-25s %-25s %-15s", "Language", "Population", "Percentage"));
+
+        for (Population pn : popPercentages) {
+            String pn_string =
+                    String.format("%-25s %-25s %-15s ",
+                            pn.language,pn.population, pn.percentage + "%");
+            System.out.println(pn_string);
+        }
+    }
 
 
 
