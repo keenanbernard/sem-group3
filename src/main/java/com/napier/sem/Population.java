@@ -13,6 +13,7 @@ public class Population {
     public BigDecimal population;
     public String urban;
     public String rural;
+    public String district;
     public String language;
     public int percentage;
 
@@ -223,16 +224,16 @@ public class Population {
         }
     }
 
-    public ArrayList<Population> getTopNPopulationbyRegion(int rank) {
+    public ArrayList<Population> getTopNPopulationbyCountry(int rank) {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT c.name, cy.countrycode, cy.district, c.population, row_number() over (partition by pn.region order by pn.population desc) as countryRank "
-                            + "FROM city cy, population pn where cy.countrycode = c.code) ranks "
-                            + "WHERE countryRank <= " + rank;
+                    "SELECT * from (SELECT c.name, cy.countrycode, cy.district, c.population, row_number() over (partition by c.region order by c.population desc) as countryRank \n" +
+                            "FROM city cy, country c where cy.countrycode = c.code)ranks\n" +
+                            "WHERE countryRank <=  " +rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -242,8 +243,7 @@ public class Population {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
-                pn.urban = rset.getString("urban");
-                pn.rural = rset.getString("rural");
+                pn.district = rset.getString("district");
                 tpNRegion.add(pn);
             }
             return tpNRegion;
@@ -256,7 +256,7 @@ public class Population {
     }
 
 
-    public ArrayList<Population> getTopNPopulationbyCountry(int rank) {
+    public ArrayList<Population> getTopNPopulationbyRegion(int rank) {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
@@ -389,12 +389,12 @@ public class Population {
     }
 
     public void printPopulation(ArrayList<Population> population) {
-        System.out.println(String.format("%-15s %-15s %-20s %-20s", "name", "population", "urban", "rural"));
+        System.out.println(String.format("%-15s %-15s %-20s %-20s %-15s", "name", "population", "urban", "rural","district"));
 
         for (Population pn : population) {
             String pn_string =
-                    String.format("%-15s %-15s %-20s %-20s",
-                            pn.name, pn.population, pn.urban, pn.rural);
+                    String.format("%-15s %-15s %-20s %-20s %-15s",
+                            pn.name, pn.population, pn.urban, pn.rural, pn.district);
             System.out.println(pn_string);
         }
     }
