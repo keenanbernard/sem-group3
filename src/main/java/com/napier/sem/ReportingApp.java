@@ -20,7 +20,7 @@ public class ReportingApp {
         //c.countries();
 
         //cy.allCities();
-        pn.getWorldPopulation();
+        pn.getWorldsPopulation();
         // cy.citiesByRegion();
         //cy.TopNCities();
         //cy.TopNCitiesbyRegion();
