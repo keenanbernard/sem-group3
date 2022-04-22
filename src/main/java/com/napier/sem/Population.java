@@ -82,9 +82,9 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT cy.district, pn.code, pn.name, pn.localName, pn.population, pn.capital "
-                            + "FROM population pn, city cy "
-                            + "order by pn.population desc";
+                    "SELECT cy.district, c.code, c.name, c.localName, c.population, c.capital "
+                            + "FROM country c, city cy "
+                            + "order by c.country desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -180,8 +180,8 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT pn.name, pn.countrycode, cy.district, pn.population, row_number() over (partition by pn.region order by pn.population desc) as countryRank "
-                            + "FROM city cy, population pn where pn.countrycode = c.code) ranks "
+                    "SELECT * from (SELECT c.name, cy.countrycode, cy.district, c.population, row_number() over (partition by pn.region order by pn.population desc) as countryRank "
+                            + "FROM city cy, population pn where cy.countrycode = c.code) ranks "
                             + "WHERE countryRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -213,8 +213,8 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT pn.name, pn.countrycode, cy.district, pn.population, row_number() over (partition by pn.region order by pn.population desc) as countryRank "
-                            + "FROM city cy, population pn where pn.countrycode = c.code) ranks "
+                    "SELECT * from (SELECT c.name, c.countrycode, cy.district, c.population, row_number() over (partition by pn.region order by pn.population desc) as countryRank "
+                            + "FROM city cy, population pn where cy.countrycode = c.code) ranks "
                             + "WHERE countryRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -245,9 +245,9 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT pn.name, pn.countrycode, pn.district, pn.population, row_number() over (partition by pn.district order by pn.population desc) as districtRank "
-                            + "FROM population pn) ranks "
-                            + "WHERE districtRank <= " + rank;
+                    "SELECT * from (SELECT cy.name, cy.countrycode, cy.district, cy.population, row_number() over (partition by cy.district order by cy.population desc) as cityRank "
+                            + "FROM city cy) ranks "
+                            + "WHERE cityRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
