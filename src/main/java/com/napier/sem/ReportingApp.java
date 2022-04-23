@@ -20,14 +20,17 @@ public class ReportingApp {
         //c.countries();
 
         //cy.allCities();
-        pn.getWorldPopulation();
-        // cy.citiesByRegion();
+        //cy.citiesByRegion();
         //cy.TopNCities();
         //cy.TopNCitiesbyRegion();
 
         //cc.capitalCitiesbyContinent();
         //cc.topNCapitalCitiesinContinent();
         //cc.topNCapitalCitiesinWorld();
+
+        //pn.getWorldPopulation();
+        //pn.worldLanguages();
+        pn.TopNPopulationbyContinent();
 
         /*  // Get Country
         ArrayList<Country> countries = a.getCountry();

@@ -11,8 +11,11 @@ public class Population {
 
     public String name;
     public BigDecimal population;
-    public BigDecimal urban;
-    public BigDecimal rural;
+    public String urban;
+    public String rural;
+    public String district;
+    public String language;
+    public int percentage;
 
 
     ReportingApp ra = new ReportingApp();
@@ -33,8 +36,16 @@ public class Population {
         printPopulation(populationbyregion);
     }
 
-    public void getWorldPopulation() {
+    public void worldsPopulation() {
         ArrayList<Population> populations = getWorldsPopulation();
+
+        System.out.println(populations.size());
+
+        printPopulation(populations);
+    }
+
+    public void populationbyContinent() {
+        ArrayList<Population> populations = getPopulationbyContinent();
 
         System.out.println(populations.size());
 
@@ -65,6 +76,22 @@ public class Population {
         printPopulation(topNDistrict);
     }
 
+    public void TopNPopulationbyContinent(){
+        ArrayList<Population> topNContinent = getTopNPopulationbyContinent(5);
+
+        System.out.println(topNContinent.size());
+
+        printPopulation(topNContinent);
+    }
+
+    public void worldLanguages(){
+        ArrayList<Population> worldLanguages = getWorldLanguages();
+
+        System.out.println(worldLanguages.size());
+
+        printPercentage(worldLanguages);
+    }
+
     public ArrayList<Population> getPopulation() {
         try {
             Connection con = ra.connect();
@@ -72,9 +99,9 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT cy.district, pn.code, pn.name, pn.localName, pn.population, pn.capital "
-                            + "FROM population pn, city cy "
-                            + "order by pn.population desc";
+                    "SELECT cy.district, c.code, c.name, c.localName, c.population, c.capital "
+                            + "FROM country c, city cy "
+                            + "order by c.country desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -84,8 +111,8 @@ public class Population {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
-                pn.urban = rset.getBigDecimal("urban");
-                pn.rural = rset.getBigDecimal("rural");
+                pn.urban = rset.getString("urban");
+                pn.rural = rset.getString("rural");
                 population.add(pn);
             }
             return population;
@@ -104,26 +131,28 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT SUM(pn.population) as population, ((SELECT SUM(pn.population) FROM population pn)/(SELECT SUM(pn.region) FROM country c)) as urban, (((SELECT SUM(c.population) FROM country c)-(SELECT SUM(pn.population) FROM city cy))/(SELECT SUM(pn.population) FROM region rg)) as rural  "
-                            + "FROM country c ";
+                    "SELECT c.name, c.population, c.name, c.name  "
+                            + "FROM country c, city cy "
+                            + "WHERE c.code = cy.countrycode "
+                            + "ORDER BY c.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<Population> populationbyregion = new ArrayList<Population>();
+            ArrayList<Population> populationbyRegion = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
-                //pn.name = "World";
+                pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
-                pn.urban = rset.getBigDecimal("urban");
-                pn.rural = rset.getBigDecimal("rural");
-                populationbyregion.add(pn);
+                pn.urban = rset.getString("urban");
+                pn.rural = rset.getString("rural");
+                populationbyRegion.add(pn);
             }
-            return populationbyregion;
+            return populationbyRegion;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get table details");
+            System.out.println("Failed to get employee details");
             return null;
         }
     }
@@ -135,7 +164,9 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT SUM(c.population) as population, ((SELECT SUM(c.population) FROM city cy)/(SELECT SUM(c.population) FROM country c)) as urban, (((SELECT SUM(c.population) FROM country c)-(SELECT SUM(cy.population) FROM city cy))/(SELECT SUM(c.population) FROM country c)) as rural  "
+                    "SELECT '',  SUM(c.population) as population, "
+                            + "CONCAT(FORMAT(((SELECT SUM(cy.population) FROM city cy)/(SELECT SUM(c.population) FROM country c))*100,2),'%') as urban, "
+                            + "CONCAT(FORMAT((((SELECT SUM(c.population) FROM country c)-(SELECT SUM(cy.population) FROM city cy))/(SELECT SUM(c.population) FROM country c))*100,2),'%') as rural  "
                             + "FROM country c ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -144,10 +175,10 @@ public class Population {
             ArrayList<Population> population = new ArrayList<Population>();
             while (rset.next()) {
                 Population pn = new Population();
-                //pn.name = "World";
+                pn.name = "World";
                 pn.population = rset.getBigDecimal("population");
-                pn.urban = rset.getBigDecimal("urban");
-                pn.rural = rset.getBigDecimal("rural");
+                pn.urban = rset.getString("urban");
+                pn.rural = rset.getString("rural");
                 population.add(pn);
             }
             return population;
@@ -159,16 +190,50 @@ public class Population {
         }
     }
 
-    public ArrayList<Population> getTopNPopulationbyRegion(int rank) {
+    public ArrayList<Population> getPopulationbyContinent() {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT pn.name, pn.countrycode, cy.district, pn.population, row_number() over (partition by pn.region order by pn.population desc) as countryRank "
-                            + "FROM city cy, population pn where pn.countrycode = c.code) ranks "
-                            + "WHERE countryRank <= " + rank;
+                   "SELECT c.continent as name,  SUM(distinct c.population) as population, "
+                            + "CONCAT(FORMAT((SUM(cy.population)/SUM(distinct c.population))*100,2),'%') as urban, "
+                            + "CONCAT(FORMAT(((SUM(distinct c.population)-SUM(cy.population))/SUM(distinct c.population))*100,2),'%') as rural  "
+                            + "FROM country c, city cy WHERE c.code = cy.countrycode "
+                            + "GROUP BY c.continent";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Population> population = new ArrayList<Population>();
+            while (rset.next()) {
+                Population pn = new Population();
+                pn.name = rset.getString("name");
+                pn.population = rset.getBigDecimal("population");
+                pn.urban = rset.getString("urban");
+                pn.rural = rset.getString("rural");
+                population.add(pn);
+            }
+            return population;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get employee details");
+            return null;
+        }
+    }
+
+    public ArrayList<Population> getTopNPopulationbyCountry(int rank) {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * from (SELECT c.name, cy.countrycode, cy.district, c.population, row_number() over (partition by c.region order by c.population desc) as countryRank \n" +
+                            "FROM city cy, country c where cy.countrycode = c.code)ranks\n" +
+                            "WHERE countryRank <=  " +rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -178,8 +243,7 @@ public class Population {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
-                pn.urban = rset.getBigDecimal("urban");
-                pn.rural = rset.getBigDecimal("rural");
+                pn.district = rset.getString("district");
                 tpNRegion.add(pn);
             }
             return tpNRegion;
@@ -192,15 +256,15 @@ public class Population {
     }
 
 
-    public ArrayList<Population> getTopNPopulationbyCountry(int rank) {
+    public ArrayList<Population> getTopNPopulationbyRegion(int rank) {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT pn.name, pn.countrycode, cy.district, pn.population, row_number() over (partition by pn.region order by pn.population desc) as countryRank "
-                            + "FROM city cy, population pn where pn.countrycode = c.code) ranks "
+                    "SELECT * from (SELECT c.name, c.countrycode, cy.district, c.population, row_number() over (partition by c.region order by c.population desc) as countryRank "
+                            + "FROM city cy, country c where cy.countrycode = c.code) ranks "
                             + "WHERE countryRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -211,8 +275,8 @@ public class Population {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
-                pn.urban = rset.getBigDecimal("urban");
-                pn.rural = rset.getBigDecimal("rural");
+                pn.urban = rset.getString("urban");
+                pn.rural = rset.getString("rural");
                 tpNCountry.add(pn);
             }
             return tpNCountry;
@@ -231,9 +295,9 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT pn.name, pn.countrycode, pn.district, pn.population, row_number() over (partition by pn.district order by pn.population desc) as districtRank "
-                            + "FROM population pn) ranks "
-                            + "WHERE districtRank <= " + rank;
+                    "SELECT * from (SELECT c.name, cy.countrycode ,cy.district, c.population, row_number() over (partition by c.region order by c.population desc) as countryRank \n" +
+                            "FROM city cy, country c where cy.countrycode = c.code) ranks\n" +
+                            "WHERE countryRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -243,8 +307,7 @@ public class Population {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
-                pn.urban = rset.getBigDecimal("urban");
-                pn.rural = rset.getBigDecimal("rural");
+                pn.district = rset.getString("district");
                 tpNDistrict.add(pn);
             }
             return tpNDistrict;
@@ -256,18 +319,96 @@ public class Population {
         }
     }
 
+    public ArrayList<Population> getTopNPopulationbyContinent(int rank) {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT temp.continent, temp.population " +
+                    "FROM (SELECT c.continent, SUM(cy.population) as population, row_number() over (order by SUM(cy.population) desc) as continentRank " +
+                            "FROM country c, city cy " +
+                            "WHERE c.Code = cy.CountryCode " +
+                            "GROUP BY c.Continent) as temp " +
+                    "WHERE continentRank <= " + rank;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Population> tpNContinent = new ArrayList<>();
+            while (rset.next()) {
+                Population pn = new Population();
+                pn.name = rset.getString("continent");
+                pn.population = rset.getBigDecimal("population");
+                tpNContinent.add(pn);
+            }
+            return tpNContinent;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
+            return null;
+        }
+    }
+
+    public ArrayList<Population> getWorldLanguages() {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT  cl.Language , SUM(c.Population * (cl.Percentage/100)) as population, (SUM(c.Population * (cl.Percentage/100))/(SELECT SUM(c.Population) FROM country c)*100) as percent\n" +
+                            "FROM (SELECT * \n" +
+                            "      FROM countrylanguage as cl\n" +
+                            "      WHERE cl.Language IN (\"Chinese\", \"English\", \"Hindi\", \"Spanish\", \"Arabic\")) as cl, country c \n" +
+                            "WHERE cl.CountryCode = c.Code \n" +
+                            "GROUP BY cl.Language \n" +
+                            "ORDER BY population DESC ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Population> worldLanguage = new ArrayList<>();
+            while (rset.next()) {
+                Population pn = new Population();
+                pn.language = rset.getString("Language");
+                pn.population = rset.getBigDecimal("population");
+                pn.percentage = rset.getInt("percent");
+                worldLanguage.add(pn);
+            }
+            return worldLanguage;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
+            return null;
+        }
+    }
 
     public void printPopulation(ArrayList<Population> population) {
-        System.out.println(String.format("%-15s %-15s %-20s", "population", "urban", "rural"));
+        System.out.println(String.format("%-15s %-15s %-20s %-20s %-15s", "name", "population", "urban", "rural","district"));
 
         for (Population pn : population) {
             String pn_string =
-                    String.format("%-15s %-15s %-20s",
-                            pn.population, pn.urban, pn.rural);
+                    String.format("%-15s %-15s %-20s %-20s %-15s",
+                            pn.name, pn.population, pn.urban, pn.rural, pn.district);
             System.out.println(pn_string);
         }
     }
 
+
+    public void printPercentage(ArrayList<Population> popPercentages) {
+        System.out.println(String.format("%-25s %-25s %-15s", "Language", "Population", "Percentage"));
+
+        for (Population pn : popPercentages) {
+            String pn_string =
+                    String.format("%-25s %-25s %-15s ",
+                            pn.language,pn.population, pn.percentage + "%");
+            System.out.println(pn_string);
+        }
+    }
 
 
 
