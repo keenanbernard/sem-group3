@@ -29,11 +29,11 @@ public class Population {
     }
 
     public void PopulationbyRegion() {
-        ArrayList<Population> populationbyregion = getPopulation();
+        ArrayList<Population> populations = getPopulationbyRegion();
 
-        System.out.println(populationbyregion.size());
+        System.out.println(populations.size());
 
-        printPopulation(populationbyregion);
+        printPopulation(populations);
     }
 
     public void worldsPopulation() {
@@ -131,10 +131,10 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT c.name, c.population, c.name, c.name  "
-                            + "FROM country c, city cy "
-                            + "WHERE c.code = cy.countrycode "
-                            + "ORDER BY c.population desc";
+                    "SELECT c.region as name,  SUM(distinct c.population) as population, "
+                            + "CONCAT(FORMAT((SUM(cy.population)/SUM(distinct c.population))*100,2),'%') as urban, "
+                            + "CONCAT(FORMAT(((SUM(distinct c.population)-SUM(cy.population))/SUM(distinct c.population))*100,2),'%') as rural "
+                            + "GROUP BY c.region";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
