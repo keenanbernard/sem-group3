@@ -11,7 +11,6 @@ public class ReportingApp {
         Country c = new Country();
         City cy = new City();
         Capital cc = new Capital();
-        //CityRegion cr = new CityRegion();
 
         /*// Connect to database
         a.connect();*/
