@@ -17,7 +17,7 @@ public class Population {
     public BigDecimal rural;
     public String district;
     public String language;
-    public int percentage;
+    public String percentage;
 
 
     ReportingApp ra = new ReportingApp();
@@ -376,7 +376,7 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT  cl.Language , SUM(c.Population * (cl.Percentage/100)) as population, (SUM(c.Population * (cl.Percentage/100))/(SELECT SUM(c.Population) FROM country c)*100) as percent\n" +
+                    "SELECT  cl.Language , SUM(c.Population * (cl.Percentage/100)) as population, CONCAT(FORMAT((SUM(c.Population * (cl.Percentage/100))/(SELECT SUM(c.Population) FROM country c)*100), 2), '%') as percent\n" +
                             "FROM (SELECT * \n" +
                             "      FROM countrylanguage as cl\n" +
                             "      WHERE cl.Language IN (\"Chinese\", \"English\", \"Hindi\", \"Spanish\", \"Arabic\")) as cl, country c \n" +
@@ -392,7 +392,7 @@ public class Population {
                 Population pn = new Population();
                 pn.language = rset.getString("Language");
                 pn.population = rset.getBigDecimal("population");
-                pn.percentage = rset.getInt("percent");
+                pn.percentage = rset.getString("percent");
                 worldLanguage.add(pn);
             }
             return worldLanguage;
@@ -422,7 +422,7 @@ public class Population {
         for (Population pn : popPercentages) {
             String pn_string =
                     String.format("%-25s %-25s %-15s ",
-                            pn.language,pn.population, pn.percentage + "%");
+                            pn.language,pn.population, pn.percentage);
             System.out.println(pn_string);
         }
     }

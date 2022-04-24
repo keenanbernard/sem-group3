@@ -29,9 +29,9 @@ public class ReportingApp {
         //cc.topNCapitalCitiesinWorld();
 
         //pn.getWorldPopulation();
-        //pn.worldLanguages();
-        pn.worldsPopulation();
-        pn.getPopulationbyContinent();
+        pn.worldLanguages();
+        //pn.worldsPopulation();
+        //pn.populationbyContinent();
 
         /*  // Get Country
         ArrayList<Country> countries = a.getCountry();
