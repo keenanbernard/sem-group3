@@ -310,7 +310,7 @@ public class Population {
             // Create string for SQL statement
             String strSelect =
                     " SELECT District, SUM(Population) FROM city\n" +
-                            "WHERE District = 'New York' GROUP BY District";
+                            "WHERE District = 'San Juan' GROUP BY District";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
