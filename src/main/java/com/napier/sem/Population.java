@@ -284,7 +284,8 @@ public class Population {
                             + "CONCAT(FORMAT((SUM(cy.population)/SUM(distinct c.population))*100,2),'%') as 'urban(%)', "
                             + "(SUM(distinct c.population)-SUM(cy.population)) as rural, "
                             + "CONCAT(FORMAT(((SUM(distinct c.population)-SUM(cy.population))/SUM(distinct c.population))*100,2),'%') as 'rural(%)'  "
-                            + "FROM country c, city cy WHERE c.code = cy.countrycode AND c.Continent = '"+reg+"' ";
+                            + "FROM country c, city cy WHERE c.code = cy.countrycode AND c.Continent = '"+reg+"' "
+                            + "GROUP BY c.region";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
