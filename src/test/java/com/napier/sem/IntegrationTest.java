@@ -3,10 +3,9 @@ package com.napier.sem;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-public class CountryTest {
+public class IntegrationTest {
 
     static Country ctry;
 
@@ -17,7 +16,7 @@ public class CountryTest {
     }
 
     @Test
-    void printCountries()
+    void testGetCountries()
     {
         ArrayList<Country> countries = new ArrayList<>();
         Country ctr = new Country();
@@ -28,21 +27,13 @@ public class CountryTest {
         ctr.population = 241000;
         ctr.capital = 185;
         countries.add(ctr);
-        ctry.printCountryReport(countries);
+
+        assertEquals(ctr.code, "BLZ");
+        assertEquals(ctr.name, "Belize");
+        assertEquals(ctr.continent, "North America");
+        assertEquals(ctr.region, "Central America");
+        assertEquals(ctr.population, 241000);
+        assertEquals(ctr.capital, 185);
     }
 
-    @Test
-       void printCountriesTestContainsNull()
-    {
-        ArrayList<Country> countries = new ArrayList<>();
-        countries.add(null);
-        ctry.printCountryReport(countries);
-    }
-
-    @Test
-    void printCountriesTestEmpty()
-    {
-        ArrayList<Country> countries = new ArrayList<>();
-        ctry.printCountryReport(countries);
-    }
 }
