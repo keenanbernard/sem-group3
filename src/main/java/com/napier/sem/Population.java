@@ -62,12 +62,12 @@ public class Population {
         printPopulation(populations);
     }
 
-    public void TopNPopulationbyCountry() {
-        ArrayList<Population> topNCountry = getPopulationofaCountry(5);
+    public void populationofaCountry(String country) {
+        ArrayList<Population> populations = getPopulationofaCountry(country);
 
-        System.out.println(topNCountry.size());
+        System.out.println(populations.size());
 
-        printPopulation(topNCountry);
+        printPopulation(populations);
     }
 
     public void populationofaDistrict(String district){
@@ -249,32 +249,40 @@ public class Population {
         }
     }
 
-    public ArrayList<Population> getPopulationofaCountry(int rank) {
+    public ArrayList<Population> getPopulationofaCountry(String country) {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT name, SUM(Population) FROM country\n" +
-                            "WHERE name = 'United States' GROUP BY name";
+                    "SELECT c.name as name,  SUM(distinct c.population) as population, "
+                            + "SUM(cy.population) as urban, "
+                            + "CONCAT(FORMAT((SUM(cy.population)/SUM(distinct c.population))*100,2),'%') as 'urban(%)', "
+                            + "(SUM(distinct c.population)-SUM(cy.population)) as rural, "
+                            + "CONCAT(FORMAT(((SUM(distinct c.population)-SUM(cy.population))/SUM(distinct c.population))*100,2),'%') as 'rural(%)'  "
+                            + "FROM country c, city cy WHERE c.code = cy.countrycode AND c.name = '"+country+"' "
+                            + "GROUP BY c.name";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<Population> tpNRegion = new ArrayList<>();
+            ArrayList<Population> populationbyRegion = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
-                pn.district = rset.getString("district");
-                tpNRegion.add(pn);
+                pn.urban = rset.getBigDecimal("urban");
+                pn.urbanPercent = rset.getString("urban(%)");
+                pn.rural = rset.getBigDecimal("rural");
+                pn.ruralPercent = rset.getString("rural(%)");
+                populationbyRegion.add(pn);
             }
-            return tpNRegion;
+            return populationbyRegion;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get table details");
+            System.out.println("Failed to get employee details");
             return null;
         }
     }
@@ -292,7 +300,7 @@ public class Population {
                             + "CONCAT(FORMAT((SUM(cy.population)/SUM(distinct c.population))*100,2),'%') as 'urban(%)', "
                             + "(SUM(distinct c.population)-SUM(cy.population)) as rural, "
                             + "CONCAT(FORMAT(((SUM(distinct c.population)-SUM(cy.population))/SUM(distinct c.population))*100,2),'%') as 'rural(%)'  "
-                            + "FROM country c, city cy WHERE c.code = cy.countrycode AND c.Continent = '"+reg+"' "
+                            + "FROM country c, city cy WHERE c.code = cy.countrycode AND c.region = '"+reg+"' "
                             + "GROUP BY c.region";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
