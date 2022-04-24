@@ -16,23 +16,7 @@ public class ReportingApp {
         /*// Connect to database
         a.connect();*/
 
-        //c.countries();
-        // c.allCountries();
-
-        cy.citiesbyCountry();
-        /*cy.citiesByRegion();
-        cy.citiesByDistrict();
-        cy.TopNCities();
-        cy.TopNCitiesbyRegion();
-        cy.TopNCitiesbyDistrict();
-        cy.citiesByContinent();
-        cy.TopNCitiesbyContinent();*/
-
-
-
-        //cc.capitalCitiesbyContinent();
-        //cc.topNCapitalCitiesinContinent();
-        //cc.topNCapitalCitiesinWorld();
+        c.TopNCountriesbyContinent();
 
         /*  // Get Country
         ArrayList<Country> countries = a.getCountry();
@@ -40,7 +24,6 @@ public class ReportingApp {
         System.out.println(countries.size());
 
         a.printCountries(countries);*/
-
         // Disconnect from database
         a.disconnect();
     }

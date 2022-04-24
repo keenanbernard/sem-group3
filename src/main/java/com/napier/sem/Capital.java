@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.*;
 
 public class Capital {
-    public int id;
+
     public String name;
     public String country;
     public String continent;
@@ -28,6 +28,7 @@ public class Capital {
 
         printCapitalCities(capitalCities);
     }
+
     public void capitalCitiesbyRegion(){
         ArrayList<Capital> capitalCitiesregion = capitalCitybyRegion();
 
@@ -36,6 +37,13 @@ public class Capital {
         printCapitalCities(capitalCitiesregion);
     }
 
+    public void topNCapitalCitiesinWorld(){
+        ArrayList<Capital> topCapitalCitiesinWorld = getTopNCapitalCitiesinWorld(10);
+
+        System.out.println(topCapitalCitiesinWorld.size());
+
+        printCapitalCities(topCapitalCitiesinWorld);
+    }
 
     public void topNCapitalCitiesinContinent(){
         ArrayList<Capital> topCapitalCitiesinContinent = getTopNCapitalCitiesinContinent(5);
@@ -51,14 +59,6 @@ public class Capital {
         System.out.println(topCapitalCitiesinRegion.size());
 
         printCapitalCities(topCapitalCitiesinRegion);
-    }
-
-    public void topNCapitalCitiesinWorld(){
-        ArrayList<Capital> topCapitalCitiesinWorld = getTopNCapitalCitiesinWorld(10);
-
-        System.out.println(topCapitalCitiesinWorld.size());
-
-        printCapitalCities(topCapitalCitiesinWorld);
     }
 
     public ArrayList<Capital> getCapitalCity() {
@@ -99,9 +99,40 @@ public class Capital {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT cy.name, c.name as country, cy.population, c.continent "
+                    "SELECT cy.name, c.name as country, cy.population"
                             + "FROM city cy, country c WHERE cy.id = c.capital "
                             + "order by c.continent, cy.population desc";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Capital> capitalCities = new ArrayList<>();
+            while (rset.next()) {
+                Capital ccty = new Capital();
+                ccty.name = rset.getString("name");
+                ccty.country = rset.getString("country");
+                ccty.population = rset.getInt("population");
+                capitalCities.add(ccty);
+            }
+            return capitalCities;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get employee details");
+            return null;
+        }
+    }
+
+    public ArrayList<Capital> capitalCitybyRegion() {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT cy.name, c.name as country, cy.population "
+                            + "FROM city cy, country c WHERE cy.id = c.capital "
+                            + "order by c.region, cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -220,39 +251,6 @@ public class Capital {
         }
     }
 
-    public ArrayList<Capital> capitalCitybyRegion() {
-        try {
-            Connection con = ra.connect();
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT cy.name, c.name as country, cy.population, c.region "
-                            + "FROM city cy, country c WHERE cy.id = c.capital "
-                            + "order by c.region, cy.population desc";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
-            ArrayList<Capital> capitalCities = new ArrayList<>();
-            while (rset.next()) {
-                Capital ccty = new Capital();
-                ccty.name = rset.getString("name");
-                ccty.country = rset.getString("country");
-                ccty.population = rset.getInt("population");
-                ccty.continent = rset.getString("continent");
-                ccty.region = rset.getString("region");
-                capitalCities.add(ccty);
-            }
-            return capitalCities;
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get employee details");
-            return null;
-        }
-    }
-
     public void printCapitalCities(ArrayList<Capital> capitalCities) {
 
         if(capitalCities == null)
@@ -261,14 +259,14 @@ public class Capital {
             return;
         }
 
-        System.out.println(String.format("%-20s %-20s %-20s %-20s %-20s", "name", "country", "population", "continent", "region"));
+        System.out.println(String.format("%-20s %-20s %-20s", "name", "country", "population"));
 
         for (Capital ccty : capitalCities) {
             if (ccty == null) continue;
 
             String ccty_string =
-                    String.format("%-20s %-20s %-20s %-20s %-20s",
-                            ccty.name, ccty.country, ccty.population, ccty.continent, ccty.region);
+                    String.format("%-20s %-20s %-20s",
+                            ccty.name, ccty.country, ccty.population);
             System.out.println(ccty_string);
         }
     }

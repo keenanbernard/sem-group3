@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.*;
 
 public class City {
-    public int id;
+
     public String name;
     public String countrycode;
     public String district;
@@ -21,12 +21,12 @@ public class City {
         printCityReport(cities);
     }
 
-    public void citiesbyCountry(){
-        ArrayList<City> cc = getCitiesbyCountry();
+    public void citiesByContinent(){
+        ArrayList<City> cContinent = getCitybyContinent();
 
-        System.out.println(cc.size());
+        System.out.println(cContinent.size());
 
-        printCityReport(cc);
+        printCityReport(cContinent);
     }
 
     public void citiesByRegion(){
@@ -37,8 +37,16 @@ public class City {
         printCityReport(cr);
     }
 
+    public void citiesbyCountry(){
+        ArrayList<City> cc = getCitiesbyCountry();
+
+        System.out.println(cc.size());
+
+        printCityReport(cc);
+    }
+
     public void citiesByDistrict(){
-        ArrayList<City> dCities = getCitybyDistrict("Flevoland");
+        ArrayList<City> dCities = getCitybyDistrict();
 
         System.out.println(dCities.size());
 
@@ -67,14 +75,6 @@ public class City {
         System.out.println(topNCities.size());
 
         printCityReport(topNCities);
-    }
-
-    public void citiesByContinent(){
-        ArrayList<City> cContinent = getCitybyContinent("Asia");
-
-        System.out.println(cContinent.size());
-
-        printCityReport(cContinent);
     }
 
     public void TopNCitiesbyContinent(){
@@ -150,16 +150,17 @@ public class City {
         }
     }
 
-    public ArrayList<City> getCitybyContinent(String continent) {
+    public ArrayList<City> getCitybyContinent() {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    " SELECT c.name, c.continent, c.population as country cy.countrycode, cy.district "
+                    " SELECT cy.name, cy.countrycode, cy.district, cy.population "
                             + "FROM city cy, country c "
-                            + "order by c.population desc";
+                            + "WHERE cy.countrycode = c.code "
+                            + "order by c.continent, cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -216,7 +217,7 @@ public class City {
         }
     }
 
-    public ArrayList<City> getCitybyDistrict(String district) {
+    public ArrayList<City> getCitybyDistrict() {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
@@ -225,7 +226,6 @@ public class City {
             String strSelect =
                     "SELECT cy.name, cy.countrycode, cy.district, cy.population "
                             + "FROM city cy "
-                            + "WHERE cy.district != ' ' "
                             + "order by cy.district, cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -290,6 +290,38 @@ public class City {
             String strSelect =
                     "SELECT * from (SELECT cy.name, cy.countrycode, cy.district, cy.population, row_number() over (partition by c.region order by cy.population desc) as cityRank "
                             + "FROM city cy, country c where cy.countrycode = c.code) ranks "
+                            + "WHERE cityRank <= " + rank;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<City> tpNCities = new ArrayList<>();
+            while (rset.next()) {
+                City cty = new City();
+                cty.name = rset.getString("name");
+                cty.countrycode = rset.getString("countrycode");
+                cty.district = rset.getString("district");
+                cty.population = rset.getInt("population");
+                tpNCities.add(cty);
+            }
+            return tpNCities;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
+            return null;
+        }
+    }
+
+    public ArrayList<City> getTopNCitiesbyCountry(int rank) {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * from (SELECT cy.name, cy.countrycode, cy.district, cy.population, row_number() over (partition by cy.country order by cy.population desc) as cityRank "
+                            + "FROM city cy) ranks "
                             + "WHERE cityRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
