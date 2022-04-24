@@ -54,8 +54,8 @@ public class Population {
         printPopulation(populations);
     }
 
-    public void PopulationofaRegion() {
-        ArrayList<Population> populations = getPopulationofaRegion(5);
+    public void PopulationofaRegion(String reg) {
+        ArrayList<Population> populations = getPopulationofaRegion(reg);
 
         System.out.println(populations.size());
 
@@ -272,15 +272,19 @@ public class Population {
     }
 
 
-    public ArrayList<Population> getPopulationofaRegion(int rank) {
+    public ArrayList<Population> getPopulationofaRegion(String reg) {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    " SELECT name, SUM(Population) FROM region\n" +
-                            "WHERE name = 'United States' GROUP BY name";
+                    "SELECT c.region as name,  SUM(distinct c.population) as population, "
+                            + "SUM(cy.population) as urban, "
+                            + "CONCAT(FORMAT((SUM(cy.population)/SUM(distinct c.population))*100,2),'%') as 'urban(%)', "
+                            + "(SUM(distinct c.population)-SUM(cy.population)) as rural, "
+                            + "CONCAT(FORMAT(((SUM(distinct c.population)-SUM(cy.population))/SUM(distinct c.population))*100,2),'%') as 'rural(%)'  "
+                            + "FROM country c, city cy WHERE c.code = cy.countrycode AND c.Continent = '"+reg+"' ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -290,7 +294,10 @@ public class Population {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
-                pn.district = rset.getString("district");
+                pn.urban = rset.getBigDecimal("urban");
+                pn.urbanPercent = rset.getString("urban(%)");
+                pn.rural = rset.getBigDecimal("rural");
+                pn.ruralPercent = rset.getString("rural(%)");
                 PopulationsofaRegion.add(pn);
             }
             return PopulationsofaRegion;
