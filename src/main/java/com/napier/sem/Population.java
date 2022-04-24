@@ -11,8 +11,10 @@ public class Population {
 
     public String name;
     public BigDecimal population;
-    public String urban;
-    public String rural;
+    public String urbanPercent;
+    public BigDecimal urban;
+    public String ruralPercent;
+    public BigDecimal rural;
     public String district;
     public String language;
     public int percentage;
@@ -111,8 +113,10 @@ public class Population {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
-                pn.urban = rset.getString("urban");
-                pn.rural = rset.getString("rural");
+                pn.urban = rset.getBigDecimal("urban");
+                pn.urbanPercent = rset.getString("urban(%)");
+                pn.rural = rset.getBigDecimal("rural");
+                pn.ruralPercent = rset.getString("rural(%)");
                 population.add(pn);
             }
             return population;
@@ -145,8 +149,10 @@ public class Population {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
-                pn.urban = rset.getString("urban");
-                pn.rural = rset.getString("rural");
+                pn.urban = rset.getBigDecimal("urban");
+                pn.urbanPercent = rset.getString("urban(%)");
+                pn.rural = rset.getBigDecimal("rural");
+                pn.ruralPercent = rset.getString("rural(%)");
                 populationbyRegion.add(pn);
             }
             return populationbyRegion;
@@ -166,8 +172,10 @@ public class Population {
             // Create string for SQL statement
             String strSelect =
                     "SELECT '',  SUM(c.population) as population, "
-                            + "CONCAT(FORMAT(((SELECT SUM(cy.population) FROM city cy)/(SELECT SUM(c.population) FROM country c))*100,2),'%') as urban, "
-                            + "CONCAT(FORMAT((((SELECT SUM(c.population) FROM country c)-(SELECT SUM(cy.population) FROM city cy))/(SELECT SUM(c.population) FROM country c))*100,2),'%') as rural  "
+                            + "(SELECT SUM(cy.population) FROM city cy) as urban, "
+                            + "CONCAT(FORMAT(((SELECT SUM(cy.population) FROM city cy)/(SELECT SUM(c.population) FROM country c))*100,2),'%') as 'urban(%)', "
+                            + "((SELECT SUM(c.population) FROM country c)-(SELECT SUM(cy.population) FROM city cy)) as rural, "
+                            + "CONCAT(FORMAT((((SELECT SUM(c.population) FROM country c)-(SELECT SUM(cy.population) FROM city cy))/(SELECT SUM(c.population) FROM country c))*100,2),'%') as 'rural(%)'  "
                             + "FROM country c ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -178,8 +186,10 @@ public class Population {
                 Population pn = new Population();
                 pn.name = "World";
                 pn.population = rset.getBigDecimal("population");
-                pn.urban = rset.getString("urban");
-                pn.rural = rset.getString("rural");
+                pn.urban = rset.getBigDecimal("urban");
+                pn.urbanPercent = rset.getString("urban(%)");
+                pn.rural = rset.getBigDecimal("rural");
+                pn.ruralPercent = rset.getString("rural(%)");
                 population.add(pn);
             }
             return population;
@@ -199,8 +209,10 @@ public class Population {
             // Create string for SQL statement
             String strSelect =
                    "SELECT c.continent as name,  SUM(distinct c.population) as population, "
-                            + "CONCAT(FORMAT((SUM(cy.population)/SUM(distinct c.population))*100,2),'%') as urban, "
-                            + "CONCAT(FORMAT(((SUM(distinct c.population)-SUM(cy.population))/SUM(distinct c.population))*100,2),'%') as rural  "
+                            + "SUM(cy.population) as urban, "
+                            + "CONCAT(FORMAT((SUM(cy.population)/SUM(distinct c.population))*100,2),'%') as 'urban(%)', "
+                            + "(SUM(distinct c.population)-SUM(cy.population)) as rural, "
+                            + "CONCAT(FORMAT(((SUM(distinct c.population)-SUM(cy.population))/SUM(distinct c.population))*100,2),'%') as 'rural(%)'  "
                             + "FROM country c, city cy WHERE c.code = cy.countrycode "
                             + "GROUP BY c.continent";
             // Execute SQL statement
@@ -212,8 +224,10 @@ public class Population {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
-                pn.urban = rset.getString("urban");
-                pn.rural = rset.getString("rural");
+                pn.urban = rset.getBigDecimal("urban");
+                pn.urbanPercent = rset.getString("urban(%)");
+                pn.rural = rset.getBigDecimal("rural");
+                pn.ruralPercent = rset.getString("rural(%)");
                 population.add(pn);
             }
             return population;
@@ -276,8 +290,10 @@ public class Population {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
-                pn.urban = rset.getString("urban");
-                pn.rural = rset.getString("rural");
+                pn.urban = rset.getBigDecimal("urban");
+                pn.urbanPercent = rset.getString("urban(%)");
+                pn.rural = rset.getBigDecimal("rural");
+                pn.ruralPercent = rset.getString("rural(%)");
                 tpNCountry.add(pn);
             }
             return tpNCountry;
@@ -389,12 +405,12 @@ public class Population {
     }
 
     public void printPopulation(ArrayList<Population> population) {
-        System.out.println(String.format("%-15s %-15s %-20s %-20s %-15s", "name", "population", "urban", "rural","district"));
+        System.out.println(String.format("%-15s %-15s %-20s %-20s %-15s %-20s", "name", "population", "urban", "urban(%)", "rural", "rural(%)"));
 
         for (Population pn : population) {
             String pn_string =
-                    String.format("%-15s %-15s %-20s %-20s %-15s",
-                            pn.name, pn.population, pn.urban, pn.rural, pn.district);
+                    String.format("%-15s %-15s %-20s %-20s %-15s %-20s",
+                            pn.name, pn.population, pn.urban, pn.urbanPercent, pn.rural, pn.ruralPercent);
             System.out.println(pn_string);
         }
     }

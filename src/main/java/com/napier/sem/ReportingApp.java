@@ -30,7 +30,8 @@ public class ReportingApp {
 
         //pn.getWorldPopulation();
         //pn.worldLanguages();
-        pn.TopNPopulationbyContinent();
+        pn.worldsPopulation();
+        pn.getPopulationbyContinent();
 
         /*  // Get Country
         ArrayList<Country> countries = a.getCountry();
