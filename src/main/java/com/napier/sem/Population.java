@@ -279,9 +279,8 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT c.name, c.population, row_number() over (partition by c.region order by c.population ) as countryRank "
-                            + "FROM city cy, country c where cy.countrycode = c.code) ranks "
-                            + "WHERE countryRank <= " + rank;
+                    " SELECT name, SUM(Population) FROM region\n" +
+                            "WHERE name = 'United States' GROUP BY name";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -291,6 +290,7 @@ public class Population {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
+                pn.district = rset.getString("district");
                 PopulationsofaRegion.add(pn);
             }
             return PopulationsofaRegion;
