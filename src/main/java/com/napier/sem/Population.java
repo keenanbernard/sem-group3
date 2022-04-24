@@ -136,8 +136,10 @@ public class Population {
             // Create string for SQL statement
             String strSelect =
                     "SELECT c.region as name,  SUM(distinct c.population) as population, "
-                            + "CONCAT(FORMAT((SUM(cy.population)/SUM(distinct c.population))*100,2),'%') as urban, "
-                            + "CONCAT(FORMAT(((SUM(distinct c.population)-SUM(cy.population))/SUM(distinct c.population))*100,2),'%') as rural "
+                            + "SUM(cy.population) as urban, "
+                            + "CONCAT(FORMAT((SUM(cy.population)/SUM(distinct c.population))*100,2),'%') as 'urban(%)', "
+                            + "(SUM(distinct c.population)-SUM(cy.population)) as rural, "
+                            + "CONCAT(FORMAT(((SUM(distinct c.population)-SUM(cy.population))/SUM(distinct c.population))*100,2),'%') as 'rural(%)'  "
                             + "FROM country c, city cy WHERE c.code = cy.countrycode "
                             + "GROUP BY c.region";
             // Execute SQL statement
