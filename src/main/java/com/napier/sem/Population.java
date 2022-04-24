@@ -54,12 +54,12 @@ public class Population {
         printPopulation(populations);
     }
 
-    public void TopNPopulationbyRegion() {
-        ArrayList<Population> topNRegion = getTopNPopulationbyRegion(5);
+    public void PopulationofaRegion() {
+        ArrayList<Population> populations = getPopulationofaRegion(5);
 
-        System.out.println(topNRegion.size());
+        System.out.println(populations.size());
 
-        printPopulation(topNRegion);
+        printPopulation(populations);
     }
 
     public void TopNPopulationbyCountry() {
@@ -273,21 +273,21 @@ public class Population {
     }
 
 
-    public ArrayList<Population> getTopNPopulationbyRegion(int rank) {
+    public ArrayList<Population> getPopulationofaRegion(int rank) {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT c.name, c.countrycode, cy.district, c.population, row_number() over (partition by c.region order by c.population desc) as countryRank "
+                    "SELECT * from (SELECT c.name, c.countrycode, cy.district, c.population, row_number() over (partition by c.region order by c.population ) as countryRank "
                             + "FROM city cy, country c where cy.countrycode = c.code) ranks "
                             + "WHERE countryRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<Population> tpNCountry = new ArrayList<>();
+            ArrayList<Population> PopulationsofaRegion = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
@@ -296,9 +296,9 @@ public class Population {
                 pn.urbanPercent = rset.getString("urban(%)");
                 pn.rural = rset.getBigDecimal("rural");
                 pn.ruralPercent = rset.getString("rural(%)");
-                tpNCountry.add(pn);
+                PopulationsofaRegion.add(pn);
             }
-            return tpNCountry;
+            return PopulationsofaRegion;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
