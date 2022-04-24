@@ -59,7 +59,7 @@ public class Country {
 
          System.out.println(topNCountries.size());
 
-         printCountryReport(topNCountries);
+         printCountries(topNCountries);
    }
    public ArrayList<Country> getCountry() {
       try {
