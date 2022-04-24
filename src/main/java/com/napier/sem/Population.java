@@ -63,7 +63,7 @@ public class Population {
     }
 
     public void TopNPopulationbyCountry() {
-        ArrayList<Population> topNCountry = getTopNPopulationbyCountry(5);
+        ArrayList<Population> topNCountry = getPopulationofaCountry(5);
 
         System.out.println(topNCountry.size());
 
@@ -71,7 +71,7 @@ public class Population {
     }
 
     public void TopNPopulationbyDistrict(){
-        ArrayList<Population> topNDistrict = getTopNPopulationbyDistrict(1);
+        ArrayList<Population> topNDistrict = getPopulationofaDistrict(1);
 
         System.out.println(topNDistrict.size());
 
@@ -241,16 +241,15 @@ public class Population {
         }
     }
 
-    public ArrayList<Population> getTopNPopulationbyCountry(int rank) {
+    public ArrayList<Population> getPopulationofaCountry(int rank) {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT c.name, cy.countrycode, cy.district, c.population, row_number() over (partition by c.region order by c.population desc) as countryRank \n" +
-                            "FROM city cy, country c where cy.countrycode = c.code)ranks\n" +
-                            "WHERE countryRank <=  " +rank;
+                    "SELECT name, SUM(Population) FROM country\n" +
+                            "WHERE name = 'United States' GROUP BY name";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -303,16 +302,15 @@ public class Population {
         }
     }
 
-    public ArrayList<Population> getTopNPopulationbyDistrict(int rank) {
+    public ArrayList<Population> getPopulationofaDistrict(int rank) {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT c.name, cy.countrycode ,cy.district, c.population, row_number() over (partition by c.region order by c.population desc) as countryRank \n" +
-                            "FROM city cy, country c where cy.countrycode = c.code) ranks\n" +
-                            "WHERE countryRank <= " + rank;
+                    "SELECT District, SUM(Population) FROM city\n" +
+                            "WHERE District = 'New York' GROUP BY District";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
