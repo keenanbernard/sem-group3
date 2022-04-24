@@ -339,22 +339,29 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT cy.Name, cy.Population\n" +
-                            "FROM country c, city cy \n" +
-                            "WHERE c.Code = cy.CountryCode AND c.Continent = '" + cont + "'" +
-                            " ORDER BY cy.Population DESC" ;
+                    "SELECT c.continent as name,  SUM(distinct c.population) as population, "
+                            + "SUM(cy.population) as urban, "
+                            + "CONCAT(FORMAT((SUM(cy.population)/SUM(distinct c.population))*100,2),'%') as 'urban(%)', "
+                            + "(SUM(distinct c.population)-SUM(cy.population)) as rural, "
+                            + "CONCAT(FORMAT(((SUM(distinct c.population)-SUM(cy.population))/SUM(distinct c.population))*100,2),'%') as 'rural(%)'  "
+                            + "FROM country c, city cy WHERE c.code = cy.countrycode AND c.Continent = '"+cont+"' "
+                            + "GROUP BY c.continent";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<Population> tpNContinent = new ArrayList<>();
+            ArrayList<Population> population = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
-                tpNContinent.add(pn);
+                pn.urban = rset.getBigDecimal("urban");
+                pn.urbanPercent = rset.getString("urban(%)");
+                pn.rural = rset.getBigDecimal("rural");
+                pn.ruralPercent = rset.getString("rural(%)");
+                population.add(pn);
             }
-            return tpNContinent;
+            return population;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
