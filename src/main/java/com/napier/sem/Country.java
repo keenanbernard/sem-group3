@@ -53,6 +53,13 @@ public class Country {
       System.out.println(topNCountries.size());
 
       printCountries(topNCountries);
+
+      public void TopNCountriesbyContinent(){
+         ArrayList<Country> topNCountries = getopNCountriesbyContinent(5);
+
+         System.out.println(topNCountries.size());
+
+         printCountryReport(topNCountries);
    }
    public ArrayList<Country> getCountry() {
       try {
@@ -189,7 +196,41 @@ public class Country {
       }
    }
 
-   public void printCountries(ArrayList<Country> countries) {
+      public ArrayList<Country> getTopNCountriesbyContinent(int rank) {
+         try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * from (SELECT c.code, c.name, c.continent, c.region, c.population, c.capital, row_number() over (partition by c.continent order by c.population desc) as countryRank "
+                            + "FROM country c) ranks "
+                            + "WHERE countryRank <= " + rank;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Country> tpNCountries = new ArrayList<>();
+            while (rset.next()) {
+               Country ctr = new Country();
+               ctr.code = rset.getString("code");
+               ctr.name = rset.getString("name");
+               ctr.continent = rset.getString("continent");
+               ctr.region = rset.getString("region");
+               ctr.population = rset.getInt("population");
+               ctr.capital = rset.getInt("capital");
+               tpNCountries.add(ctr);
+            }
+            return tpNCountries;
+
+         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
+            return null;
+         }
+      }
+
+      public void printCountries(ArrayList<Country> countries) {
       System.out.println(String.format("%-10s %-15s %-15s %-20s %-15s %-15s", "code", "name", "continent", "region", "population", "capital"));
 
       for (Country ctr : countries) {
