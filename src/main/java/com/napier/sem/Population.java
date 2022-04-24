@@ -309,7 +309,7 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT District, SUM(Population) FROM city\n" +
+                    " SELECT District, SUM(Population) FROM city\n" +
                             "WHERE District = 'New York' GROUP BY District";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
