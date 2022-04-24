@@ -280,7 +280,7 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT c.name, c.countrycode, cy.district, c.population, row_number() over (partition by c.region order by c.population ) as countryRank "
+                    "SELECT * from (SELECT c.name, c.population, row_number() over (partition by c.region order by c.population ) as countryRank "
                             + "FROM city cy, country c where cy.countrycode = c.code) ranks "
                             + "WHERE countryRank <= " + rank;
             // Execute SQL statement
@@ -292,10 +292,6 @@ public class Population {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
-                pn.urban = rset.getBigDecimal("urban");
-                pn.urbanPercent = rset.getString("urban(%)");
-                pn.rural = rset.getBigDecimal("rural");
-                pn.ruralPercent = rset.getString("rural(%)");
                 PopulationsofaRegion.add(pn);
             }
             return PopulationsofaRegion;
