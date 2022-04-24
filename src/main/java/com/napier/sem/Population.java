@@ -70,20 +70,20 @@ public class Population {
         printPopulation(topNCountry);
     }
 
-    public void TopNPopulationbyDistrict(){
-        ArrayList<Population> topNDistrict = getPopulationofaDistrict(1);
+    public void populationofaDistrict(String district){
+        ArrayList<Population> populations = getPopulationofaDistrict(district);
 
-        System.out.println(topNDistrict.size());
+        System.out.println(populations.size());
 
-        printPopulation(topNDistrict);
+        printPopulation(populations);
     }
 
-    public void populationbyContinent(String cont){
-        ArrayList<Population> topNContinent = getPopulationbyContinent(cont);
+    public void populationofaContinent(String cont){
+        ArrayList<Population> populations = getPopulationofaContinent(cont);
 
-        System.out.println(topNContinent.size());
+        System.out.println(populations.size());
 
-        printPopulation(topNContinent);
+        printPopulation(populations);
     }
 
     public void populationOfaCity(String cont){
@@ -318,28 +318,36 @@ public class Population {
         }
     }
 
-    public ArrayList<Population> getPopulationofaDistrict(int rank) {
+    public ArrayList<Population> getPopulationofaDistrict(String district) {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    " SELECT District, SUM(Population) FROM city\n" +
-                            "WHERE District = 'San Juan' GROUP BY District";
+                    "SELECT cy.District as name,  SUM(cy.population) as population, "
+                            + "SUM(cy.population) as urban, "
+                            + "CONCAT(FORMAT((SUM(cy.population)/SUM(cy.population))*100,2),'%') as 'urban(%)', "
+                            + "(SUM(cy.population)-SUM(cy.population)) as rural, "
+                            + "CONCAT(FORMAT(((SUM(cy.population)-SUM(cy.population))/SUM(cy.population))*100,2),'%') as 'rural(%)'  "
+                            + "FROM country c, city cy WHERE c.code = cy.countrycode AND cy.District = '"+district+"' "
+                            + "GROUP BY cy.District";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<Population> tpNDistrict = new ArrayList<>();
+            ArrayList<Population> population = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
-                pn.district = rset.getString("district");
-                tpNDistrict.add(pn);
+                pn.urban = rset.getBigDecimal("urban");
+                pn.urbanPercent = rset.getString("urban(%)");
+                pn.rural = rset.getBigDecimal("rural");
+                pn.ruralPercent = rset.getString("rural(%)");
+                population.add(pn);
             }
-            return tpNDistrict;
+            return population;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -348,7 +356,7 @@ public class Population {
         }
     }
 
-    public ArrayList<Population> getPopulationbyContinent(String cont) {
+    public ArrayList<Population> getPopulationofaContinent(String cont) {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
@@ -393,7 +401,7 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT cy.name as name,  SUM(distinct cy.population) as population, "
+                    "SELECT cy.name as name,  SUM(cy.population) as population, "
                             + "SUM(cy.population) as urban, "
                             + "CONCAT(FORMAT((SUM(cy.population)/SUM(cy.population))*100,2),'%') as 'urban(%)', "
                             + "(SUM(cy.population)-SUM(cy.population)) as rural, "

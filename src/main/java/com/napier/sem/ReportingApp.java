@@ -30,7 +30,7 @@ public class ReportingApp {
 
         //pn.getWorldPopulation();
         //pn.worldLanguages();
-        pn.populationbyContinent("Asia");
+        pn.populationofaDistrict("Cayo");
         //pn.worldsPopulation();
         //pn.populationbyContinent();
 
