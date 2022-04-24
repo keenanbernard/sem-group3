@@ -378,6 +378,44 @@ public class Population {
         }
     }
 
+    public ArrayList<Population> getPopulationbyCity(String city) {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT cy.name as name,  SUM(distinct cy.population) as population, "
+                            + "SUM(cy.population) as urban, "
+                            + "CONCAT(FORMAT((SUM(cy.population)/SUM(distinct c.population))*100,2),'%') as 'urban(%)', "
+                            + "(SUM(distinct c.population)-SUM(cy.population)) as rural, "
+                            + "CONCAT(FORMAT(((SUM(distinct c.population)-SUM(cy.population))/SUM(distinct c.population))*100,2),'%') as 'rural(%)'  "
+                            + "FROM country c, city cy WHERE c.code = cy.countrycode AND cy.name = '"+city+"' "
+                            + "GROUP BY cy.name";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Population> population = new ArrayList<>();
+            while (rset.next()) {
+                Population pn = new Population();
+                pn.name = rset.getString("name");
+                pn.population = rset.getBigDecimal("population");
+                pn.urban = rset.getBigDecimal("urban");
+                pn.urbanPercent = rset.getString("urban(%)");
+                pn.rural = rset.getBigDecimal("rural");
+                pn.ruralPercent = rset.getString("rural(%)");
+                population.add(pn);
+            }
+            return population;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
+            return null;
+        }
+    }
+
     public ArrayList<Population> getWorldLanguages() {
         try {
             Connection con = ra.connect();
@@ -435,14 +473,4 @@ public class Population {
             System.out.println(pn_string);
         }
     }
-
-
-
-
-
-
-
-
-
-
 }
