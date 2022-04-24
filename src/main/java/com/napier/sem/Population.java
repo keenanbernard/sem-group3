@@ -86,6 +86,14 @@ public class Population {
         printPopulation(topNContinent);
     }
 
+    public void populationOfaCity(String cont){
+        ArrayList<Population> cityPop = getPopulationOfaCity(cont);
+
+        System.out.println(cityPop.size());
+
+        printPopulation(cityPop);
+    }
+
     public void worldLanguages(){
         ArrayList<Population> worldLanguages = getWorldLanguages();
 
@@ -378,7 +386,7 @@ public class Population {
         }
     }
 
-    public ArrayList<Population> getPopulationbyCity(String city) {
+    public ArrayList<Population> getPopulationOfaCity(String city) {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
