@@ -46,8 +46,8 @@ public class Population {
         printPopulation(populations);
     }
 
-    public void populationbyContinent() {
-        ArrayList<Population> populations = getPopulationbyContinent();
+    public void populationbyAllContinent() {
+        ArrayList<Population> populations = getPopulationbyAllContinent();
 
         System.out.println(populations.size());
 
@@ -78,8 +78,8 @@ public class Population {
         printPopulation(topNDistrict);
     }
 
-    public void TopNPopulationbyContinent(){
-        ArrayList<Population> topNContinent = getTopNPopulationbyContinent(5);
+    public void populationbyContinent(String cont){
+        ArrayList<Population> topNContinent = getPopulationbyContinent(cont);
 
         System.out.println(topNContinent.size());
 
@@ -203,7 +203,7 @@ public class Population {
         }
     }
 
-    public ArrayList<Population> getPopulationbyContinent() {
+    public ArrayList<Population> getPopulationbyAllContinent() {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
@@ -334,19 +334,17 @@ public class Population {
         }
     }
 
-    public ArrayList<Population> getTopNPopulationbyContinent(int rank) {
+    public ArrayList<Population> getPopulationbyContinent(String cont) {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT temp.continent, temp.population " +
-                    "FROM (SELECT c.continent, SUM(cy.population) as population, row_number() over (order by SUM(cy.population) desc) as continentRank " +
-                            "FROM country c, city cy " +
-                            "WHERE c.Code = cy.CountryCode " +
-                            "GROUP BY c.Continent) as temp " +
-                    "WHERE continentRank <= " + rank;
+                    "SELECT cy.Name, cy.Population\n" +
+                            "FROM country c, city cy \n" +
+                            "WHERE c.Code = cy.CountryCode AND c.Continent = '" + cont + "'" +
+                            " ORDER BY cy.Population DESC" ;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -354,7 +352,7 @@ public class Population {
             ArrayList<Population> tpNContinent = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
-                pn.name = rset.getString("continent");
+                pn.name = rset.getString("name");
                 pn.population = rset.getBigDecimal("population");
                 tpNContinent.add(pn);
             }

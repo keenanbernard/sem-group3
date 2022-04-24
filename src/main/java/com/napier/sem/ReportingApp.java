@@ -29,7 +29,8 @@ public class ReportingApp {
         //cc.topNCapitalCitiesinWorld();
 
         //pn.getWorldPopulation();
-        pn.worldLanguages();
+        //pn.worldLanguages();
+        pn.populationbyContinent("Asia");
         //pn.worldsPopulation();
         //pn.populationbyContinent();
 
