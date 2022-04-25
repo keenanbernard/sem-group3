@@ -43,12 +43,10 @@ jobs:
       - name: CodeCov
         uses: codecov/codecov-action@v2
         with:
-          # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           directory: ./target/site/jacoco
             cat codecov.yml | curl --data-binary @- https://codecov.io/validate
-          flags: Integration Tests # optional
-          verbose: true # optional (default = false)
-
+          flags: Integration Tests
+          verbose: true
 
   build:
     name: Build Run in Docker and Deploy Release
@@ -74,4 +72,3 @@ jobs:
           automatic_release_tag: "latest"
           files: |
             ./target/*.jar
-
