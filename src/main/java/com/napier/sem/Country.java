@@ -62,7 +62,7 @@ public class Country {
       printCountryReport(topNCountries);
    }
 
-
+  // All the countries in the world organised by largest population to smallest.
    public ArrayList<Country> getCountries() {
       try {
          Connection con = ra.connect();
@@ -97,6 +97,7 @@ public class Country {
       }
    }
 
+   // All the countries in a continent organised by largest population to smallest.
    public ArrayList<Country> getCountrybyContinent() {
       try {
          Connection con = ra.connect();
@@ -131,6 +132,7 @@ public class Country {
       }
    }
 
+   // All the countries in a region organised by largest population to smallest.
    public ArrayList<Country> getCountrybyRegion() {
       try {
          Connection con = ra.connect();
@@ -165,6 +167,7 @@ public class Country {
       }
    }
 
+   // The top N populated countries in the world where N is provided by the user.
    public ArrayList<Country> getTopNCountries(int rank) {
       try {
          Connection con = ra.connect();
@@ -199,6 +202,7 @@ public class Country {
       }
    }
 
+   // The top N populated countries in a continent where N is provided by the user.
    public ArrayList<Country> getTopNCountriesbyContinent(int rank) {
       try {
          Connection con = ra.connect();
@@ -233,6 +237,7 @@ public class Country {
       }
    }
 
+   // The top N populated countries in a region where N is provided by the user.
    public ArrayList<Country> getTopNCountriesbyRegion(int rank) {
       try {
          Connection con = ra.connect();
