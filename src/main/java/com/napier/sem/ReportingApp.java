@@ -11,18 +11,11 @@ public class ReportingApp {
         Country c = new Country();
         City cy = new City();
         Capital cc = new Capital();
+        Population pln = new Population();
 
-        /*// Connect to database
-        a.connect();*/
-
+        // Report Method Called, initiating connection on each method.
         cy.Cities();
 
-        /*  // Get Country
-        ArrayList<Country> countries = a.getCountry();
-        // Display results
-        System.out.println(countries.size());
-
-        a.printCountries(countries);*/
         // Disconnect from database
         a.disconnect();
     }

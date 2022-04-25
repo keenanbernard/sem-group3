@@ -62,7 +62,7 @@ public class Population {
         printPopulation(populations);
     }
 
-    public void PopulationofaRegion(String reg) {
+    public void populationofaRegion(String reg) {
         ArrayList<Population> populations = getPopulationofaRegion(reg);
 
         System.out.println(populations.size());
@@ -121,7 +121,7 @@ public class Population {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<Population> population = new ArrayList<Population>();
+            ArrayList<Population> population = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
                 pn.name = rset.getString("name");
@@ -239,7 +239,7 @@ public class Population {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            ArrayList<Population> population = new ArrayList<Population>();
+            ArrayList<Population> population = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
                 pn.name = "World";

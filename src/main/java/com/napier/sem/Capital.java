@@ -21,7 +21,7 @@ public class Capital {
         printCapitalCities(capitalCities);
     }
 
-    public void CapitalCitiesbyContinent(){
+    public void capitalCitiesbyContinent(){
         ArrayList<Capital> capitalCities = capitalCitybyContinent();
 
         System.out.println(capitalCities.size());
@@ -29,7 +29,7 @@ public class Capital {
         printCapitalCities(capitalCities);
     }
 
-    public void CapitalCitiesbyRegion(){
+    public void capitalCitiesbyRegion(){
         ArrayList<Capital> capitalCitiesregion = capitalCitybyRegion();
 
         System.out.println(capitalCitiesregion.size());
@@ -37,24 +37,24 @@ public class Capital {
         printCapitalCities(capitalCitiesregion);
     }
 
-    public void TopNCapitalCitiesinWorld(){
-        ArrayList<Capital> topCapitalCitiesinWorld = getTopNCapitalCitiesinWorld(10);
+    public void topNCapitalCitiesinWorld(){
+        ArrayList<Capital> topCapitalCitiesinWorld = getTopNCapitalCities(5);
 
         System.out.println(topCapitalCitiesinWorld.size());
 
         printCapitalCities(topCapitalCitiesinWorld);
     }
 
-    public void TopNCapitalCitiesinContinent(){
-        ArrayList<Capital> topCapitalCitiesinContinent = getTopNCapitalCitiesinContinent(5);
+    public void topNCapitalCitiesinContinent(){
+        ArrayList<Capital> topCapitalCitiesinContinent = getTopNCapitalCitiesinContinent(3);
 
         System.out.println(topCapitalCitiesinContinent.size());
 
         printCapitalCities(topCapitalCitiesinContinent);
     }
 
-    public void TopNCapitalCitiesinRegion(){
-        ArrayList<Capital> topCapitalCitiesinRegion = getTopNCapitalCitiesinRegion(5);
+    public void topNCapitalCitiesinRegion(){
+        ArrayList<Capital> topCapitalCitiesinRegion = getTopNCapitalCitiesinRegion(4);
 
         System.out.println(topCapitalCitiesinRegion.size());
 
@@ -158,7 +158,7 @@ public class Capital {
     }
 
     // The top N populated capital cities in the world where N is provided by the user.
-    public ArrayList<Capital> getTopNCapitalCitiesinWorld(int rank) {
+    public ArrayList<Capital> getTopNCapitalCities(int rank) {
         try {
             Connection con = ra.connect();
             // Create an SQL statement

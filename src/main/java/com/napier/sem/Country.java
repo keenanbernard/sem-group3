@@ -22,7 +22,7 @@ public class Country {
       printCountryReport(countries);
    }
 
-   public void CountriesbyContinent(){
+   public void countriesbyContinent(){
       ArrayList<Country> countries = getCountrybyContinent();
 
       System.out.println(countries.size());
@@ -30,7 +30,7 @@ public class Country {
       printCountryReport(countries);
    }
 
-   public void CountriesbyRegion() {
+   public void countriesbyRegion() {
       ArrayList<Country> countriesbyregion = getCountrybyRegion();
 
       System.out.println(countriesbyregion.size());
@@ -38,7 +38,7 @@ public class Country {
       printCountryReport(countriesbyregion);
    }
 
-   public void TopNCountries(){
+   public void topNCountries(){
       ArrayList<Country> topNCountries = getTopNCountries(5);
 
       System.out.println(topNCountries.size());
@@ -46,16 +46,16 @@ public class Country {
       printCountryReport(topNCountries);
    }
 
-   public void TopNCountriesbyContinent(){
-      ArrayList<Country> topNCountries = getTopNCountriesbyContinent(5);
+   public void topNCountriesbyContinent(){
+      ArrayList<Country> topNCountries = getTopNCountriesbyContinent(3);
 
       System.out.println(topNCountries.size());
 
       printCountryReport(topNCountries);
    }
 
-   public void TopNCountriesbyRegion(){
-      ArrayList<Country> topNCountries = getTopNCountriesbyRegion(5);
+   public void topNCountriesbyRegion(){
+      ArrayList<Country> topNCountries = getTopNCountriesbyRegion(4);
 
       System.out.println(topNCountries.size());
 

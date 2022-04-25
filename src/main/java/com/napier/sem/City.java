@@ -21,7 +21,7 @@ public class City {
         printCityReport(cities);
     }
 
-    public void CitiesByContinent(){
+    public void citiesByContinent(){
         ArrayList<City> cContinent = getCitybyContinent();
 
         System.out.println(cContinent.size());
@@ -29,7 +29,7 @@ public class City {
         printCityReport(cContinent);
     }
 
-    public void CitiesByRegion(){
+    public void citiesByRegion(){
         ArrayList<City> cr = getCitybyRegion();
 
         System.out.println(cr.size());
@@ -37,7 +37,7 @@ public class City {
         printCityReport(cr);
     }
 
-    public void CitiesbyCountry(){
+    public void citiesbyCountry(){
         ArrayList<City> cc = getCitiesbyCountry();
 
         System.out.println(cc.size());
@@ -45,7 +45,7 @@ public class City {
         printCityReport(cc);
     }
 
-    public void CitiesByDistrict(){
+    public void citiesByDistrict(){
         ArrayList<City> dCities = getCitybyDistrict();
 
         System.out.println(dCities.size());
@@ -53,39 +53,39 @@ public class City {
         printCityReport(dCities);
     }
 
-    public void TopNCities(){
-        ArrayList<City> topNCities = getTopNCities(5);
+    public void topNCities(){
+        ArrayList<City> topNCities = getTopNCities(2);
 
         System.out.println(topNCities.size());
 
         printCityReport(topNCities);
     }
 
-    public void TopNCitiesbyContinent(){
-        ArrayList<City> topNCities = getTopNCitiesbyContinent(1);
+    public void topNCitiesbyContinent(){
+        ArrayList<City> topNCities = getTopNCitiesbyContinent(3);
 
         System.out.println(topNCities.size());
 
         printCityReport(topNCities);
     }
 
-    public void TopNCitiesbyRegion(){
-        ArrayList<City> topNCities = getTopNCitiesbyRegion(1);
+    public void topNCitiesbyRegion(){
+        ArrayList<City> topNCities = getTopNCitiesbyRegion(4);
 
         System.out.println(topNCities.size());
 
         printCityReport(topNCities);
     }
 
-    public void TopNCitiesbyCountry(){
-        ArrayList<City> topNCities = getTopNCitiesbyCountry(1);
+    public void topNCitiesbyCountry(){
+        ArrayList<City> topNCities = getTopNCitiesbyCountry(5);
 
         System.out.println(topNCities.size());
 
         printCityReport(topNCities);
     }
 
-    public void TopNCitiesbyDistrict(){
+    public void topNCitiesbyDistrict(){
         ArrayList<City> topNCities = getTopNCitiesbyDistrict(1);
 
         System.out.println(topNCities.size());
