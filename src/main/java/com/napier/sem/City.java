@@ -150,7 +150,6 @@ public class City {
                 cty.countrycode = rset.getString("countrycode");
                 cty.district = rset.getString("district");
                 cty.population = rset.getInt("population");
-                cty.population = rset.getInt("continent");
                 cities.add(cty);
             }
             return cities;
