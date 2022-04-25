@@ -368,7 +368,7 @@ public class City {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * from (SELECT cy.name, cy.countrycode, cy.district, cy.population, row_number() over (partition by cy.country order by cy.population desc) as cityRank "
+                    "SELECT * from (SELECT cy.name, cy.countrycode, cy.district, cy.population, row_number() over (partition by cy.countrycode order by cy.population desc) as cityRank "
                             + "FROM city cy) ranks "
                             + "WHERE cityRank <= " + rank;
             // Execute SQL statement
