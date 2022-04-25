@@ -470,7 +470,7 @@ public class Population {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT  cl.Language , SUM(c.Population * (cl.Percentage/100)) as population, CONCAT(FORMAT((SUM(c.Population * (cl.Percentage/100))/(SELECT SUM(c.Population) FROM country c)*100), 2), '%') as percent\n" +
+                    "SELECT  cl.Language , ROUND(SUM(c.Population * (cl.Percentage/100)), 0 ) as population, CONCAT(FORMAT((SUM(c.Population * (cl.Percentage/100))/(SELECT SUM(c.Population) FROM country c)*100), 2), '%') as percent\n" +
                             "FROM (SELECT * \n" +
                             "      FROM countrylanguage as cl\n" +
                             "      WHERE cl.Language IN (\"Chinese\", \"English\", \"Hindi\", \"Spanish\", \"Arabic\")) as cl, country c \n" +

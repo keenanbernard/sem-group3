@@ -35,7 +35,7 @@ public class ReportingApp {
 
 
         // Report Method Called, initiating connection on each method.
-        cy.Cities();
+        pn.worldLanguages();
 
         // Disconnect from database
         a.disconnect();
