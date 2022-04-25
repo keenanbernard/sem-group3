@@ -101,7 +101,7 @@ public class Capital {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT cy.name, c.name as country, cy.population"
+                    "SELECT cy.name, c.name as country, cy.population "
                             + "FROM city cy, country c WHERE cy.id = c.capital "
                             + "order by c.continent, cy.population desc";
             // Execute SQL statement
@@ -120,7 +120,7 @@ public class Capital {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get employee details");
+            System.out.println("Failed to get table details");
             return null;
         }
     }
