@@ -86,6 +86,7 @@ public class City {
     }
 
 
+    //Get the population of cities in the world
     public ArrayList<City> getCities() {
         try {
             Connection con = ra.connect();
@@ -118,6 +119,7 @@ public class City {
         }
     }
 
+    //Get the population of cities in each country
     public ArrayList<City> getCitiesbyCountry() {
         try {
             Connection con = ra.connect();
@@ -150,6 +152,7 @@ public class City {
         }
     }
 
+    //Get the population of cities in each continent
     public ArrayList<City> getCitybyContinent() {
         try {
             Connection con = ra.connect();
@@ -184,6 +187,7 @@ public class City {
         }
     }
 
+    //Get the population of cities in each region
     public ArrayList<City> getCitybyRegion() {
         try {
             Connection con = ra.connect();
@@ -217,6 +221,7 @@ public class City {
         }
     }
 
+    //Get the population of cities in each district
     public ArrayList<City> getCitybyDistrict() {
         try {
             Connection con = ra.connect();
@@ -249,6 +254,7 @@ public class City {
         }
     }
 
+    //Get the top population of cities in the world
     public ArrayList<City> getTopNCities(int rank) {
         try {
             Connection con = ra.connect();
@@ -281,6 +287,7 @@ public class City {
         }
     }
 
+    //Get the top population of cities in each region
     public ArrayList<City> getTopNCitiesbyRegion(int rank) {
         try {
             Connection con = ra.connect();
@@ -313,6 +320,7 @@ public class City {
         }
     }
 
+    //Get the top population of cities in each country
     public ArrayList<City> getTopNCitiesbyCountry(int rank) {
         try {
             Connection con = ra.connect();
@@ -345,6 +353,7 @@ public class City {
         }
     }
 
+    //Get the top population of cities in each district
     public ArrayList<City> getTopNCitiesbyDistrict(int rank) {
         try {
             Connection con = ra.connect();
@@ -377,6 +386,7 @@ public class City {
         }
     }
 
+    //Get the top population of cities in each continent
     public ArrayList<City> getTopNCitiesbyContinent(int rank) {
         try {
             Connection con = ra.connect();
