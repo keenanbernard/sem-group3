@@ -17,7 +17,7 @@ jobs:
           distribution: 'adopt'
       - name: Unit Tests
         run: |
-          mvn -Dtest=com.napier.sem.CountryTest, com.napier.sem.CityTest, com.napier.sem.CapitalTest, com.napier.sem.PopulationTest test
+          mvn -Dtest=com.napier.sem.CountryTest,com.napier.sem.CityTest,com.napier.sem.CapitalTest,com.napier.sem.PopulationTest test
 
   build:
     name: Build and Start Using docker-compose
