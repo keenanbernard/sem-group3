@@ -18,6 +18,16 @@ public class ReportingApp {
 
         //c.countries();
 
+        if (args.length < 1){
+            cy.setLocation("localhost:33060");
+            cy.setDelay(0);
+        }else{
+            cy.setLocation("worldDB:3306");
+            cy.setDelay(30000);
+        }
+
+
+
         cy.allCities();
         // cy.citiesByRegion();
         //cy.TopNCities();

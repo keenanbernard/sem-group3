@@ -1,4 +1,4 @@
 FROM openjdk
-COPY ./target/seGroup3.jar /tmp
+COPY ./target/sem-group3.jar /tmp
 WORKDIR /tmp
-ENTRYPOINT ["java", "-jar", "seGroup3.jar", "db:3306"]
+ENTRYPOINT ["java", "-jar", "sem-group3.jar", "db:3306", "30000"]

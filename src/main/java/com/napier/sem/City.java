@@ -12,9 +12,12 @@ public class City {
     public String continent;
 
     ReportingApp ra = new ReportingApp();
+    private String location;
+    private int delay;
+
 
     public void allCities(){
-        ArrayList<City> cities = getCities();
+        ArrayList<City> cities = getCities(location, delay);
 
         System.out.println(cities.size());
 
@@ -86,9 +89,9 @@ public class City {
     }
 
 
-    public ArrayList<City> getCities() {
+    public ArrayList<City> getCities(String location, int delay) {
         try {
-            Connection con = ra.connect("localhost:33060", 30000);
+            Connection con = ra.connect(location,delay);
             //Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -396,5 +399,18 @@ public class City {
                             cty.name, cty.countrycode, cty.district, cty.population);
             System.out.println(cty_string);
         }
+    }
+
+    public String getLocation() {
+        return location;
+    }
+    public void setLocation(String location){
+        this.location=location;
+    }
+    public int getDelay() {
+        return delay;
+    }
+    public void setDelay(int delay){
+        this.delay=delay;
     }
 }
