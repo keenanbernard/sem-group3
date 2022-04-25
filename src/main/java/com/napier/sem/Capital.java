@@ -61,6 +61,7 @@ public class Capital {
         printCapitalCities(topCapitalCitiesinRegion);
     }
 
+    // All the capital cities in the world organised by largest population to smallest.
     public ArrayList<Capital> getCapitalCity() {
         try {
             Connection con = ra.connect();
@@ -92,6 +93,7 @@ public class Capital {
         }
     }
 
+    // All the capital cities in a continent organised by largest population to smallest.
     public ArrayList<Capital> capitalCitybyContinent() {
         try {
             Connection con = ra.connect();
@@ -123,6 +125,7 @@ public class Capital {
         }
     }
 
+    // All the capital cities in a region organised by largest to smallest.
     public ArrayList<Capital> capitalCitybyRegion() {
         try {
             Connection con = ra.connect();
@@ -154,16 +157,17 @@ public class Capital {
         }
     }
 
-    public ArrayList<Capital> getTopNCapitalCitiesinContinent(int rank) {
+    // The top N populated capital cities in the world where N is provided by the user.
+    public ArrayList<Capital> getTopNCapitalCitiesinWorld(int rank) {
         try {
             Connection con = ra.connect();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * FROM (SELECT cy.name, c.name as country, cy.population, c.continent, row_number() over (partition by c.continent order by cy.population desc) as cityRank "
-                    + "FROM country c, city cy  WHERE c.capital = cy.id) ranks "
-                    + "WHERE cityRank <= " + rank;
+                    "SELECT * FROM (SELECT cy.name, c.name as country, cy.population, c.continent, row_number() over (order by cy.population desc) as cityRank "
+                            + "FROM country c, city cy  WHERE c.capital = cy.id) ranks "
+                            + "WHERE cityRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -186,6 +190,40 @@ public class Capital {
         }
     }
 
+    // The top N populated capital cities in a continent where N is provided by the user.
+    public ArrayList<Capital> getTopNCapitalCitiesinContinent(int rank) {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * FROM (SELECT cy.name, c.name as country, cy.population, c.continent, row_number() over (partition by c.continent order by cy.population desc) as cityRank "
+                            + "FROM country c, city cy  WHERE c.capital = cy.id) ranks "
+                            + "WHERE cityRank <= " + rank;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<Capital> capitalCities = new ArrayList<>();
+            while (rset.next()) {
+                Capital ccty = new Capital();
+                ccty.name = rset.getString("name");
+                ccty.country = rset.getString("country");
+                ccty.population = rset.getInt("population");
+                ccty.continent = rset.getString("continent");
+                capitalCities.add(ccty);
+            }
+            return capitalCities;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get employee details");
+            return null;
+        }
+    }
+
+    // The top N populated capital cities in a region where N is provided by the use
     public ArrayList<Capital> getTopNCapitalCitiesinRegion(int rank) {
         try {
             Connection con = ra.connect();
@@ -208,38 +246,6 @@ public class Capital {
                 ccty.population = rset.getInt("population");
                 ccty.continent = rset.getString("continent");
                 ccty.region = rset.getString("region");
-                capitalCities.add(ccty);
-            }
-            return capitalCities;
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get employee details");
-            return null;
-        }
-    }
-
-    public ArrayList<Capital> getTopNCapitalCitiesinWorld(int rank) {
-        try {
-            Connection con = ra.connect();
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT * FROM (SELECT cy.name, c.name as country, cy.population, c.continent, row_number() over (order by cy.population desc) as cityRank "
-                            + "FROM country c, city cy  WHERE c.capital = cy.id) ranks "
-                            + "WHERE cityRank <= " + rank;
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
-            ArrayList<Capital> capitalCities = new ArrayList<>();
-            while (rset.next()) {
-                Capital ccty = new Capital();
-                ccty.name = rset.getString("name");
-                ccty.country = rset.getString("country");
-                ccty.population = rset.getInt("population");
-                ccty.continent = rset.getString("continent");
                 capitalCities.add(ccty);
             }
             return capitalCities;
