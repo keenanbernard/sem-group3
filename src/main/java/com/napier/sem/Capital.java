@@ -67,6 +67,7 @@ public class Capital {
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
+            //
             String strSelect =
                     "SELECT cy.name, c.name as country, cy.population "
                             + "FROM city cy, country c WHERE cy.id = c.capital "
