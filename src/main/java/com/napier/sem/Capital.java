@@ -13,7 +13,7 @@ public class Capital {
 
     ReportingApp ra = new ReportingApp();
 
-    public void allCapitalCities(){
+    public void CapitalCities(){
         ArrayList<Capital> capitalCities = getCapitalCity();
 
         System.out.println(capitalCities.size());
@@ -21,7 +21,7 @@ public class Capital {
         printCapitalCities(capitalCities);
     }
 
-    public void capitalCitiesbyContinent(){
+    public void CapitalCitiesbyContinent(){
         ArrayList<Capital> capitalCities = capitalCitybyContinent();
 
         System.out.println(capitalCities.size());
@@ -29,7 +29,7 @@ public class Capital {
         printCapitalCities(capitalCities);
     }
 
-    public void capitalCitiesbyRegion(){
+    public void CapitalCitiesbyRegion(){
         ArrayList<Capital> capitalCitiesregion = capitalCitybyRegion();
 
         System.out.println(capitalCitiesregion.size());
@@ -37,7 +37,7 @@ public class Capital {
         printCapitalCities(capitalCitiesregion);
     }
 
-    public void topNCapitalCitiesinWorld(){
+    public void TopNCapitalCitiesinWorld(){
         ArrayList<Capital> topCapitalCitiesinWorld = getTopNCapitalCitiesinWorld(10);
 
         System.out.println(topCapitalCitiesinWorld.size());
@@ -45,7 +45,7 @@ public class Capital {
         printCapitalCities(topCapitalCitiesinWorld);
     }
 
-    public void topNCapitalCitiesinContinent(){
+    public void TopNCapitalCitiesinContinent(){
         ArrayList<Capital> topCapitalCitiesinContinent = getTopNCapitalCitiesinContinent(5);
 
         System.out.println(topCapitalCitiesinContinent.size());
@@ -53,7 +53,7 @@ public class Capital {
         printCapitalCities(topCapitalCitiesinContinent);
     }
 
-    public void topNCapitalCitiesinRegion(){
+    public void TopNCapitalCitiesinRegion(){
         ArrayList<Capital> topCapitalCitiesinRegion = getTopNCapitalCitiesinRegion(5);
 
         System.out.println(topCapitalCitiesinRegion.size());

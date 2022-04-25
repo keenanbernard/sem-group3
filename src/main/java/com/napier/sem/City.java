@@ -13,7 +13,7 @@ public class City {
 
     ReportingApp ra = new ReportingApp();
 
-    public void allCities(){
+    public void Cities(){
         ArrayList<City> cities = getCities();
 
         System.out.println(cities.size());
@@ -21,7 +21,7 @@ public class City {
         printCityReport(cities);
     }
 
-    public void citiesByContinent(){
+    public void CitiesByContinent(){
         ArrayList<City> cContinent = getCitybyContinent();
 
         System.out.println(cContinent.size());
@@ -29,7 +29,7 @@ public class City {
         printCityReport(cContinent);
     }
 
-    public void citiesByRegion(){
+    public void CitiesByRegion(){
         ArrayList<City> cr = getCitybyRegion();
 
         System.out.println(cr.size());
@@ -37,7 +37,7 @@ public class City {
         printCityReport(cr);
     }
 
-    public void citiesbyCountry(){
+    public void CitiesbyCountry(){
         ArrayList<City> cc = getCitiesbyCountry();
 
         System.out.println(cc.size());
@@ -45,7 +45,7 @@ public class City {
         printCityReport(cc);
     }
 
-    public void citiesByDistrict(){
+    public void CitiesByDistrict(){
         ArrayList<City> dCities = getCitybyDistrict();
 
         System.out.println(dCities.size());
@@ -61,6 +61,14 @@ public class City {
         printCityReport(topNCities);
     }
 
+    public void TopNCitiesbyContinent(){
+        ArrayList<City> topNCities = getTopNCitiesbyContinent(1);
+
+        System.out.println(topNCities.size());
+
+        printCityReport(topNCities);
+    }
+
     public void TopNCitiesbyRegion(){
         ArrayList<City> topNCities = getTopNCitiesbyRegion(1);
 
@@ -69,16 +77,16 @@ public class City {
         printCityReport(topNCities);
     }
 
-    public void TopNCitiesbyDistrict(){
-        ArrayList<City> topNCities = getTopNCitiesbyDistrict(1);
+    public void TopNCitiesbyCountry(){
+        ArrayList<City> topNCities = getTopNCitiesbyCountry(1);
 
         System.out.println(topNCities.size());
 
         printCityReport(topNCities);
     }
 
-    public void TopNCitiesbyContinent(){
-        ArrayList<City> topNCities = getTopNCitiesbyContinent(1);
+    public void TopNCitiesbyDistrict(){
+        ArrayList<City> topNCities = getTopNCitiesbyDistrict(1);
 
         System.out.println(topNCities.size());
 
@@ -97,39 +105,6 @@ public class City {
                     "SELECT cy.name, cy.countrycode, cy.district, cy.population "
                             + "FROM city cy "
                             + "order by cy.population desc";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
-            ArrayList<City> cities = new ArrayList<>();
-            while (rset.next()) {
-                City cty = new City();
-                cty.name = rset.getString("name");
-                cty.countrycode = rset.getString("countrycode");
-                cty.district = rset.getString("district");
-                cty.population = rset.getInt("population");
-                cities.add(cty);
-            }
-            return cities;
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get table details");
-            return null;
-        }
-    }
-
-    //Get the population of cities in each country
-    public ArrayList<City> getCitiesbyCountry() {
-        try {
-            Connection con = ra.connect();
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT cy.name, cy.countrycode, cy.district, cy.population "
-                            + "FROM city cy "
-                            + "order by cy.countrycode, cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -221,6 +196,39 @@ public class City {
         }
     }
 
+    //Get the population of cities in each country
+    public ArrayList<City> getCitiesbyCountry() {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT cy.name, cy.countrycode, cy.district, cy.population "
+                            + "FROM city cy "
+                            + "order by cy.countrycode, cy.population desc";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<City> cities = new ArrayList<>();
+            while (rset.next()) {
+                City cty = new City();
+                cty.name = rset.getString("name");
+                cty.countrycode = rset.getString("countrycode");
+                cty.district = rset.getString("district");
+                cty.population = rset.getInt("population");
+                cities.add(cty);
+            }
+            return cities;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
+            return null;
+        }
+    }
+
     //Get the population of cities in each district
     public ArrayList<City> getCitybyDistrict() {
         try {
@@ -264,6 +272,39 @@ public class City {
             String strSelect =
                     "SELECT * from (SELECT cy.name, cy.countrycode, cy.district, cy.population, row_number() over (order by cy.population desc) as cityRank "
                             + "FROM city cy) ranks "
+                            + "WHERE cityRank <= " + rank;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            ArrayList<City> tpNCities = new ArrayList<>();
+            while (rset.next()) {
+                City cty = new City();
+                cty.name = rset.getString("name");
+                cty.countrycode = rset.getString("countrycode");
+                cty.district = rset.getString("district");
+                cty.population = rset.getInt("population");
+                tpNCities.add(cty);
+            }
+            return tpNCities;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get table details");
+            return null;
+        }
+    }
+
+    //Get the top population of cities in each continent
+    public ArrayList<City> getTopNCitiesbyContinent(int rank) {
+        try {
+            Connection con = ra.connect();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT * from (SELECT cy.name, cy.countrycode, cy.district, cy.population, row_number() over (partition by c.continent order by cy.population desc) as cityRank "
+                            + "FROM city cy, country c where cy.countrycode = c.code) ranks "
                             + "WHERE cityRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -385,40 +426,6 @@ public class City {
             return null;
         }
     }
-
-    //Get the top population of cities in each continent
-    public ArrayList<City> getTopNCitiesbyContinent(int rank) {
-        try {
-            Connection con = ra.connect();
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT * from (SELECT cy.name, cy.countrycode, cy.district, cy.population, row_number() over (partition by c.continent order by cy.population desc) as cityRank "
-                            + "FROM city cy, country c where cy.countrycode = c.code) ranks "
-                            + "WHERE cityRank <= " + rank;
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
-            ArrayList<City> tpNCities = new ArrayList<>();
-            while (rset.next()) {
-                City cty = new City();
-                cty.name = rset.getString("name");
-                cty.countrycode = rset.getString("countrycode");
-                cty.district = rset.getString("district");
-                cty.population = rset.getInt("population");
-                tpNCities.add(cty);
-            }
-            return tpNCities;
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get table details");
-            return null;
-        }
-    }
-
 
     public void printCityReport(ArrayList<City> cities) {
 
