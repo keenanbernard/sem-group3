@@ -18,7 +18,7 @@ Develop Branch ![GitHub Workflow Status (branch)](https://img.shields.io/github/
 - Workflow ![workflow](https://github.com/keenanbernard/sem-group3/actions/workflows/main.yml/badge.svg) <br>
 - Licence [![LICENSE](https://img.shields.io/github/license/keenanbernard/sem-group3.svg?style=flat-square)](https://github.com/keenanbernard/sem-group3/blob/master/LICENSE) <br>
 - Release [![Releases](https://img.shields.io/github/release/keenanbernard/sem-group3/all.svg?style=flat-square)](https://github.com/keenanbernard/sem-group3/releases) <br>
-- [![codecov](https://codecov.io/gh/keenanbernard/sem-group3/branch/main/graph/badge.svg?token=JDZ7W32J4I)](https://img.shields.io/codecov/c/github/keenanbernard/sem-group3) <br>
+  [![codecov](https://codecov.io/gh/keenanbernard/sem-group3/branch/main/graph/badge.svg?token=WLM5jzekly)](https://codecov.io/gh/keenanbernard/sem-group3)
 
 > [Include No. Here] requirements of 32 have been implemented, which is [Include % Here].
 
