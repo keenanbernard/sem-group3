@@ -47,8 +47,8 @@ jobs:
           directory: ./target/site/jacoco
           flags: Integration Tests # optional
           verbose: true # optional (default = false)
-        run:
-          bash curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov
+      after_success:
+            - bash <(curl -s https://codecov.io/bash)
 
   build:
     name: Build and Start Using docker-compose
