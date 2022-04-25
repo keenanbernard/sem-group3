@@ -202,6 +202,7 @@ public class Capital {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
+            //
             ArrayList<Capital> capitalCities = new ArrayList<>();
             while (rset.next()) {
                 Capital ccty = new Capital();
