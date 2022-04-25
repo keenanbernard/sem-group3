@@ -15,7 +15,7 @@ public class ReportingApp {
         /*// Connect to database
         a.connect();*/
 
-        cy.CitiesByRegion();
+        cy.CitiesByDistrict();
 
         /*  // Get Country
         ArrayList<Country> countries = a.getCountry();

@@ -35,5 +35,4 @@ public class IntegrationTest {
         assertEquals(ctr.population, 241000);
         assertEquals(ctr.capital, 185);
     }
-
 }
