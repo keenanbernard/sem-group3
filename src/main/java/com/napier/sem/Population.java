@@ -20,10 +20,12 @@ public class Population {
 
 
     ReportingApp ra = new ReportingApp();
+    private String location;
+    private int delay;
 
 
     public void populationbyAllContinents() {
-        ArrayList<Population> populations = getPopulationbyAllContinents();
+        ArrayList<Population> populations = getPopulationbyAllContinents(location, delay);
 
         System.out.println(populations.size());
 
@@ -31,7 +33,7 @@ public class Population {
     }
 
     public void populationbyAllRegions() {
-        ArrayList<Population> populations = getPopulationbyAllRegions();
+        ArrayList<Population> populations = getPopulationbyAllRegions(location, delay);
 
         System.out.println(populations.size());
 
@@ -39,7 +41,7 @@ public class Population {
     }
 
     public void populationbyALLCountries() {
-        ArrayList<Population> populations = getPopulationbyAllCountries();
+        ArrayList<Population> populations = getPopulationbyAllCountries(location, delay);
 
         System.out.println(populations.size());
 
@@ -47,7 +49,7 @@ public class Population {
     }
 
     public void worldsPopulation() {
-        ArrayList<Population> populations = getWorldsPopulation();
+        ArrayList<Population> populations = getWorldsPopulation(location, delay);
 
         System.out.println(populations.size());
 
@@ -55,7 +57,7 @@ public class Population {
     }
 
     public void populationofaContinent(String cont){
-        ArrayList<Population> populations = getPopulationofaContinent(cont);
+        ArrayList<Population> populations = getPopulationofaContinent(cont, location, delay);
 
         System.out.println(populations.size());
 
@@ -63,7 +65,7 @@ public class Population {
     }
 
     public void populationofaRegion(String reg) {
-        ArrayList<Population> populations = getPopulationofaRegion(reg);
+        ArrayList<Population> populations = getPopulationofaRegion(reg, location, delay);
 
         System.out.println(populations.size());
 
@@ -71,7 +73,7 @@ public class Population {
     }
 
     public void populationofaCountry(String country) {
-        ArrayList<Population> populations = getPopulationofaCountry(country);
+        ArrayList<Population> populations = getPopulationofaCountry(country, location, delay);
 
         System.out.println(populations.size());
 
@@ -79,7 +81,7 @@ public class Population {
     }
 
     public void populationofaDistrict(String district){
-        ArrayList<Population> populations = getPopulationofaDistrict(district);
+        ArrayList<Population> populations = getPopulationofaDistrict(district, location, delay);
 
         System.out.println(populations.size());
 
@@ -87,7 +89,7 @@ public class Population {
     }
 
     public void populationofaCity(String city){
-        ArrayList<Population> populations = getPopulationOfaCity(city);
+        ArrayList<Population> populations = getPopulationOfaCity(city, location, delay);
 
         System.out.println(populations.size());
 
@@ -95,7 +97,7 @@ public class Population {
     }
 
     public void worldLanguages(){
-        ArrayList<Population> worldLanguages = getWorldLanguages();
+        ArrayList<Population> worldLanguages = getWorldLanguages(location, delay);
 
         System.out.println(worldLanguages.size());
 
@@ -103,9 +105,9 @@ public class Population {
     }
 
     //Get the population for all continents along with their statistics for living in cities (urban) and not living in cities (rural)
-    public ArrayList<Population> getPopulationbyAllContinents() {
+    public ArrayList<Population> getPopulationbyAllContinents(String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -143,9 +145,9 @@ public class Population {
 
 
     //Get the population for all regions along with their statistics for living in cities (urban) and not living in cities (rural)
-    public ArrayList<Population> getPopulationbyAllRegions() {
+    public ArrayList<Population> getPopulationbyAllRegions(String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -182,9 +184,9 @@ public class Population {
     }
 
     //Get the population for all countries along with their statistics for living in cities (urban) and not living in cities (rural)
-    public ArrayList<Population> getPopulationbyAllCountries() {
+    public ArrayList<Population> getPopulationbyAllCountries(String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -222,9 +224,9 @@ public class Population {
 
 
     //Get the population for the world along with its statistics for living in cities (urban) and not living in cities (rural)
-    public ArrayList<Population> getWorldsPopulation() {
+    public ArrayList<Population> getWorldsPopulation(String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -261,9 +263,9 @@ public class Population {
 
 
     //Get the population for a specific continent along with their statistics for living in cities (urban) and not living in cities (rural)
-    public ArrayList<Population> getPopulationofaContinent(String cont) {
+    public ArrayList<Population> getPopulationofaContinent(String cont, String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -301,9 +303,9 @@ public class Population {
 
 
     //Get the population for a specific region along with their statistics for living in cities (urban) and not living in cities (rural)
-    public ArrayList<Population> getPopulationofaRegion(String reg) {
+    public ArrayList<Population> getPopulationofaRegion(String reg, String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -341,9 +343,9 @@ public class Population {
 
 
     //Get the population for a specific country along with their statistics for living in cities (urban) and not living in cities (rural)
-    public ArrayList<Population> getPopulationofaCountry(String country) {
+    public ArrayList<Population> getPopulationofaCountry(String country, String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -381,9 +383,9 @@ public class Population {
 
 
     //Get the population for a specific district along with their statistics for living in cities (urban) and not living in cities (rural)
-    public ArrayList<Population> getPopulationofaDistrict(String district) {
+    public ArrayList<Population> getPopulationofaDistrict(String district, String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -421,9 +423,9 @@ public class Population {
 
 
     //Get the population for a specific city along with their statistics for living in cities (urban) and not living in cities (rural)
-    public ArrayList<Population> getPopulationOfaCity(String city) {
+    public ArrayList<Population> getPopulationOfaCity(String city, String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -461,9 +463,9 @@ public class Population {
 
 
     //Get the population for people that speak specific languages along with their percentage, in regard to the world's population.
-    public ArrayList<Population> getWorldLanguages() {
+    public ArrayList<Population> getWorldLanguages(String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -535,5 +537,18 @@ public class Population {
                             pn.language,pn.population, pn.percentage);
             System.out.println(pn_string);
         }
+    }
+
+    public String getLocation() {
+        return location;
+    }
+    public void setLocation(String location){
+        this.location=location;
+    }
+    public int getDelay() {
+        return delay;
+    }
+    public void setDelay(int delay){
+        this.delay=delay;
     }
 }

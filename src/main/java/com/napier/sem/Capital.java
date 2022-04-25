@@ -12,9 +12,11 @@ public class Capital {
     public String region;
 
     ReportingApp ra = new ReportingApp();
+    private String location;
+    private int delay;
 
     public void CapitalCities(){
-        ArrayList<Capital> capitalCities = getCapitalCity();
+        ArrayList<Capital> capitalCities = getCapitalCity(location, delay);
 
         System.out.println(capitalCities.size());
 
@@ -22,7 +24,7 @@ public class Capital {
     }
 
     public void capitalCitiesbyContinent(){
-        ArrayList<Capital> capitalCities = capitalCitybyContinent();
+        ArrayList<Capital> capitalCities = capitalCitybyContinent(location, delay);
 
         System.out.println(capitalCities.size());
 
@@ -30,7 +32,7 @@ public class Capital {
     }
 
     public void capitalCitiesbyRegion(){
-        ArrayList<Capital> capitalCitiesregion = capitalCitybyRegion();
+        ArrayList<Capital> capitalCitiesregion = capitalCitybyRegion(location, delay);
 
         System.out.println(capitalCitiesregion.size());
 
@@ -38,7 +40,7 @@ public class Capital {
     }
 
     public void topNCapitalCitiesinWorld(){
-        ArrayList<Capital> topCapitalCitiesinWorld = getTopNCapitalCities(5);
+        ArrayList<Capital> topCapitalCitiesinWorld = getTopNCapitalCities(5, location, delay);
 
         System.out.println(topCapitalCitiesinWorld.size());
 
@@ -46,7 +48,7 @@ public class Capital {
     }
 
     public void topNCapitalCitiesinContinent(){
-        ArrayList<Capital> topCapitalCitiesinContinent = getTopNCapitalCitiesinContinent(3);
+        ArrayList<Capital> topCapitalCitiesinContinent = getTopNCapitalCitiesinContinent(3, location, delay);
 
         System.out.println(topCapitalCitiesinContinent.size());
 
@@ -54,7 +56,7 @@ public class Capital {
     }
 
     public void topNCapitalCitiesinRegion(){
-        ArrayList<Capital> topCapitalCitiesinRegion = getTopNCapitalCitiesinRegion(4);
+        ArrayList<Capital> topCapitalCitiesinRegion = getTopNCapitalCitiesinRegion(4, location, delay);
 
         System.out.println(topCapitalCitiesinRegion.size());
 
@@ -62,9 +64,9 @@ public class Capital {
     }
 
     // All the capital cities in the world organised by largest population to smallest.
-    public ArrayList<Capital> getCapitalCity() {
+    public ArrayList<Capital> getCapitalCity(String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -94,9 +96,9 @@ public class Capital {
     }
 
     // All the capital cities in a continent organised by largest population to smallest.
-    public ArrayList<Capital> capitalCitybyContinent() {
+    public ArrayList<Capital> capitalCitybyContinent(String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -126,9 +128,9 @@ public class Capital {
     }
 
     // All the capital cities in a region organised by largest to smallest.
-    public ArrayList<Capital> capitalCitybyRegion() {
+    public ArrayList<Capital> capitalCitybyRegion(String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -158,9 +160,9 @@ public class Capital {
     }
 
     // The top N populated capital cities in the world where N is provided by the user.
-    public ArrayList<Capital> getTopNCapitalCities(int rank) {
+    public ArrayList<Capital> getTopNCapitalCities(int rank, String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -191,9 +193,9 @@ public class Capital {
     }
 
     // The top N populated capital cities in a continent where N is provided by the user.
-    public ArrayList<Capital> getTopNCapitalCitiesinContinent(int rank) {
+    public ArrayList<Capital> getTopNCapitalCitiesinContinent(int rank, String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -224,9 +226,9 @@ public class Capital {
     }
 
     // The top N populated capital cities in a region where N is provided by the use
-    public ArrayList<Capital> getTopNCapitalCitiesinRegion(int rank) {
+    public ArrayList<Capital> getTopNCapitalCitiesinRegion(int rank, String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -275,5 +277,18 @@ public class Capital {
                             ccty.name, ccty.country, ccty.population);
             System.out.println(ccty_string);
         }
+    }
+
+    public String getLocation() {
+        return location;
+    }
+    public void setLocation(String location){
+        this.location=location;
+    }
+    public int getDelay() {
+        return delay;
+    }
+    public void setDelay(int delay){
+        this.delay=delay;
     }
 }

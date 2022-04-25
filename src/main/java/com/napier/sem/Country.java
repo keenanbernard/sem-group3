@@ -13,9 +13,11 @@ public class Country {
    public int capital;
 
    ReportingApp ra = new ReportingApp();
+   private String location;
+   private int delay;
 
    public void Countries(){
-      ArrayList<Country> countries = getCountries();
+      ArrayList<Country> countries = getCountries(location, delay);
 
       System.out.println(countries.size());
 
@@ -23,7 +25,7 @@ public class Country {
    }
 
    public void countriesbyContinent(){
-      ArrayList<Country> countries = getCountrybyContinent();
+      ArrayList<Country> countries = getCountrybyContinent(location, delay);
 
       System.out.println(countries.size());
 
@@ -31,7 +33,7 @@ public class Country {
    }
 
    public void countriesbyRegion() {
-      ArrayList<Country> countriesbyregion = getCountrybyRegion();
+      ArrayList<Country> countriesbyregion = getCountrybyRegion(location, delay);
 
       System.out.println(countriesbyregion.size());
 
@@ -39,7 +41,7 @@ public class Country {
    }
 
    public void topNCountries(){
-      ArrayList<Country> topNCountries = getTopNCountries(5);
+      ArrayList<Country> topNCountries = getTopNCountries(5, location, delay);
 
       System.out.println(topNCountries.size());
 
@@ -47,7 +49,7 @@ public class Country {
    }
 
    public void topNCountriesbyContinent(){
-      ArrayList<Country> topNCountries = getTopNCountriesbyContinent(3);
+      ArrayList<Country> topNCountries = getTopNCountriesbyContinent(3, location, delay);
 
       System.out.println(topNCountries.size());
 
@@ -55,7 +57,7 @@ public class Country {
    }
 
    public void topNCountriesbyRegion(){
-      ArrayList<Country> topNCountries = getTopNCountriesbyRegion(4);
+      ArrayList<Country> topNCountries = getTopNCountriesbyRegion(4, location, delay);
 
       System.out.println(topNCountries.size());
 
@@ -63,9 +65,9 @@ public class Country {
    }
 
   // All the countries in the world organised by largest population to smallest.
-   public ArrayList<Country> getCountries() {
+   public ArrayList<Country> getCountries(String location, int delay) {
       try {
-         Connection con = ra.connect();
+         Connection con = ra.connect(location, delay);
          // Create an SQL statement
          Statement stmt = con.createStatement();
          // Create string for SQL statement
@@ -98,9 +100,9 @@ public class Country {
    }
 
    // All the countries in a continent organised by largest population to smallest.
-   public ArrayList<Country> getCountrybyContinent() {
+   public ArrayList<Country> getCountrybyContinent(String location, int delay) {
       try {
-         Connection con = ra.connect();
+         Connection con = ra.connect(location, delay);
          // Create an SQL statement
          Statement stmt = con.createStatement();
          // Create string for SQL statement
@@ -133,9 +135,9 @@ public class Country {
    }
 
    // All the countries in a region organised by largest population to smallest.
-   public ArrayList<Country> getCountrybyRegion() {
+   public ArrayList<Country> getCountrybyRegion(String location, int delay) {
       try {
-         Connection con = ra.connect();
+         Connection con = ra.connect(location, delay);
          // Create an SQL statement
          Statement stmt = con.createStatement();
          // Create string for SQL statement
@@ -168,9 +170,9 @@ public class Country {
    }
 
    // The top N populated countries in the world where N is provided by the user.
-   public ArrayList<Country> getTopNCountries(int rank) {
+   public ArrayList<Country> getTopNCountries(int rank, String location, int delay) {
       try {
-         Connection con = ra.connect();
+         Connection con = ra.connect(location, delay);
          // Create an SQL statement
          Statement stmt = con.createStatement();
          // Create string for SQL statement
@@ -203,9 +205,9 @@ public class Country {
    }
 
    // The top N populated countries in a continent where N is provided by the user.
-   public ArrayList<Country> getTopNCountriesbyContinent(int rank) {
+   public ArrayList<Country> getTopNCountriesbyContinent(int rank, String location, int delay) {
       try {
-         Connection con = ra.connect();
+         Connection con = ra.connect(location, delay);
          // Create an SQL statement
          Statement stmt = con.createStatement();
          // Create string for SQL statement
@@ -238,9 +240,9 @@ public class Country {
    }
 
    // The top N populated countries in a region where N is provided by the user.
-   public ArrayList<Country> getTopNCountriesbyRegion(int rank) {
+   public ArrayList<Country> getTopNCountriesbyRegion(int rank, String location, int delay) {
       try {
-         Connection con = ra.connect();
+         Connection con = ra.connect(location, delay);
          // Create an SQL statement
          Statement stmt = con.createStatement();
          // Create string for SQL statement
@@ -290,5 +292,18 @@ public class Country {
                          ctr.code, ctr.name, ctr.continent, ctr.region, ctr.population, ctr.capital);
          System.out.println(ctr_string);
       }
+   }
+
+   public String getLocation() {
+      return location;
+   }
+   public void setLocation(String location){
+      this.location=location;
+   }
+   public int getDelay() {
+      return delay;
+   }
+   public void setDelay(int delay){
+      this.delay=delay;
    }
 }

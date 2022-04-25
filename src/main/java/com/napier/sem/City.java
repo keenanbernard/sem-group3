@@ -12,9 +12,11 @@ public class City {
     public String continent;
 
     ReportingApp ra = new ReportingApp();
+    private String location;
+    private int delay;
 
     public void Cities(){
-        ArrayList<City> cities = getCities();
+        ArrayList<City> cities = getCities(location, delay);
 
         System.out.println(cities.size());
 
@@ -22,7 +24,7 @@ public class City {
     }
 
     public void citiesByContinent(){
-        ArrayList<City> cContinent = getCitybyContinent();
+        ArrayList<City> cContinent = getCitybyContinent(location, delay);
 
         System.out.println(cContinent.size());
 
@@ -30,7 +32,7 @@ public class City {
     }
 
     public void citiesByRegion(){
-        ArrayList<City> cr = getCitybyRegion();
+        ArrayList<City> cr = getCitybyRegion(location, delay);
 
         System.out.println(cr.size());
 
@@ -38,7 +40,7 @@ public class City {
     }
 
     public void citiesbyCountry(){
-        ArrayList<City> cc = getCitiesbyCountry();
+        ArrayList<City> cc = getCitiesbyCountry(location, delay);
 
         System.out.println(cc.size());
 
@@ -46,7 +48,7 @@ public class City {
     }
 
     public void citiesByDistrict(){
-        ArrayList<City> dCities = getCitybyDistrict();
+        ArrayList<City> dCities = getCitybyDistrict(location, delay);
 
         System.out.println(dCities.size());
 
@@ -54,7 +56,7 @@ public class City {
     }
 
     public void topNCities(){
-        ArrayList<City> topNCities = getTopNCities(2);
+        ArrayList<City> topNCities = getTopNCities(2, location, delay);
 
         System.out.println(topNCities.size());
 
@@ -62,7 +64,7 @@ public class City {
     }
 
     public void topNCitiesbyContinent(){
-        ArrayList<City> topNCities = getTopNCitiesbyContinent(3);
+        ArrayList<City> topNCities = getTopNCitiesbyContinent(3, location, delay);
 
         System.out.println(topNCities.size());
 
@@ -70,7 +72,7 @@ public class City {
     }
 
     public void topNCitiesbyRegion(){
-        ArrayList<City> topNCities = getTopNCitiesbyRegion(4);
+        ArrayList<City> topNCities = getTopNCitiesbyRegion(4, location, delay);
 
         System.out.println(topNCities.size());
 
@@ -78,7 +80,7 @@ public class City {
     }
 
     public void topNCitiesbyCountry(){
-        ArrayList<City> topNCities = getTopNCitiesbyCountry(5);
+        ArrayList<City> topNCities = getTopNCitiesbyCountry(5, location, delay);
 
         System.out.println(topNCities.size());
 
@@ -86,7 +88,7 @@ public class City {
     }
 
     public void topNCitiesbyDistrict(){
-        ArrayList<City> topNCities = getTopNCitiesbyDistrict(1);
+        ArrayList<City> topNCities = getTopNCitiesbyDistrict(1, location, delay);
 
         System.out.println(topNCities.size());
 
@@ -95,9 +97,9 @@ public class City {
 
 
     //Get the population of cities in the world
-    public ArrayList<City> getCities() {
+    public ArrayList<City> getCities(String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -128,9 +130,9 @@ public class City {
     }
 
     //Get the population of cities in each continent
-    public ArrayList<City> getCitybyContinent() {
+    public ArrayList<City> getCitybyContinent(String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -162,9 +164,9 @@ public class City {
     }
 
     //Get the population of cities in each region
-    public ArrayList<City> getCitybyRegion() {
+    public ArrayList<City> getCitybyRegion(String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -196,9 +198,9 @@ public class City {
     }
 
     //Get the population of cities in each country
-    public ArrayList<City> getCitiesbyCountry() {
+    public ArrayList<City> getCitiesbyCountry(String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -229,9 +231,9 @@ public class City {
     }
 
     //Get the population of cities in each district
-    public ArrayList<City> getCitybyDistrict() {
+    public ArrayList<City> getCitybyDistrict(String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -262,9 +264,9 @@ public class City {
     }
 
     //Get the top population of cities in the world
-    public ArrayList<City> getTopNCities(int rank) {
+    public ArrayList<City> getTopNCities(int rank, String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -295,9 +297,9 @@ public class City {
     }
 
     //Get the top population of cities in each continent
-    public ArrayList<City> getTopNCitiesbyContinent(int rank) {
+    public ArrayList<City> getTopNCitiesbyContinent(int rank, String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -328,9 +330,9 @@ public class City {
     }
 
     //Get the top population of cities in each region
-    public ArrayList<City> getTopNCitiesbyRegion(int rank) {
+    public ArrayList<City> getTopNCitiesbyRegion(int rank, String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -361,9 +363,9 @@ public class City {
     }
 
     //Get the top population of cities in each country
-    public ArrayList<City> getTopNCitiesbyCountry(int rank) {
+    public ArrayList<City> getTopNCitiesbyCountry(int rank, String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -394,9 +396,9 @@ public class City {
     }
 
     //Get the top population of cities in each district
-    public ArrayList<City> getTopNCitiesbyDistrict(int rank) {
+    public ArrayList<City> getTopNCitiesbyDistrict(int rank, String location, int delay) {
         try {
-            Connection con = ra.connect();
+            Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -444,5 +446,19 @@ public class City {
                             cty.name, cty.countrycode, cty.district, cty.population);
             System.out.println(cty_string);
         }
+    }
+
+
+    public String getLocation() {
+        return location;
+    }
+    public void setLocation(String location){
+        this.location=location;
+    }
+    public int getDelay() {
+        return delay;
+    }
+    public void setDelay(int delay){
+        this.delay=delay;
     }
 }
