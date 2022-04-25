@@ -497,9 +497,18 @@ public class Population {
     }
 
     public void printPopulation(ArrayList<Population> population) {
+
+        if(population == null)
+        {
+            System.out.println("No Data found.");
+            return;
+        }
+
         System.out.println(String.format("%-15s %-15s %-20s %-20s %-15s %-20s", "name", "population", "urban", "urban(%)", "rural", "rural(%)"));
 
         for (Population pn : population) {
+            if (pn == null) continue;
+
             String pn_string =
                     String.format("%-15s %-15s %-20s %-20s %-15s %-20s",
                             pn.name, pn.population, pn.urban, pn.urbanPercent, pn.rural, pn.ruralPercent);
@@ -509,9 +518,18 @@ public class Population {
 
 
     public void printPercentage(ArrayList<Population> popPercentages) {
+
+        if(popPercentages == null)
+        {
+            System.out.println("No Data found.");
+            return;
+        }
+
         System.out.println(String.format("%-25s %-25s %-15s", "Language", "Population", "Percentage"));
 
         for (Population pn : popPercentages) {
+            if (pn == null) continue;
+
             String pn_string =
                     String.format("%-25s %-25s %-15s ",
                             pn.language,pn.population, pn.percentage);
