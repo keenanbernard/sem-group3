@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import java.io.Console;
 import java.sql.*;
 
 public class ReportingApp {
@@ -15,7 +16,12 @@ public class ReportingApp {
         /*// Connect to database
         a.connect();*/
 
+        c.Countries();
+        c.CountriesbyContinent();
+        c.CountriesbyRegion();
+        c.TopNCountries();
         c.TopNCountriesbyContinent();
+        c.TopNCountriesbyRegion();
 
         /*  // Get Country
         ArrayList<Country> countries = a.getCountry();
