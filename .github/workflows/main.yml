@@ -47,7 +47,7 @@ jobs:
           directory: ./target/site/jacoco
           flags: Integration Tests # optional
           verbose: true # optional (default = false)
-          curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov
+            curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov
 
 
   build:
