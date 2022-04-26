@@ -18,37 +18,37 @@ Develop Branch ![GitHub Workflow Status (branch)](https://img.shields.io/github/
 - Workflow ![workflow](https://github.com/keenanbernard/sem-group3/actions/workflows/main.yml/badge.svg) <br>
 - Licence [![LICENSE](https://img.shields.io/github/license/keenanbernard/sem-group3.svg?style=flat-square)](https://github.com/keenanbernard/sem-group3/blob/master/LICENSE) <br>
 - Release [![Releases](https://img.shields.io/github/release/keenanbernard/sem-group3/all.svg?style=flat-square)](https://github.com/keenanbernard/sem-group3/releases) <br>
-- [![codecov](https://codecov.io/gh/keenanbernard/sem-group3/branch/main/graph/badge.svg?token=JDZ7W32J4I)](https://img.shields.io/codecov/c/github/keenanbernard/sem-group3) <br>
+- Code Coverage [![codecov](https://codecov.io/gh/keenanbernard/sem-group3/branch/main/graph/badge.svg?token=WLM5jzekly)](https://codecov.io/gh/keenanbernard/sem-group3)
 
-> [Include No. Here] requirements of 32 have been implemented, which is [Include % Here].
+> [32] requirements of 32 have been implemented, which is [100%].
 
-| ID | Name        | Met         | Screenshot      |
-|:---:|:------------|:-------------:|:--------------|
-| 1  | All the countries in the world organised by largest population to smallest. | Yes |  |
-| 2  | All the countries in a continent organised by largest population to smallest. | Yes |   |
-| 3  | All the countries in a region organised by largest population to smallest. | Yes |  |
-| 4  | The top N populated countries in the world where N is provided by the user. | Yes |  |
-| 5  | The top N populated countries in a continent where N is provided by the user. | Yes |     |
-| 6  | The top N populated countries in a region where N is provided by the user. | Yes |  |
-| 7  | All the cities in the world organised by largest population to smallest. | Yes  |
-| 8  | All the cities in a continent organised by largest population to smallest. | Yes  |
-| 9  | All the cities in a region organised by largest population to smallest. | Yes  |
-| 10  | All the cities in a country organised by largest population to smallest. |  Yes  |
-| 11  | All the cities in a district organised by largest population to smallest. | Yes   |
-| 12  | The top N populated cities in the world where N is provided by the user. | Yes   |
-| 13  | The top N populated cities in a continent where N is provided by the user. |  Yes  |
-| 14  | The top N populated cities in a region where N is provided by the user. |  Yes  |
-| 15  | The top N populated cities in a country where N is provided by the user. | Yes   |
-| 16  | The top N populated cities in a district where N is provided by the user. | Yes   |
-| 17  | All the capital cities in the world organised by largest population to smallest. | Yes |    |
-| 18  | All the capital cities in a continent organised by largest population to smallest. | Yes |    |
-| 19  | All the capital cities in a region organised by largest to smallest. | Yes |  |
-| 20  | The top N populated capital cities in the world where N is provided by the user. | Yes |    |
-| 21  | The top N populated capital cities in a continent where N is provided by the user. | Yes |   |
-| 22  | The top N populated capital cities in a region where N is provided by the user. | Yes |  |
-| 23  | The population of people, people living in cities, and people not living in cities in each continent. |   Yes | |
-| 24  | The population of people, people living in cities, and people not living in cities in each region. | Yes  | |
-| 25  | The population of people, people living in cities, and people not living in cities in each country. |  Yes  | |
+| ID | Name        | Met         | Screenshot                                                                                                                                                                       |
+|:---:|:------------|:-------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1  | All the countries in the world organised by largest population to smallest. | Yes | ![getCountries](https://github.com/keenanbernard/sem-group3/blob/ce6e71300567b048ec35979b3aae2330833a0f18/images/Country/getCountries.png)                                       |
+| 2  | All the countries in a continent organised by largest population to smallest. | Yes | ![getCountrybyContinent](https://github.com/keenanbernard/sem-group3/blob/ce6e71300567b048ec35979b3aae2330833a0f18/images/Country/getCountrybyContinent.png)                     |
+| 3  | All the countries in a region organised by largest population to smallest. | Yes | ![getCountrybyRegion](https://github.com/keenanbernard/sem-group3/blob/ce6e71300567b048ec35979b3aae2330833a0f18/images/Country/getCountrybyRegion.png)                           |
+| 4  | The top N populated countries in the world where N is provided by the user. | Yes | ![TopNCountries](https://github.com/keenanbernard/sem-group3/blob/ce6e71300567b048ec35979b3aae2330833a0f18/images/Country/TopNCountries.png)                                     |
+| 5  | The top N populated countries in a continent where N is provided by the user. | Yes | ![TopNCountriesbyContinent](https://github.com/keenanbernard/sem-group3/blob/ce6e71300567b048ec35979b3aae2330833a0f18/images/Country/TopNCountriesbyContinent.png)               |
+| 6  | The top N populated countries in a region where N is provided by the user. | Yes | ![TopNCountriesbyRegion](https://github.com/keenanbernard/sem-group3/blob/ce6e71300567b048ec35979b3aae2330833a0f18/images/Country/TopNCountriesbyRegion.png)                     |
+| 7  | All the cities in the world organised by largest population to smallest. | Yes  | ![Cities](https://github.com/keenanbernard/sem-group3/blob/ce6e71300567b048ec35979b3aae2330833a0f18/images/City/Cities.png)                                                      |
+| 8  | All the cities in a continent organised by largest population to smallest. | Yes  | ![CitiesbyContinent](https://github.com/keenanbernard/sem-group3/blob/ce6e71300567b048ec35979b3aae2330833a0f18/images/City/CitiesByContinent.png)                                |
+| 9  | All the cities in a region organised by largest population to smallest. | Yes  | ![CitiesbyRegion](https://github.com/keenanbernard/sem-group3/blob/ce6e71300567b048ec35979b3aae2330833a0f18/images/City/CitiesByRegion.png)                                      |
+| 10  | All the cities in a country organised by largest population to smallest. |  Yes  | ![CitiesbyCountry](https://github.com/keenanbernard/sem-group3/blob/ce6e71300567b048ec35979b3aae2330833a0f18/images/City/CitiesbyCountry.png)                                    |
+| 11  | All the cities in a district organised by largest population to smallest. | Yes   | ![CitiesbyDistrict](https://github.com/keenanbernard/sem-group3/blob/ce6e71300567b048ec35979b3aae2330833a0f18/images/City/CitiesByDistrict.png)                                  |
+| 12  | The top N populated cities in the world where N is provided by the user. | Yes   | ![TopNCities](https://github.com/keenanbernard/sem-group3/blob/ceb49fd6e3bcf1348e83e1ec8b3ea27b27017411/images/City/TopNCities.png)                                              |
+| 13  | The top N populated cities in a continent where N is provided by the user. |  Yes  | ![TopNCitiesbyContinent](https://github.com/keenanbernard/sem-group3/blob/ceb49fd6e3bcf1348e83e1ec8b3ea27b27017411/images/City/TopNCitiesbyContinent.png)                        |
+| 14  | The top N populated cities in a region where N is provided by the user. |  Yes  | ![TopNCitiesbyRegion](https://github.com/keenanbernard/sem-group3/blob/ceb49fd6e3bcf1348e83e1ec8b3ea27b27017411/images/City/TopNCitiesbyRegion.png)                              |
+| 15  | The top N populated cities in a country where N is provided by the user. | Yes   | ![TopNCitiesbyCountry](https://github.com/keenanbernard/sem-group3/blob/ceb49fd6e3bcf1348e83e1ec8b3ea27b27017411/images/City/TopNCitiesbyCountry.png)                            |
+| 16  | The top N populated cities in a district where N is provided by the user. | Yes   | ![TopNCitiesbyDistrict](https://github.com/keenanbernard/sem-group3/blob/ceb49fd6e3bcf1348e83e1ec8b3ea27b27017411/images/City/TopNCitiesbyDistrict.png)                          |
+| 17  | All the capital cities in the world organised by largest population to smallest. | Yes | ![CapitalCities](https://github.com/keenanbernard/sem-group3/blob/ceb49fd6e3bcf1348e83e1ec8b3ea27b27017411/images/Capital%20City/CapitalCity.png)                                |
+| 18  | All the capital cities in a continent organised by largest population to smallest. | Yes | ![CapitalCitiesbyContinent](https://github.com/keenanbernard/sem-group3/blob/ceb49fd6e3bcf1348e83e1ec8b3ea27b27017411/images/Capital%20City/CapitalCitiesbyContinent.png)        |
+| 19  | All the capital cities in a region organised by largest to smallest. | Yes | ![CapitalCitiesbyRegion](https://github.com/keenanbernard/sem-group3/blob/ceb49fd6e3bcf1348e83e1ec8b3ea27b27017411/images/Capital%20City/capitalCitybyRegion.png)                |
+| 20  | The top N populated capital cities in the world where N is provided by the user. | Yes | ![TopNCaptialCitiesinWorld](https://github.com/keenanbernard/sem-group3/blob/ceb49fd6e3bcf1348e83e1ec8b3ea27b27017411/images/Capital%20City/TopNCapitalCitiesinWorld.png)        |
+| 21  | The top N populated capital cities in a continent where N is provided by the user. | Yes | ![TopNCapitalCitiesinContinent](https://github.com/keenanbernard/sem-group3/blob/ceb49fd6e3bcf1348e83e1ec8b3ea27b27017411/images/Capital%20City/TopNCapitalCitiesinContinen.png) |
+| 22  | The top N populated capital cities in a region where N is provided by the user. | Yes | ![TopNCapitalCitiesinRegion](https://github.com/keenanbernard/sem-group3/blob/ceb49fd6e3bcf1348e83e1ec8b3ea27b27017411/images/Capital%20City/capitalCitybyRegion.png)                                                                                                                                                   |
+| 23  | The population of people, people living in cities, and people not living in cities in each continent. |   Yes |                                                                                                                                                                                  |
+| 24  | The population of people, people living in cities, and people not living in cities in each region. | Yes  |                                                                                                                                                                                  |
+| 25  | The population of people, people living in cities, and people not living in cities in each country. |  Yes  |                                                                                                                                                                                  |
 | 26  | The population of the world. | Yes  |
 | 27  | The population of a continent. | Yes  |
 | 28  | The population of a region. | Yes  |
