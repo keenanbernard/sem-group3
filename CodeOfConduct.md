@@ -50,4 +50,4 @@
 
 14. Recognize and rectify moral issues during meetings
 
-15. Stay open to other’s viewpoints and ideas. of your colleagues 
+15. Stay open to other’s viewpoints and ideas. of your colleagues
