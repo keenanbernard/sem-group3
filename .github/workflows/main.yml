@@ -18,6 +18,17 @@ jobs:
       - name: Unit Tests
         run: |
           mvn -Dtest=com.napier.sem.CountryTest,com.napier.sem.CityTest,com.napier.sem.CapitalTest,com.napier.sem.PopulationTest test
+      - name: CodeCov
+        uses: codecov/codecov-action@v2
+        with:
+          directory: ./target/site/jacoco
+          flags: Unit Tests # optional
+          verbose: true # optional (default = false)
+      - name: Upload Unit Test reports to Codecov
+        run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          ./codecov -t
 
   IntegrationTests:
     name: Integration Tests
@@ -47,7 +58,7 @@ jobs:
             cat codecov.yml | curl --data-binary @- https://codecov.io/validate
           flags: Integration Tests
           verbose: true
-      - name: Upload reports to Codecov
+      - name: Upload Integration Tests report to Codecov
         run: |
           curl -Os https://uploader.codecov.io/latest/linux/codecov
           chmod +x codecov
