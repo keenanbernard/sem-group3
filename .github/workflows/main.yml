@@ -47,6 +47,11 @@ jobs:
             cat codecov.yml | curl --data-binary @- https://codecov.io/validate
           flags: Integration Tests
           verbose: true
+      - name: Upload reports to Codecov
+        run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          ./codecov -f coverage/codecov-result.json -Z
 
   build:
     name: Build Run in Docker and Deploy Release
