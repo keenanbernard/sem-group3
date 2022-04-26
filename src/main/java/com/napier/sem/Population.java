@@ -38,7 +38,7 @@ public class Population {
         printPopulation(populations);
     }
 
-    public void populationbyALLCountries() {
+    public void populationbyAllCountries() {
         ArrayList<Population> populations = getPopulationbyAllCountries(location, delay);
         System.out.println(populations.size());
         printPopulation(populations);
@@ -50,7 +50,7 @@ public class Population {
         printPopulation(populations);
     }
 
-    //The following 4 public voids pushes a variable to the method, assigns the returned arraylists from the methods and send them to the print method for display.
+    //The following 5 public voids pushes a variable to the method, assigns the returned arraylists from the methods and send them to the print method for display.
     public void populationofaContinent(String cont){
         ArrayList<Population> populations = getPopulationofaContinent(cont, location, delay);
         System.out.println(populations.size());
@@ -81,6 +81,7 @@ public class Population {
         printPopulation(populations);
     }
 
+    //Assigns the returned arraylist from the method and sends it to the print method for display
     public void worldLanguages(){
         ArrayList<Population> worldLanguages = getWorldLanguages(location, delay);
         System.out.println(worldLanguages.size());
