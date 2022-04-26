@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import javax.swing.*;
 import java.sql.*;
 
 public class ReportingApp {
@@ -35,7 +36,7 @@ public class ReportingApp {
 
 
         // Report Method Called, initiating connection on each method.
-        pn.worldLanguages();
+        pn.populationofaCity("Belize City");
 
         // Disconnect from database
         a.disconnect();
