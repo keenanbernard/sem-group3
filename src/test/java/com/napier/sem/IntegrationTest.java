@@ -11,12 +11,58 @@ public class IntegrationTest {
 
     static Population pn;
     static Country ctr;
+    static City cty;
 
     @BeforeAll
     static void init()
     {
         pn = new Population();
         ctr = new Country();
+        cty = new City();
+    }
+
+    @Test
+    void testGetCountries()
+    {
+        List<Country> countries = ctr.getCountries("localhost:33060", 0);
+        assertEquals(countries.get(0).code, "CHN");
+        assertEquals(countries.get(0).name, "China");
+        assertEquals(countries.get(0).continent, "Asia");
+        assertEquals(countries.get(0).region, "Eastern Asia");
+        assertEquals(countries.get(0).population, 1277558000);
+        assertEquals(countries.get(0).capital, 1891);
+    }
+
+    @Test
+    void testGetTopNCountries()
+    {
+        List<Country> countries = ctr.getTopNCountries(3,"localhost:33060", 0);
+        assertEquals(countries.get(1).code, "IND");
+        assertEquals(countries.get(1).name, "India");
+        assertEquals(countries.get(1).continent, "Asia");
+        assertEquals(countries.get(1).region, "Southern and Central Asia");
+        assertEquals(countries.get(1).population, 1013662000);
+        assertEquals(countries.get(1).capital, 1109);
+    }
+
+    @Test
+    void testGetCities()
+    {
+        List<City> cities = cty.getCities("localhost:33060", 0);
+        assertEquals(cities.get(0).name, "Mumbai (Bombay)");
+        assertEquals(cities.get(0).countrycode, "IND");
+        assertEquals(cities.get(0).district, "Maharashtra");
+        assertEquals(cities.get(0).population, 10500000);
+    }
+
+    @Test
+    void testGetTopNCitiesbyDistrict()
+    {
+        List<City> cities = cty.getTopNCitiesbyDistrict(2, "localhost:33060", 0);
+        assertEquals(cities.get(0).name, "Taiping");
+        assertEquals(cities.get(0).countrycode, "TWN");
+        assertEquals(cities.get(0).district, "");
+        assertEquals(cities.get(0).population, 165524);
     }
 
     @Test
@@ -24,7 +70,6 @@ public class IntegrationTest {
     {
         Long wpn = new Long("6078749450");
         Long wrl = new Long("4649189566");
-        Population pn = new Population();
         List<Population> population = pn.getWorldsPopulation("localhost:33060", 0);
         assertEquals(population.get(0).name, "World");
         assertEquals(population.get(0).population, BigDecimal.valueOf(wpn));
