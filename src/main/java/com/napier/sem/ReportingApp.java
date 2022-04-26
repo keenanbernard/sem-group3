@@ -14,7 +14,7 @@ public class ReportingApp {
         Capital cc = new Capital();
         Population pn = new Population();
 
-        if (args.length < 1){
+        if (args.length < 1){ // if there is no argument being passed through args, assign localhost and port 33060 as the connection criteria to all classes, as well as a 0 delay.
             cy.setLocation("localhost:33060");
             c.setLocation("localhost:33060");
             cc.setLocation("localhost:33060");
@@ -23,7 +23,7 @@ public class ReportingApp {
             c.setDelay(0);
             cc.setDelay(0);
             pn.setDelay(0);
-        }else{
+        }else{  // if there is an argument being passed through args, assign docker's container name worldDB and port 3306 as the connection criteria to all classes, as well as a 30000 delay.
             cy.setLocation("worldDB:3306");
             c.setLocation("worldDB:3306");
             cc.setLocation("worldDB:3306");
