@@ -10,11 +10,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class IntegrationTest {
 
     static Population pn;
+    static Country ctr;
 
     @BeforeAll
     static void init()
     {
         pn = new Population();
+        ctr = new Country();
     }
 
     @Test
