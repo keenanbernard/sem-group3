@@ -15,6 +15,7 @@ public class City {
     private String location;
     private int delay;
 
+    //The following 5 public voids assigns the returned arraylists from the methods and send them to the print method for display.
     public void Cities(){
         ArrayList<City> cities = getCities(location, delay);
 
@@ -55,6 +56,7 @@ public class City {
         printCityReport(dCities);
     }
 
+    //The following 5 public voids pushes a variable to the method, assigns the returned arraylists from the methods and send them to the print method for display.
     public void topNCities(){
         ArrayList<City> topNCities = getTopNCities(2, location, delay);
 
@@ -99,6 +101,7 @@ public class City {
     //Get the population of cities in the world
     public ArrayList<City> getCities(String location, int delay) {
         try {
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -109,8 +112,7 @@ public class City {
                             + "order by cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
+            // Return new city array, if valid
             ArrayList<City> cities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
@@ -122,7 +124,7 @@ public class City {
             }
             return cities;
 
-        } catch (Exception e) {
+        } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
             System.out.println("Failed to get table details");
             return null;
@@ -132,6 +134,7 @@ public class City {
     //Get the population of cities in each continent
     public ArrayList<City> getCitybyContinent(String location, int delay) {
         try {
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -143,8 +146,7 @@ public class City {
                             + "order by c.continent, cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
+            // Return new city array, if valid
             ArrayList<City> cities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
@@ -156,7 +158,7 @@ public class City {
             }
             return cities;
 
-        } catch (Exception e) {
+        } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
             System.out.println("Failed to get table details");
             return null;
@@ -166,6 +168,7 @@ public class City {
     //Get the population of cities in each region
     public ArrayList<City> getCitybyRegion(String location, int delay) {
         try {
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -177,8 +180,7 @@ public class City {
                             + "order by c.region, cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
+            // Return new city array, if valid
             ArrayList<City> cities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
@@ -190,7 +192,7 @@ public class City {
             }
             return cities;
 
-        } catch (Exception e) {
+        } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
             System.out.println("Failed to get table details");
             return null;
@@ -200,6 +202,7 @@ public class City {
     //Get the population of cities in each country
     public ArrayList<City> getCitiesbyCountry(String location, int delay) {
         try {
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -210,8 +213,7 @@ public class City {
                             + "order by cy.countrycode, cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
+            // Return new city array, if valid
             ArrayList<City> cities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
@@ -223,7 +225,7 @@ public class City {
             }
             return cities;
 
-        } catch (Exception e) {
+        } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
             System.out.println("Failed to get table details");
             return null;
@@ -233,6 +235,7 @@ public class City {
     //Get the population of cities in each district
     public ArrayList<City> getCitybyDistrict(String location, int delay) {
         try {
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -256,7 +259,7 @@ public class City {
             }
             return dCities;
 
-        } catch (Exception e) {
+        } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
             System.out.println("Failed to get table details");
             return null;
@@ -266,6 +269,7 @@ public class City {
     //Get the top population of cities in the world
     public ArrayList<City> getTopNCities(int rank, String location, int delay) {
         try {
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -289,7 +293,7 @@ public class City {
             }
             return tpNCities;
 
-        } catch (Exception e) {
+        } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
             System.out.println("Failed to get table details");
             return null;
@@ -299,6 +303,7 @@ public class City {
     //Get the top population of cities in each continent
     public ArrayList<City> getTopNCitiesbyContinent(int rank, String location, int delay) {
         try {
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -322,7 +327,7 @@ public class City {
             }
             return tpNCities;
 
-        } catch (Exception e) {
+        } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
             System.out.println("Failed to get table details");
             return null;
@@ -332,6 +337,7 @@ public class City {
     //Get the top population of cities in each region
     public ArrayList<City> getTopNCitiesbyRegion(int rank, String location, int delay) {
         try {
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -355,7 +361,7 @@ public class City {
             }
             return tpNCities;
 
-        } catch (Exception e) {
+        } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
             System.out.println("Failed to get table details");
             return null;
@@ -365,6 +371,7 @@ public class City {
     //Get the top population of cities in each country
     public ArrayList<City> getTopNCitiesbyCountry(int rank, String location, int delay) {
         try {
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -388,7 +395,7 @@ public class City {
             }
             return tpNCities;
 
-        } catch (Exception e) {
+        } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
             System.out.println("Failed to get table details");
             return null;
@@ -398,6 +405,7 @@ public class City {
     //Get the top population of cities in each district
     public ArrayList<City> getTopNCitiesbyDistrict(int rank, String location, int delay) {
         try {
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -421,26 +429,29 @@ public class City {
             }
             return tpNCities;
 
-        } catch (Exception e) {
+        } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
             System.out.println("Failed to get table details");
             return null;
         }
     }
 
+    //pulls the arraylist from the method that's being called and prints it in a specific structure
     public void printCityReport(ArrayList<City> cities) {
 
-        if(cities == null)
+        if(cities == null) //if there's an error and nothing in the arraylist is being pulled
         {
             System.out.println("No Data found.");
             return;
         }
 
+        //prints the table headers and their respective cell lengths
         System.out.println(String.format("%-10s %-15s %-15s %-20s", "name", "countrycode", "district", "population"));
 
         for (City cty : cities) {
             if (cty == null) continue;
 
+            //prints all the data from the array in a specific order and variable as saved within the array. Includes their respective cell lengths
             String cty_string =
                     String.format("%-10s %-15s %-15s %-20s",
                             cty.name, cty.countrycode, cty.district, cty.population);
@@ -448,16 +459,22 @@ public class City {
         }
     }
 
-
+    //returns the location variable to the city class to assign it to the private variable
     public String getLocation() {
         return location;
     }
+
+    //gets the location variable from main and assigns it locally
     public void setLocation(String location){
         this.location=location;
     }
+
+    //returns the delay variable to the city class to assign it to the private variable
     public int getDelay() {
         return delay;
     }
+
+    //gets the delay variable from main and assigns it locally
     public void setDelay(int delay){
         this.delay=delay;
     }

@@ -291,7 +291,7 @@ public class Capital {
         return location;
     }
 
-    //gets the location variable from main and assigns it to the locally
+    //gets the location variable from main and assigns it locally
     public void setLocation(String location){
         this.location=location;
     }
@@ -301,7 +301,7 @@ public class Capital {
         return delay;
     }
 
-    //gets the delay variable from main and assigns it to the locally
+    //gets the delay variable from main and assigns it locally
     public void setDelay(int delay){
         this.delay=delay;
     }
