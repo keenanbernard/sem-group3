@@ -12,10 +12,12 @@ public class Country {
    public int population;
    public int capital;
 
+   //creating the relationship with the ReportingApp Class
    ReportingApp ra = new ReportingApp();
    private String location;
    private int delay;
 
+   //The following 6 public voids assigns the returned arraylists from the methods and send them to the print method for display.
    public void Countries(){
       ArrayList<Country> countries = getCountries(location, delay);
 
@@ -64,9 +66,10 @@ public class Country {
       printCountryReport(topNCountries);
    }
 
-  // All the countries in the world organised by largest population to smallest.
+   //Get all the countries in the world organised by largest population to smallest, along with its code, name, continent, region, population and capital.
    public ArrayList<Country> getCountries(String location, int delay) {
       try {
+         //runs the db connection method from main. Also sends out the location (db host) and delay variables
          Connection con = ra.connect(location, delay);
          // Create an SQL statement
          Statement stmt = con.createStatement();
@@ -77,8 +80,7 @@ public class Country {
                          + "order by c.population desc";
          // Execute SQL statement
          ResultSet rset = stmt.executeQuery(strSelect);
-         // Return new employee if valid.
-         // Check one is returned
+         // Return new population array, if valid
          ArrayList<Country> countries = new ArrayList<>();
          while (rset.next()) {
             Country ctr = new Country();
@@ -99,9 +101,10 @@ public class Country {
       }
    }
 
-   // All the countries in a continent organised by largest population to smallest.
+   //Get all the countries in a continent organised by largest population to smallest, along with its code, name, continent, region, population and capital.
    public ArrayList<Country> getCountrybyContinent(String location, int delay) {
       try {
+         //runs the db connection method from main. Also sends out the location (db host) and delay variables
          Connection con = ra.connect(location, delay);
          // Create an SQL statement
          Statement stmt = con.createStatement();
@@ -112,8 +115,7 @@ public class Country {
                          + "order by c.continent, c.population desc";
          // Execute SQL statement
          ResultSet rset = stmt.executeQuery(strSelect);
-         // Return new employee if valid.
-         // Check one is returned
+         // Return new population array, if valid
          ArrayList<Country> countriesbyregion = new ArrayList<>();
          while (rset.next()) {
             Country ctr = new Country();
@@ -134,9 +136,10 @@ public class Country {
       }
    }
 
-   // All the countries in a region organised by largest population to smallest.
+   //Get all the countries in a region organised by largest population to smallest, along with its code, name, continent, region, population and capital.
    public ArrayList<Country> getCountrybyRegion(String location, int delay) {
       try {
+         //runs the db connection method from main. Also sends out the location (db host) and delay variables
          Connection con = ra.connect(location, delay);
          // Create an SQL statement
          Statement stmt = con.createStatement();
@@ -147,8 +150,7 @@ public class Country {
                          + "order by c.region, c.population desc";
          // Execute SQL statement
          ResultSet rset = stmt.executeQuery(strSelect);
-         // Return new employee if valid.
-         // Check one is returned
+         // Return new population array, if valid
          ArrayList<Country> countriesbyregion = new ArrayList<>();
          while (rset.next()) {
             Country ctr = new Country();
@@ -169,9 +171,10 @@ public class Country {
       }
    }
 
-   // The top N populated countries in the world where N is provided by the user.
+   // Get the top N populated countries in the world where N is provided by the user.
    public ArrayList<Country> getTopNCountries(int rank, String location, int delay) {
       try {
+         //runs the db connection method from main. Also sends out the location (db host) and delay variables
          Connection con = ra.connect(location, delay);
          // Create an SQL statement
          Statement stmt = con.createStatement();
@@ -182,8 +185,7 @@ public class Country {
                          + "WHERE countryRank <= " + rank;
          // Execute SQL statement
          ResultSet rset = stmt.executeQuery(strSelect);
-         // Return new employee if valid.
-         // Check one is returned
+         // Return new population array, if valid
          ArrayList<Country> tpNCountries = new ArrayList<>();
          while (rset.next()) {
             Country ctr = new Country();
@@ -204,9 +206,10 @@ public class Country {
       }
    }
 
-   // The top N populated countries in a continent where N is provided by the user.
+   // Get the top N populated countries in a continent where N is provided by the user.
    public ArrayList<Country> getTopNCountriesbyContinent(int rank, String location, int delay) {
       try {
+         //runs the db connection method from main. Also sends out the location (db host) and delay variables
          Connection con = ra.connect(location, delay);
          // Create an SQL statement
          Statement stmt = con.createStatement();
@@ -217,8 +220,7 @@ public class Country {
                          + "WHERE countryRank <= " + rank;
          // Execute SQL statement
          ResultSet rset = stmt.executeQuery(strSelect);
-         // Return new employee if valid.
-         // Check one is returned
+         // Return new population array, if valid
          ArrayList<Country> tpNCountries = new ArrayList<>();
          while (rset.next()) {
             Country ctr = new Country();
@@ -239,9 +241,10 @@ public class Country {
       }
    }
 
-   // The top N populated countries in a region where N is provided by the user.
+   // get the top N populated countries in a region where N is provided by the user.
    public ArrayList<Country> getTopNCountriesbyRegion(int rank, String location, int delay) {
       try {
+         //runs the db connection method from main. Also sends out the location (db host) and delay variables
          Connection con = ra.connect(location, delay);
          // Create an SQL statement
          Statement stmt = con.createStatement();
@@ -252,8 +255,7 @@ public class Country {
                          + "WHERE countryRank <= " + rank;
          // Execute SQL statement
          ResultSet rset = stmt.executeQuery(strSelect);
-         // Return new employee if valid.
-         // Check one is returned
+         // Return new population array, if valid
          ArrayList<Country> tpNCountries = new ArrayList<>();
          while (rset.next()) {
             Country ctr = new Country();
@@ -294,15 +296,23 @@ public class Country {
       }
    }
 
+
+   //returns the location variable to the population class to assign it to the private variable
    public String getLocation() {
       return location;
    }
+
+   //gets the location variable from main and assigns it to the locally
    public void setLocation(String location){
       this.location=location;
    }
+
+   //returns the delay variable to the population class to assign it to the private variable
    public int getDelay() {
       return delay;
    }
+
+   //gets the delay variable from main and assigns it to the locally
    public void setDelay(int delay){
       this.delay=delay;
    }
