@@ -1,6 +1,5 @@
 package com.napier.sem;
 
-import javax.swing.*;
 import java.sql.*;
 
 public class ReportingApp {

@@ -9,16 +9,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class IntegrationTest {
 
-    static Population pn;
     static Country ctr;
     static City cty;
+    static Capital cpl;
+    static Population pn;
+
 
     @BeforeAll
     static void init()
     {
-        pn = new Population();
         ctr = new Country();
         cty = new City();
+        cpl = new Capital();
+        pn = new Population();
+
     }
 
     @Test
@@ -63,6 +67,24 @@ public class IntegrationTest {
         assertEquals(cities.get(0).countrycode, "TWN");
         assertEquals(cities.get(0).district, "");
         assertEquals(cities.get(0).population, 165524);
+    }
+
+    @Test
+    void testCapitalCity()
+    {
+        List<Capital> capitalCities = cpl.getCapitalCity("localhost:33060", 0);
+        assertEquals(capitalCities.get(0).name, "Seoul");
+        assertEquals(capitalCities.get(0).country, "South Korea");
+        assertEquals(capitalCities.get(0).population, 9981619);
+    }
+
+    @Test
+    void testTopNCapitalCitiesinRegion()
+    {
+        List<Capital> capitalCities = cpl.getTopNCapitalCitiesinRegion(2,"localhost:33060", 0);
+        assertEquals(capitalCities.get(3).name, "Vilnius");
+        assertEquals(capitalCities.get(3).country, "Lithuania");
+        assertEquals(capitalCities.get(3).population, 577969);
     }
 
     @Test

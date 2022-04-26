@@ -172,7 +172,7 @@ public class Capital {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * FROM (SELECT cy.name, c.name as country, cy.population, c.continent, row_number() over (order by cy.population desc) as cityRank "
+                    "SELECT * FROM (SELECT cy.name, c.name as country, cy.population, row_number() over (order by cy.population desc) as cityRank "
                             + "FROM country c, city cy  WHERE c.capital = cy.id) ranks "
                             + "WHERE cityRank <= " + rank;
             // Execute SQL statement
@@ -184,7 +184,6 @@ public class Capital {
                 ccty.name = rset.getString("name");
                 ccty.country = rset.getString("country");
                 ccty.population = rset.getInt("population");
-                ccty.continent = rset.getString("continent");
                 capitalCities.add(ccty);
             }
             return capitalCities;
@@ -205,7 +204,7 @@ public class Capital {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * FROM (SELECT cy.name, c.name as country, cy.population, c.continent, row_number() over (partition by c.continent order by cy.population desc) as cityRank "
+                    "SELECT * FROM (SELECT cy.name, c.name as country, cy.population, row_number() over (partition by c.continent order by cy.population desc) as cityRank "
                             + "FROM country c, city cy  WHERE c.capital = cy.id) ranks "
                             + "WHERE cityRank <= " + rank;
             // Execute SQL statement
@@ -217,7 +216,6 @@ public class Capital {
                 ccty.name = rset.getString("name");
                 ccty.country = rset.getString("country");
                 ccty.population = rset.getInt("population");
-                ccty.continent = rset.getString("continent");
                 capitalCities.add(ccty);
             }
             return capitalCities;
@@ -238,7 +236,7 @@ public class Capital {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT * FROM (SELECT cy.name, c.name as country, cy.population, c.continent, c.region, row_number() over (partition by c.region order by cy.population desc) as cityRank "
+                    "SELECT * FROM (SELECT cy.name, c.name as country, cy.population, row_number() over (partition by c.region order by cy.population desc) as cityRank "
                             + "FROM country c, city cy  WHERE c.capital = cy.id) ranks "
                             + "WHERE cityRank <= " + rank;
             // Execute SQL statement
@@ -250,8 +248,6 @@ public class Capital {
                 ccty.name = rset.getString("name");
                 ccty.country = rset.getString("country");
                 ccty.population = rset.getInt("population");
-                ccty.continent = rset.getString("continent");
-                ccty.region = rset.getString("region");
                 capitalCities.add(ccty);
             }
             return capitalCities;

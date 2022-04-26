@@ -80,7 +80,7 @@ public class Country {
                          + "order by c.population desc";
          // Execute SQL statement
          ResultSet rset = stmt.executeQuery(strSelect);
-         // Return new population array, if valid
+         // Return new countries array, if valid
          ArrayList<Country> countries = new ArrayList<>();
          while (rset.next()) {
             Country ctr = new Country();
@@ -96,7 +96,7 @@ public class Country {
 
       } catch (Exception e) {
          System.out.println(e.getMessage());
-         System.out.println("Failed to get employee details");
+         System.out.println("Failed to get table details");
          return null;
       }
    }
@@ -115,7 +115,7 @@ public class Country {
                          + "order by c.continent, c.population desc";
          // Execute SQL statement
          ResultSet rset = stmt.executeQuery(strSelect);
-         // Return new population array, if valid
+         // Return new countries array, if valid
          ArrayList<Country> countriesbyregion = new ArrayList<>();
          while (rset.next()) {
             Country ctr = new Country();
@@ -131,7 +131,7 @@ public class Country {
 
       } catch (Exception e) {
          System.out.println(e.getMessage());
-         System.out.println("Failed to get employee details");
+         System.out.println("Failed to get table details");
          return null;
       }
    }
@@ -150,7 +150,7 @@ public class Country {
                          + "order by c.region, c.population desc";
          // Execute SQL statement
          ResultSet rset = stmt.executeQuery(strSelect);
-         // Return new population array, if valid
+         // Return new countries array, if valid
          ArrayList<Country> countriesbyregion = new ArrayList<>();
          while (rset.next()) {
             Country ctr = new Country();
@@ -166,7 +166,7 @@ public class Country {
 
       } catch (Exception e) {
          System.out.println(e.getMessage());
-         System.out.println("Failed to get employee details");
+         System.out.println("Failed to get table details");
          return null;
       }
    }
@@ -185,7 +185,7 @@ public class Country {
                          + "WHERE countryRank <= " + rank;
          // Execute SQL statement
          ResultSet rset = stmt.executeQuery(strSelect);
-         // Return new population array, if valid
+         // Return new countries array, if valid
          ArrayList<Country> tpNCountries = new ArrayList<>();
          while (rset.next()) {
             Country ctr = new Country();
@@ -220,7 +220,7 @@ public class Country {
                          + "WHERE countryRank <= " + rank;
          // Execute SQL statement
          ResultSet rset = stmt.executeQuery(strSelect);
-         // Return new population array, if valid
+         // Return new countries array, if valid
          ArrayList<Country> tpNCountries = new ArrayList<>();
          while (rset.next()) {
             Country ctr = new Country();
@@ -255,7 +255,7 @@ public class Country {
                          + "WHERE countryRank <= " + rank;
          // Execute SQL statement
          ResultSet rset = stmt.executeQuery(strSelect);
-         // Return new population array, if valid
+         // Return new countries array, if valid
          ArrayList<Country> tpNCountries = new ArrayList<>();
          while (rset.next()) {
             Country ctr = new Country();
@@ -276,19 +276,23 @@ public class Country {
       }
    }
 
+
+   //pulls the arraylist from the method that's being called and prints it in a specific structure
    public void printCountryReport(ArrayList<Country> countries) {
 
       if(countries == null)
       {
-         System.out.println("No Data found.");
+         System.out.println("No Data found."); //if there's an error and nothing in the arraylist is being pulled
          return;
       }
 
+      //prints the table headers and their respective cell lengths
       System.out.println(String.format("%-10s %-15s %-15s %-20s %-15s %-15s", "code", "name", "continent", "region", "population", "capital"));
 
       for (Country ctr : countries) {
          if (ctr == null) continue;
 
+         //prints all the data from the array in a specific order and variable as saved within the array. Includes their respective cell lengths
          String ctr_string =
                  String.format("%-10s %-15s %-15s %-20s %-15s %-15s",
                          ctr.code, ctr.name, ctr.continent, ctr.region, ctr.population, ctr.capital);

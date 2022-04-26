@@ -112,7 +112,7 @@ public class City {
                             + "order by cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new city array, if valid
+            // Return new City array, if valid
             ArrayList<City> cities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
@@ -146,7 +146,7 @@ public class City {
                             + "order by c.continent, cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new city array, if valid
+            // Return new City array, if valid
             ArrayList<City> cities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
@@ -180,7 +180,7 @@ public class City {
                             + "order by c.region, cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new city array, if valid
+            // Return new City array, if valid
             ArrayList<City> cities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
@@ -213,7 +213,7 @@ public class City {
                             + "order by cy.countrycode, cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new city array, if valid
+            // Return new City array, if valid
             ArrayList<City> cities = new ArrayList<>();
             while (rset.next()) {
                 City cty = new City();
@@ -246,7 +246,7 @@ public class City {
                             + "order by cy.district, cy.population desc";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
+            // Return new City if valid.
             // Check one is returned
             ArrayList<City> dCities = new ArrayList<>();
             while (rset.next()) {
@@ -280,7 +280,7 @@ public class City {
                             + "WHERE cityRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
+            // Return new City if valid.
             // Check one is returned
             ArrayList<City> tpNCities = new ArrayList<>();
             while (rset.next()) {
@@ -314,7 +314,7 @@ public class City {
                             + "WHERE cityRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
+            // Return new City if valid.
             // Check one is returned
             ArrayList<City> tpNCities = new ArrayList<>();
             while (rset.next()) {
@@ -348,7 +348,7 @@ public class City {
                             + "WHERE cityRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
+            // Return new City if valid.
             // Check one is returned
             ArrayList<City> tpNCities = new ArrayList<>();
             while (rset.next()) {
@@ -382,7 +382,7 @@ public class City {
                             + "WHERE cityRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
+            // Return new City if valid.
             // Check one is returned
             ArrayList<City> tpNCities = new ArrayList<>();
             while (rset.next()) {
@@ -416,7 +416,7 @@ public class City {
                             + "WHERE cityRank <= " + rank;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
+            // Return new City if valid.
             // Check one is returned
             ArrayList<City> tpNCities = new ArrayList<>();
             while (rset.next()) {
