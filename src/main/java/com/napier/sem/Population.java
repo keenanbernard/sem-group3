@@ -1,7 +1,6 @@
 package com.napier.sem;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -26,70 +25,63 @@ public class Population {
     private int delay;
 
 
-    //Assigns the returned arraylist, from the method, locally and sends it to the print method to display
+    //The following 6 public voids assigns the returned arraylists from the methods and send them to the print method for display.
     public void populationbyAllContinents() {
         ArrayList<Population> populations = getPopulationbyAllContinents(location, delay);
         System.out.println(populations.size());
         printPopulation(populations);
     }
 
-    //Assigns the returned arraylist, from the method, locally and sends it to the print method to display
     public void populationbyAllRegions() {
         ArrayList<Population> populations = getPopulationbyAllRegions(location, delay);
         System.out.println(populations.size());
         printPopulation(populations);
     }
 
-    //Assigns the returned arraylist, from the method, locally and sends it to the print method to display
-    public void populationbyALLCountries() {
+    public void populationbyAllCountries() {
         ArrayList<Population> populations = getPopulationbyAllCountries(location, delay);
         System.out.println(populations.size());
         printPopulation(populations);
     }
 
-    //Assigns the returned arraylist, from the method, locally and sends it to the print method to display
     public void worldsPopulation() {
         ArrayList<Population> populations = getWorldsPopulation(location, delay);
         System.out.println(populations.size());
         printPopulation(populations);
     }
 
-    //Assigns the returned arraylist, from the method, locally and sends it to the print method to display
+    //The following 5 public voids pushes a variable to the method, assigns the returned arraylists from the methods and send them to the print method for display.
     public void populationofaContinent(String cont){
         ArrayList<Population> populations = getPopulationofaContinent(cont, location, delay);
         System.out.println(populations.size());
         printPopulation(populations);
     }
 
-    //Assigns the returned arraylist, from the method, locally and sends it to the print method to display
     public void populationofaRegion(String reg) {
         ArrayList<Population> populations = getPopulationofaRegion(reg, location, delay);
         System.out.println(populations.size());
         printPopulation(populations);
     }
 
-    //Assigns the returned arraylist, from the method, locally and sends it to the print method to display
     public void populationofaCountry(String country) {
         ArrayList<Population> populations = getPopulationofaCountry(country, location, delay);
         System.out.println(populations.size());
         printPopulation(populations);
     }
 
-    //Assigns the returned arraylist, from the method, locally and sends it to the print method to display
     public void populationofaDistrict(String district){
         ArrayList<Population> populations = getPopulationofaDistrict(district, location, delay);
         System.out.println(populations.size());
         printPopulation(populations);
     }
 
-    //Assigns the returned arraylist, from the method, locally and sends it to the print method to display
     public void populationofaCity(String city){
         ArrayList<Population> populations = getPopulationOfaCity(city, location, delay);
         System.out.println(populations.size());
         printPopulation(populations);
     }
 
-    //Assigns the returned arraylist, from the method, locally and sends it to the print method to display
+    //Assigns the returned arraylist from the method and sends it to the print method for display
     public void worldLanguages(){
         ArrayList<Population> worldLanguages = getWorldLanguages(location, delay);
         System.out.println(worldLanguages.size());
@@ -99,7 +91,7 @@ public class Population {
     //Get the population for all continents along with their statistics for living in cities (urban) and not living in cities (rural)
     public ArrayList<Population> getPopulationbyAllContinents(String location, int delay) {
         try {
-            //runs the db connection method from main. Also sends out the location and delay variables
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -114,8 +106,7 @@ public class Population {
                             + "GROUP BY c.continent";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
+            // Return new population array, if valid
             ArrayList<Population> population = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
@@ -131,7 +122,7 @@ public class Population {
 
         } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
-            System.out.println("Failed to get population details");
+            System.out.println("Failed to get table details");
             return null;
         }
     }
@@ -140,7 +131,7 @@ public class Population {
     //Get the population for all regions along with their statistics for living in cities (urban) and not living in cities (rural)
     public ArrayList<Population> getPopulationbyAllRegions(String location, int delay) {
         try {
-            //runs the db connection method from main. Also sends out the location and delay variables
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -155,8 +146,7 @@ public class Population {
                             + "GROUP BY c.region";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
+            // Return new population array, if valid
             ArrayList<Population> population = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
@@ -172,7 +162,7 @@ public class Population {
 
         } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
-            System.out.println("Failed to get population details");
+            System.out.println("Failed to get table details");
             return null;
         }
     }
@@ -180,7 +170,7 @@ public class Population {
     //Get the population for all countries along with their statistics for living in cities (urban) and not living in cities (rural)
     public ArrayList<Population> getPopulationbyAllCountries(String location, int delay) {
         try {
-            //runs the db connection method from main. Also sends out the location and delay variables
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -195,8 +185,7 @@ public class Population {
                             + "GROUP BY c.name";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
+            // Return new population array, if valid
             ArrayList<Population> population = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
@@ -212,7 +201,7 @@ public class Population {
 
         } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
-            System.out.println("Failed to get population details");
+            System.out.println("Failed to get table details");
             return null;
         }
     }
@@ -221,7 +210,7 @@ public class Population {
     //Get the population for the world along with its statistics for living in cities (urban) and not living in cities (rural)
     public ArrayList<Population> getWorldsPopulation(String location, int delay) {
         try {
-            //runs the db connection method from main. Also sends out the location and delay variables
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -235,8 +224,7 @@ public class Population {
                             + "FROM country c ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
+            // Return new population array, if valid
             ArrayList<Population> population = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
@@ -252,7 +240,7 @@ public class Population {
 
         } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
-            System.out.println("Failed to get population details");
+            System.out.println("Failed to get table details");
             return null;
         }
     }
@@ -261,7 +249,7 @@ public class Population {
     //Get the population for a specific continent along with their statistics for living in cities (urban) and not living in cities (rural)
     public ArrayList<Population> getPopulationofaContinent(String cont, String location, int delay) {
         try {
-            //runs the db connection method from main. Also sends out the location and delay variables
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -276,8 +264,7 @@ public class Population {
                             + "GROUP BY c.continent";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
+            // Return new population array, if valid
             ArrayList<Population> population = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
@@ -293,7 +280,7 @@ public class Population {
 
         } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
-            System.out.println("Failed to get population details");
+            System.out.println("Failed to get table details");
             return null;
         }
     }
@@ -302,7 +289,7 @@ public class Population {
     //Get the population for a specific region along with their statistics for living in cities (urban) and not living in cities (rural)
     public ArrayList<Population> getPopulationofaRegion(String reg, String location, int delay) {
         try {
-            //runs the db connection method from main. Also sends out the location and delay variables
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -317,8 +304,7 @@ public class Population {
                             + "GROUP BY c.region";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
+            // Return new population array, if valid
             ArrayList<Population> population = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
@@ -334,7 +320,7 @@ public class Population {
 
         } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
-            System.out.println("Failed to get population details");
+            System.out.println("Failed to get table details");
             return null;
         }
     }
@@ -343,7 +329,7 @@ public class Population {
     //Get the population for a specific country along with their statistics for living in cities (urban) and not living in cities (rural)
     public ArrayList<Population> getPopulationofaCountry(String country, String location, int delay) {
         try {
-            //runs the db connection method from main. Also sends out the location and delay variables
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -358,8 +344,7 @@ public class Population {
                             + "GROUP BY c.name";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
+            // Return new population array, if valid
             ArrayList<Population> population = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
@@ -375,7 +360,7 @@ public class Population {
 
         } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
-            System.out.println("Failed to get population details");
+            System.out.println("Failed to get table details");
             return null;
         }
     }
@@ -384,7 +369,7 @@ public class Population {
     //Get the population for a specific district along with their statistics for living in cities (urban) and not living in cities (rural)
     public ArrayList<Population> getPopulationofaDistrict(String district, String location, int delay) {
         try {
-            //runs the db connection method from main. Also sends out the location and delay variables
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -399,8 +384,7 @@ public class Population {
                             + "GROUP BY cy.District";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
+            // Return new population array, if valid
             ArrayList<Population> population = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
@@ -416,7 +400,7 @@ public class Population {
 
         } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
-            System.out.println("Failed to get population details");
+            System.out.println("Failed to get table details");
             return null;
         }
     }
@@ -425,7 +409,7 @@ public class Population {
     //Get the population for a specific city along with their statistics for living in cities (urban) and not living in cities (rural)
     public ArrayList<Population> getPopulationOfaCity(String city, String location, int delay) {
         try {
-            //runs the db connection method from main. Also sends out the location and delay variables
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -440,8 +424,7 @@ public class Population {
                             + "GROUP BY cy.name";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
+            // Return new population array, if valid
             ArrayList<Population> population = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
@@ -457,7 +440,7 @@ public class Population {
 
         } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
-            System.out.println("Failed to get population details");
+            System.out.println("Failed to get table details");
             return null;
         }
     }
@@ -466,7 +449,7 @@ public class Population {
     //Get the population for people that speak specific languages along with their percentage, in regard to the world's population.
     public ArrayList<Population> getWorldLanguages(String location, int delay) {
         try {
-            //runs the db connection method from main. Also sends out the location and delay variables
+            //runs the db connection method from main. Also sends out the location (db host) and delay variables
             Connection con = ra.connect(location, delay);
             // Create an SQL statement
             Statement stmt = con.createStatement();
@@ -481,8 +464,7 @@ public class Population {
                             "ORDER BY population DESC ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
+            // Return new population array, if valid
             ArrayList<Population> worldLanguage = new ArrayList<>();
             while (rset.next()) {
                 Population pn = new Population();
@@ -495,12 +477,12 @@ public class Population {
 
         } catch (Exception e) { //runs an error if the try fails
             System.out.println(e.getMessage());
-            System.out.println("Failed to get population details");
+            System.out.println("Failed to get table details");
             return null;
         }
     }
 
-    //pulls the arraylist from whatever method is being calls and prints it in a specific structure
+    //pulls the arraylist from the method that's being called and prints it in a specific structure
     public void printPopulation(ArrayList<Population> population) {
 
         if(population == null) //if there's an error and nothing in the arraylist is being pulled
@@ -524,7 +506,7 @@ public class Population {
     }
 
 
-    //prints the table headers and their respective cell lengths
+    //pulls the arraylist from the method that's being called and prints it in a specific structure
     //this print is unique for WorldLanguages due to the different arraylist data it contains.
     public void printPercentage(ArrayList<Population> popPercentages) {
 
@@ -534,6 +516,7 @@ public class Population {
             return;
         }
 
+        //prints the table headers and their respective cell lengths
         System.out.println(String.format("%-25s %-25s %-15s", "Language", "Population", "Percentage"));
 
         for (Population pn : popPercentages) {
