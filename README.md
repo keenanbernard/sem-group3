@@ -6,7 +6,6 @@
 - Roberto Marin - Developer
 - Jessica Magana - Developer
 - Marlon Brown - Developer
-- David Onuchukwu - Developer
 
 ### JIRA Instance:
 [NAPIERBZE](https://napierbze.atlassian.net/jira/software/projects/SEM/boards/1/backlog)
